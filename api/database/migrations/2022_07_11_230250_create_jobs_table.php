@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
             $table->text('description');
-            $table->bigInteger('price');
+            $table->float('price');
             $table->string('currency');
             $table->integer('state');
             $table->timestamps();
