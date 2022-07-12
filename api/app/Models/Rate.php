@@ -9,7 +9,9 @@ class Rate extends Model
 {
     use HasFactory;
 
-    public function job()
+    protected $fillable = ['value', 'comment'];
+
+    public function job(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Job::class, 'rate_id');
     }

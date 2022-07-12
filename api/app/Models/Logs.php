@@ -9,7 +9,9 @@ class Logs extends Model
 {
     use HasFactory;
 
-    public function job()
+    protected $fillable = ['job_id', 'state_from', 'state_to'];
+
+    public function job(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Job::class, 'job_id');
     }

@@ -9,6 +9,8 @@ class Job extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'description', 'price', 'currency', 'state'];
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

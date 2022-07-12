@@ -9,6 +9,8 @@ class Offerer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'rating', 'start_time', 'jobs_completed'];
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
