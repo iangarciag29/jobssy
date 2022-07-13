@@ -22,7 +22,7 @@ class AddressType extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'ID of the address'
             ],
-            'first_lane' => [
+            'first_line' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Address line 1'
             ],
