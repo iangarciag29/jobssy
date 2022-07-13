@@ -9,12 +9,15 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function bids()
+    protected $fillable = ['user_id', 'title', 'slug', 'description', 'price', 'visible', 'currency'];
+
+    public function bids(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Bid::class);
     }
 
-    public function user() {
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 }

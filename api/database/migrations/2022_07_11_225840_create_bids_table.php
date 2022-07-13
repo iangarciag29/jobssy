@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete();
             $table->foreignId('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
-            $table->bigInteger('amount');
+            $table->float('amount');
             $table->string('currency');
             $table->timestamps();
         });

@@ -9,6 +9,8 @@ class Service extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'description'];
+
     public function offerer(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Offerer::class);
