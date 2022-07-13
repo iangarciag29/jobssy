@@ -11,13 +11,13 @@ class Bid extends Model
 
     protected $fillable = ['post_id', 'offerer_id', 'amount', 'currency'];
 
-    public function post(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Post::class, 'post_id');
     }
 
     public function offerer()
     {
-        return $this->belongsTo(Offerer::class, 'offerer_id');
+        return $this->hasOne(Offerer::class, 'offerer_id');
     }
 }
