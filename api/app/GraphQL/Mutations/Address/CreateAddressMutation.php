@@ -24,7 +24,7 @@ class CreateAddressMutation extends Mutation
     public function args(): array
     {
         return [
-            'first_lane' => [
+            'first_line' => [
                 'name' => 'first_line',
                 'type' => Type::nonNull(Type::string()),
             ],

@@ -27,7 +27,7 @@ class DeleteAddressMutation extends Mutation
                 'type' => Type::nonNull(Type::int()),
                 'rules' => ['required']
             ],
-            'first_lane' => [
+            'first_line' => [
                 'name' => 'first_line',
                 'type' => Type::string(),
             ],
