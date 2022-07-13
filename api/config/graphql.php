@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 return [
     'route' => [
@@ -75,14 +75,17 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                // ExampleQuery::class,
+                'address' => \App\GraphQL\Queries\Address\AddressQuery::class,
+                'addresses' => \App\GraphQL\Queries\Address\AddressesQuery::class,
             ],
             'mutation' => [
-                // ExampleMutation::class,
+                'createAddress' => \App\GraphQL\Mutations\Address\CreateAddressMutation::class,
+                'updateAddress' => \App\GraphQL\Mutations\Address\UpdateAddressMutation::class,
+                'deleteAddress' => \App\GraphQL\Mutations\Address\DeleteAddressMutation::class,
             ],
             // The types only available in this schema
             'types' => [
-                // ExampleType::class,
+                'Address' => \App\GraphQL\Types\AddressType::class
             ],
 
             // Laravel HTTP middleware
