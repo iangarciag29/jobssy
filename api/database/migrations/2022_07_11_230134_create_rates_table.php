@@ -14,8 +14,9 @@ return new class extends Migration {
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('offerer_id')->references('id')->on('offerers');
             $table->integer('value');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
