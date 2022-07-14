@@ -18,6 +18,6 @@ class Bid extends Model
 
     public function offerer()
     {
-        return $this->hasOne(Offerer::class, 'offerer_id');
+        return $this->belongsTo(Offerer::class, 'offerer_id');
     }
 }
