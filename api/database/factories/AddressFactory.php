@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Address;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,10 @@ class AddressFactory extends Factory
      */
     public function definition()
     {
+        $users_id = User::all()->pluck('id')->toArray();
+
         return [
+            'user_id' => $this->faker->randomElement($users_id),
             'first_line' => $this->faker->streetName(),
             'city' => $this->faker->city(),
             'state' => $this->faker->countryCode(),
