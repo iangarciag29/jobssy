@@ -51,7 +51,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function address(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function addresses(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Address::class);
     }
