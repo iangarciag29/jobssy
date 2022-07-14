@@ -14,13 +14,13 @@ return new class extends Migration {
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rate_id')->references('id')->on('rates')->cascadeOnDelete();
+            $table->foreignId('rate_id')->nullable()->references('id')->on('rates')->cascadeOnDelete();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
             $table->text('description');
             $table->float('price');
             $table->string('currency');
-            $table->integer('state');
+            $table->integer('state')->default(0);
             $table->timestamps();
         });
     }

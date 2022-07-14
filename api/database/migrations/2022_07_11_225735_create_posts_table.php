@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('slug');
             $table->string('description');
             $table->float('price');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(true);
             $table->string('currency');
             $table->timestamps();
         });
