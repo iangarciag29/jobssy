@@ -13,6 +13,10 @@ class Rate extends Model
 
     public function job(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Job::class, 'rate_id');
+        return $this->belongsTo(Job::class);
+    }
+
+    public function offerer() {
+        return $this->belongsTo(Offerer::class, 'offerer_id');
     }
 }
