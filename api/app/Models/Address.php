@@ -11,9 +11,9 @@ class Address extends Model
 
     protected $fillable = ['first_line', 'second_line', 'city', 'state', 'country', 'zipcode', 'latitude', 'longitude'];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function jobs(): \Illuminate\Database\Eloquent\Relations\HasMany
