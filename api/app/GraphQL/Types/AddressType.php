@@ -4,6 +4,7 @@ namespace App\GraphQL\Types;
 
 use App\Models\Address;
 use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class AddressType extends GraphQLType
@@ -21,6 +22,10 @@ class AddressType extends GraphQLType
             'id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'ID of the address'
+            ],
+            'user' => [
+                'type' => GraphQL::type('User'),
+                'description' => 'User linked to the address.'
             ],
             'first_line' => [
                 'type' => Type::nonNull(Type::string()),
@@ -54,6 +59,14 @@ class AddressType extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Longitude'
             ],
+            'created_at' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Bid creation date.'
+            ],
+            'updated_at' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Last time bid was updated.'
+            ]
         ];
     }
 }
