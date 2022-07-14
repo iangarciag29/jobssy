@@ -46,7 +46,7 @@ return [
     //      'default' => [
     //          'controller' => MyController::class . '@method',
     //          'query' => [
-    //              App\GraphQL\Queries\UsersQuery::class,
+    //              App\GraphQL\Queries\OfferersQuery::class,
     //          ],
     //          'mutation' => [
     //
@@ -75,17 +75,55 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
+                # ADDRESS MODEL
                 'address' => \App\GraphQL\Queries\Address\AddressQuery::class,
                 'addresses' => \App\GraphQL\Queries\Address\AddressesQuery::class,
+                # USER MODEL
+                'user' => \App\GraphQL\Queries\User\UserQuery::class,
+                'users' => \App\GraphQL\Queries\User\UsersQuery::class,
+                # OFFERER MODEL
+                'offerer' => \App\GraphQL\Queries\Offerer\OffererQuery::class,
+                'offerers' => \App\GraphQL\Queries\Offerer\OfferersQuery::class,
+                # BID MODEL
+                'bid' => \App\GraphQL\Queries\Bid\BidQuery::class,
+                'bids' => \App\GraphQL\Queries\Bid\BidsQuery::class,
+                # POST MODEL
+                'post' => \App\GraphQL\Queries\Post\PostQuery::class,
+                'posts' => \App\GraphQL\Queries\Post\PostsQuery::class,
+                # JOB MODEL
+                'job' => \App\GraphQL\Queries\Job\JobQuery::class,
+                'jobs' => \App\GraphQL\Queries\Job\JobsQuery::class,
+                # RATE MODEL
+                'rate' => \App\GraphQL\Queries\Rate\RateQuery::class,
+                'rates' => \App\GraphQL\Queries\Rate\RatesQuery::class,
+                # CATEGORY MODEL
+                'category' => \App\GraphQL\Queries\Category\CategoryQuery::class,
+                'categories' => \App\GraphQL\Queries\Category\CategoriesQuery::class,
+                # SERVICE MODEL
+                'service' => \App\GraphQL\Queries\Service\ServiceQuery::class,
+                'services' => \App\GraphQL\Queries\Service\ServicesQuery::class,
+                # LOG MODEL
+                'logs' => \App\GraphQL\Queries\Log\LogsQuery::class,
             ],
             'mutation' => [
+                # ADDRESS MODEL
                 'createAddress' => \App\GraphQL\Mutations\Address\CreateAddressMutation::class,
                 'updateAddress' => \App\GraphQL\Mutations\Address\UpdateAddressMutation::class,
                 'deleteAddress' => \App\GraphQL\Mutations\Address\DeleteAddressMutation::class,
+                # USER MODEL
             ],
             // The types only available in this schema
             'types' => [
-                'Address' => \App\GraphQL\Types\AddressType::class
+                'Address' => \App\GraphQL\Types\AddressType::class,
+                'User' => \App\GraphQL\Types\UserType::class,
+                'Offerer' => \App\GraphQL\Types\OffererType::class,
+                'Bid' => \App\GraphQL\Types\BidType::class,
+                'Post' => \App\GraphQL\Types\PostType::class,
+                'Job' => \App\GraphQL\Types\JobType::class,
+                'Rate' => \App\GraphQL\Types\RateType::class,
+                'Category' => \App\GraphQL\Types\CategoryType::class,
+                'Log' => \App\GraphQL\Types\LogType::class,
+                'Service' => \App\GraphQL\Types\ServiceType::class,
             ],
 
             // Laravel HTTP middleware
