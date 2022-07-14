@@ -26,9 +26,9 @@ class Job extends Model
         return $this->hasOne(Address::class);
     }
 
-    public function rate(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function rate(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasOne(Rate::class, 'rate_id');
+        return $this->belongsTo(Rate::class, 'rate_id');
     }
 
     public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
