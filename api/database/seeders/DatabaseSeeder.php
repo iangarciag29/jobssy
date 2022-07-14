@@ -3,6 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Address;
+use App\Models\Bid;
+use App\Models\Job;
+use App\Models\Offerer;
+use App\Models\Post;
+use App\Models\Rate;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +20,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory(100)->create();
+        Offerer::factory(60)->create();
         Address::factory(20)->create();
+        Post::factory(50)->create();
+        Bid::factory(1000)->create();
+        Job::factory(50)->create();
+        Rate::factory(30)->create();
     }
 }
