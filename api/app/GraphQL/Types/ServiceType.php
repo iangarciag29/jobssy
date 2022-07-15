@@ -43,6 +43,14 @@ class ServiceType extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Description of the service.'
             ],
+            'price' => [
+                'type' => Type::nonNull(Type::float()),
+                'description' => 'Price of the service.'
+            ],
+            'currency' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Currency of the service.'
+            ],
             'created_at' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Created at date.'
