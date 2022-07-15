@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('offerers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->integer('rating');
+            $table->integer('rating')->default(0);
             $table->date('start_time')->useCurrent();
             $table->bigInteger('jobs_completed')->default(0);
             $table->timestamps();

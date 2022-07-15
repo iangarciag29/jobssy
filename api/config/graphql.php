@@ -112,6 +112,20 @@ return [
                 'deleteAddress' => \App\GraphQL\Mutations\Address\DeleteAddressMutation::class,
                 # BID MODEL
                 'createBid' => \App\GraphQL\Mutations\Bid\CreateBidMutation::class,
+                # CATEGORY MODEL
+                'createCategory' => \App\GraphQL\Mutations\Category\CreateCategoryMutation::class,
+                # POST MODEL
+                'creatPost' => \App\GraphQL\Mutations\Post\CreatePostMutation::class,
+                # OFFERER MODEL
+                'createOffererProfile' => \App\GraphQL\Mutations\Offerer\CreateOffererProfileMutation::class,
+                # RATE MODEL
+                'createRate' => \App\GraphQL\Mutations\Rate\CreateRateMutation::class,
+                # SERVICE MODEL
+                'createService' => \App\GraphQL\Mutations\Service\CreateServiceMutation::class,
+                # JOB MODEL
+                'createJob' => \App\GraphQL\Mutations\Job\CreateJobMutation::class,
+                # LOG MODEL
+                'createLog' => \App\GraphQL\Mutations\Log\CreateLogMutation::class,
             ],
             // The types only available in this schema
             'types' => [
