@@ -10,12 +10,14 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->float('price');
+            $table->string('currency')->default('USD');
             $table->timestamps();
         });
     }
@@ -25,7 +27,7 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('services');
     }
