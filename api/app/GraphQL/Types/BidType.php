@@ -27,6 +27,10 @@ class BidType extends GraphQLType
                 'type' => GraphQL::type('Offerer'),
                 'description' => 'Bid offerer.'
             ],
+            'post' => [
+                'type' => GraphQL::type('Post'),
+                'description' => 'Post the bid was made on.'
+            ],
             'amount' => [
                 'type' => Type::nonNull(Type::float()),
                 'description' => 'Bid amount.'

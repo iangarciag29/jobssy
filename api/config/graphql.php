@@ -110,7 +110,8 @@ return [
                 'createAddress' => \App\GraphQL\Mutations\Address\CreateAddressMutation::class,
                 'updateAddress' => \App\GraphQL\Mutations\Address\UpdateAddressMutation::class,
                 'deleteAddress' => \App\GraphQL\Mutations\Address\DeleteAddressMutation::class,
-                # USER MODEL
+                # BID MODEL
+                'createBid' => \App\GraphQL\Mutations\Bid\CreateBidMutation::class,
             ],
             // The types only available in this schema
             'types' => [
