@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\Address;
 
 use App\Models\Address;
 use App\Models\User;
+use Exception;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -77,11 +78,12 @@ class CreateAddressMutation extends Mutation
      * Mutation resolver.
      * @param * $root The object this resolve method belongs to.
      * @param array $args Mutation arguments.
+     * @throws Exception
      */
     public function resolve($root, $args): Address
     {
         $user = User::find($args['user_id']);
-        if (!$user) throw new \Exception("[!] A User ID is required.");
+        if (!$user) throw new Exception("[!] A User ID is required.");
         $address = new Address();
         $address->fill($args);
         $address->user_id = $args['user_id'];
