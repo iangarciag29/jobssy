@@ -13,7 +13,8 @@ return [
 
         // Any middleware for the graphql route group
         // This middleware will apply to all schemas
-        'middleware' => [],
+        'middleware' => ['cors'],
+        'method' => ['GET', 'POST'],
 
         // Additional route group attributes
         //
@@ -124,11 +125,13 @@ return [
                 'createService' => \App\GraphQL\Mutations\Service\CreateServiceMutation::class,
                 # JOB MODEL
                 'createJob' => \App\GraphQL\Mutations\Job\CreateJobMutation::class,
+                'updateState' => \App\GraphQL\Mutations\Job\UpdateStateMutation::class,
                 # LOG MODEL
                 'createLog' => \App\GraphQL\Mutations\Log\CreateLogMutation::class,
             ],
             // The types only available in this schema
             'types' => [
+                # MODELS
                 'Address' => \App\GraphQL\Types\AddressType::class,
                 'User' => \App\GraphQL\Types\UserType::class,
                 'Offerer' => \App\GraphQL\Types\OffererType::class,
@@ -139,13 +142,15 @@ return [
                 'Category' => \App\GraphQL\Types\CategoryType::class,
                 'Log' => \App\GraphQL\Types\LogType::class,
                 'Service' => \App\GraphQL\Types\ServiceType::class,
+                # ENUM
+                \App\GraphQL\Types\enums\JobStateType::class
             ],
 
             // Laravel HTTP middleware
-            'middleware' => null,
+            'middleware' => ['cors'],
 
             // Which HTTP methods to support; must be given in UPPERCASE!
-            'method' => ['GET', 'POST'],
+            'method' => ['GET', 'POST', 'OPTIONS'],
 
             // An array of middlewares, overrides the global ones
             'execution_middleware' => null,
@@ -244,7 +249,9 @@ return [
     /*
      * Any headers that will be added to the response returned by the default controller
      */
-    'headers' => [],
+    'headers' => [
+        'Access-Control-Allow-Origin' => '*'
+    ],
 
     /*
      * Any JSON encoding options when returning a response from the default controller
