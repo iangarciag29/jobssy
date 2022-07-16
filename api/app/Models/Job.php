@@ -2,36 +2,55 @@
 
 namespace App\Models;
 
+use App\Enum\JobState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Job extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'description', 'price', 'currency', 'state'];
+    protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'description', 'price', 'currency'];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * @return BelongsTo User the job belongs to. [VALUE CAN NOT CHANGE]
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function offerer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * @return BelongsTo Offerer who is making the job. [VALUE CAN NOT CHANGE]
+     */
+    public function offerer(): BelongsTo
     {
         return $this->belongsTo(Offerer::class, 'offerer_id');
     }
 
-    public function address(): \Illuminate\Database\Eloquent\Relations\HasOne
+    /**
+     * @return HasOne Address where the job is going to be done.
+     */
+    public function address(): HasOne
     {
         return $this->hasOne(Address::class);
     }
 
-    public function rate(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * @return BelongsTo Rate that user gives after the job is done.
+     */
+    public function rate(): BelongsTo
     {
         return $this->belongsTo(Rate::class, 'rate_id');
     }
 
-    public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /**
+     * @return HasMany State logs that happen during the job realization.
+     */
+    public function logs(): HasMany
     {
         return $this->hasMany(Logs::class);
     }

@@ -49,7 +49,7 @@ class JobType extends GraphQLType
                 'description' => 'Job\'s final price currency.'
             ],
             'state' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => GraphQL::type('JobState'),
                 'description' => 'Job\'s state.'
             ],
             'created_at' => [
