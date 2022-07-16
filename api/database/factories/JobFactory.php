@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\JobState;
 use App\Models\Offerer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -25,6 +26,7 @@ class JobFactory extends Factory
             'offerer_id' => $this->faker->randomElement($offerers_id),
             'description' => $this->faker->realText(),
             'price' => $this->faker->randomFloat(2, 1000, 10000),
+            'state' => $this->faker->randomElement(JobState::options()),
             'currency' => $this->faker->currencyCode()
         ];
     }
