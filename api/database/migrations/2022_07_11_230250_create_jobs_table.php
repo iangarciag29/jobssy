@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->text('description');
             $table->float('price');
             $table->string('currency');
-            $table->integer('state')->default(0);
+            $table->integer('state');
             $table->timestamps();
         });
     }
