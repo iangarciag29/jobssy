@@ -13,8 +13,8 @@ return [
 
         // Any middleware for the graphql route group
         // This middleware will apply to all schemas
-        'middleware' => ['cors'],
-        'method' => ['GET', 'POST'],
+        'middleware' => [],
+        'method' => ['GET', 'POST', 'OPTIONS'],
 
         // Additional route group attributes
         //
@@ -147,7 +147,7 @@ return [
             ],
 
             // Laravel HTTP middleware
-            'middleware' => ['cors'],
+            'middleware' => [],
 
             // Which HTTP methods to support; must be given in UPPERCASE!
             'method' => ['GET', 'POST', 'OPTIONS'],
@@ -250,7 +250,9 @@ return [
      * Any headers that will be added to the response returned by the default controller
      */
     'headers' => [
-        'Access-Control-Allow-Origin' => '*'
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Methods' => '*',
+        'Access-Control-Allow-Headers' => '*'
     ],
 
     /*

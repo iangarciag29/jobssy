@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Cors;
+use Fruitcake\Cors\HandleCors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -10,14 +10,15 @@ class Kernel extends HttpKernel
     /**
      * The application's global HTTP middleware stack.
      *
-     * These middleware are run during every request to your application.
+     * These middlewares are run during every request to your application.
      *
      * @var array<int, class-string|string>
      */
     protected $middleware = [
+        HandleCors::class,
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
-        //\Illuminate\Http\Middleware\HandleCors::class,
+        \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -49,12 +50,11 @@ class Kernel extends HttpKernel
     /**
      * The application's route middleware.
      *
-     * These middleware may be assigned to groups or used individually.
+     * These middlewares may be assigned to groups or used individually.
      *
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
-        'cors' => Cors::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
