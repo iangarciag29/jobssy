@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Job;
 
+use App\Enum\JobState;
 use App\Models\Job;
 use App\Models\Rate;
 use Exception;
@@ -59,6 +60,10 @@ class CreateJobMutation extends Mutation
                 'name' => 'currency',
                 'type' => Type::nonNull(Type::string()),
             ],
+            'started_by_offerer' => [
+                'name' => 'started_by_offerer',
+                'type' => Type::nonNull(Type::boolean()),
+            ],
         ];
     }
 
@@ -81,6 +86,11 @@ class CreateJobMutation extends Mutation
         $job->rate_id = $args['rate_id'];
         $job->user_id = $args['user_id'];
         $job->offerer_id = $args['offerer_id'];
+        if ($args['started_by_offerer']) {
+            $job->state = JobState::OFFERER_CREATED;
+        } else {
+            $job->state = JobState::USER_CREATED;
+        }
         $job->save();
         return $job;
     }

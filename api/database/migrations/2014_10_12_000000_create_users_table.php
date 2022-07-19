@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->enum('gender', ['M', 'F', 'U'])->default('U');
             $table->date('birthdate');
             $table->boolean('verified')->default(false);
+            $table->boolean('is_offerer')->default(false);
             $table->string('picture')->nullable();
             $table->rememberToken();
             $table->timestamps();

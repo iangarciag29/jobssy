@@ -4,7 +4,7 @@ namespace App\Enum;
 
 use ArchTech\Enums\Options;
 
-/***
+/**
  * Defines all possible job states. [UTILITY CLASS]
  */
 enum JobState: int

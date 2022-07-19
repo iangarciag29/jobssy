@@ -55,6 +55,10 @@ class UserType extends GraphQLType
                 'type' => Type::nonNull(Type::boolean()),
                 'description' => 'Is user verified.'
             ],
+            'is_offerer' => [
+                'type' => Type::nonNull(Type::boolean()),
+                'description' => 'Is user offering jobs.'
+            ],
             'picture' => [
                 'type' => Type::string(),
                 'description' => 'Profile picture URL.'
