@@ -7,6 +7,9 @@ import relayEnvironment from './relay/RelayEnvironment';
 import {SidebarProvider} from "./context/SidebarContext";
 import {Provider} from "react-redux";
 import store from "./store";
+import axios from "axios";
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
