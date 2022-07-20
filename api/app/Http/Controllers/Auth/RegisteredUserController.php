@@ -3,41 +3,44 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserSignupRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(UserSignupRequest $request): JsonResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        $validated = $request->validated();
+        if (!$validated) return response()->json([
+            "success" => false,
+            "message" => "Validation failed.",
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'cellphone' => $request->cellphone,
+            'gender' => $request->gender,
+            'birthdate' => $request->birthdate,
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
-
-        return response()->noContent();
+        return response()->json([
+            "success" => true
+        ]);
     }
 }
