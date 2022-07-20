@@ -1,26 +1,29 @@
-import {createContext, useMemo, useState} from "react";
+import { createContext, useMemo, useState } from "react";
 
 // @ts-ignore
 export const SidebarContext = createContext();
 
-export const SidebarProvider = ({children}: any) => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+export const SidebarProvider = ({ children }: any) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
-    const toggleSidebar = (): void => {
-        setIsSidebarOpen(true);
-    }
+  const toggleSidebar = (): void => {
+    setIsSidebarOpen(true);
+  };
 
-    const closeSidebar = (): void => {
-        setIsSidebarOpen(false);
-    }
+  const closeSidebar = (): void => {
+    setIsSidebarOpen(false);
+  };
 
-    const value = useMemo(
-        () => ({
-            isSidebarOpen,
-            toggleSidebar,
-            closeSidebar,
-        }), [isSidebarOpen]
-    )
+  const value = useMemo(
+    () => ({
+      isSidebarOpen,
+      toggleSidebar,
+      closeSidebar,
+    }),
+    [isSidebarOpen],
+  );
 
-    return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
-}
+  return (
+    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
+  );
+};

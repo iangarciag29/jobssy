@@ -1,13 +1,9 @@
 import React from "react";
 
-
 const Home = (): JSX.Element => {
+  //useLazyLoadQuery()
 
-    //useLazyLoadQuery()
-
-    return <div className="m-20">
-
-    </div>
-}
+  return <div className="m-20"></div>;
+};
 
 export default Home;
