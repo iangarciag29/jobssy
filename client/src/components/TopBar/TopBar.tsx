@@ -4,6 +4,7 @@ import {MenuIcon} from "@heroicons/react/outline";
 import {LogoutAction} from "../../store/actions/auth.action";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {mapDispatchToProps, mapStateToProps} from "../../utils";
 
 const TopBar = ({auth, logout}: any) => {
 
@@ -39,7 +40,7 @@ const TopBar = ({auth, logout}: any) => {
                                 rounded={true}
                             />
                             <div className="grid items-center ml-5">
-                                <span>{auth.user.first_name}</span>
+                                <span>{auth.user.first_name} {auth.user.last_name}</span>
                             </div>
                         </div>
                     } inline={true}>
@@ -63,18 +64,5 @@ const TopBar = ({auth, logout}: any) => {
     </header>
 }
 
-const mapStateToProps = (state: any) => {
-    return {
-        auth: state.authState
-    };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        logout: (navigate: any) => {
-            dispatch(LogoutAction(navigate));
-        },
-    };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopBar);
