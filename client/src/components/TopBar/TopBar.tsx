@@ -1,9 +1,15 @@
 import SearchIcon from "@heroicons/react/outline/SearchIcon";
 import {Avatar, Dropdown, TextInput} from "flowbite-react";
 import {MenuIcon} from "@heroicons/react/outline";
+import {LogoutAction} from "../../store/actions/auth.action";
+import {connect} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
-const TopBar = () => {
-    return <header className="z-40 py-4 bg-white shadow-bottom">
+const TopBar = ({auth, logout}: any) => {
+
+    const navigate = useNavigate();
+
+    return <header className="z-30 py-4 bg-white shadow-md">
         <div
             className="container flex items-center justify-between h-full px-6 mx-auto text-secondary">
             <button
@@ -19,7 +25,7 @@ const TopBar = () => {
                         <SearchIcon className="w-4 h-4" aria-hidden="true"/>
                     </div>
                     <TextInput
-                        placeholder="Search for projects"
+                        placeholder="Search for jobs"
                         aria-label="Search"
                     />
                 </div>
@@ -33,7 +39,7 @@ const TopBar = () => {
                                 rounded={true}
                             />
                             <div className="grid items-center ml-5">
-                                <span>Ricardo Gonzalez</span>
+                                <span>{auth.user.first_name}</span>
                             </div>
                         </div>
                     } inline={true}>
@@ -47,7 +53,7 @@ const TopBar = () => {
                             Earnings
                         </Dropdown.Item>
                         <Dropdown.Divider/>
-                        <Dropdown.Item>
+                        <Dropdown.Item onClick={() => logout(navigate)}>
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
@@ -57,4 +63,18 @@ const TopBar = () => {
     </header>
 }
 
-export default TopBar;
+const mapStateToProps = (state: any) => {
+    return {
+        auth: state.authState
+    };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        logout: (navigate: any) => {
+            dispatch(LogoutAction(navigate));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopBar);
