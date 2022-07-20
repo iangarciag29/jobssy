@@ -35,7 +35,9 @@
     "build": "npm run build-relay && react-scripts build",
     "test": "npm run build-relay && react-scripts test",
     "eject": "react-scripts eject",
-    "build-relay": "relay-compiler relay.config.json"
+    "build-relay": "relay-compiler relay.config.json",
+    "fetch-graphql": "npx get-graphql-schema http://localhost/graphql > ./src/relay/schema.graphql",
+    "prepare": "cd .. && husky install client/.husky"
   },
   "eslintConfig": {
     "extends": [
@@ -60,8 +62,15 @@
     "autoprefixer": "^10.4.7",
     "babel-plugin-relay": "^14.0.0",
     "graphql": "^16.5.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.3.4",
     "postcss": "^8.4.14",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.12",
     "relay-compiler": "^13.2.0",
     "tailwindcss": "^3.1.4"
+  },
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown"
   }
 }

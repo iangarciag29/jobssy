@@ -2,27 +2,23 @@
 @tailwind components;
 
 .jobssy-btn {
-    @apply px-4 py-1 bg-jobssy-blue text-gray-50 rounded-lg shadow;
+  @apply rounded-lg bg-jobssy-blue px-4 py-1 text-gray-50 shadow;
 }
 
 .jobssy-lg {
-    @apply text-lg;
+  @apply text-lg;
 }
 
 .jobssy-md {
-    @apply text-base;
-
+  @apply text-base;
 }
 
 .jobssy-sm {
-    @apply text-sm;
-
+  @apply text-sm;
 }
 
 .jobssy-xs {
-    @apply text-xs;
-
+  @apply text-xs;
 }
-
 
 @tailwind utilities;

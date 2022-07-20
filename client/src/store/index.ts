@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import authReducer from "./reducers/auth.reducer";
 
@@ -6,13 +6,13 @@ import authReducer from "./reducers/auth.reducer";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    authState: authReducer
+  authState: authReducer,
 });
 
 // TODO: createStore is deprecated, the new version will be implemented in the future.
 const store = createStore(
-    rootReducer,
-    composeEnhancers(applyMiddleware(thunk))
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk)),
 );
 
 export default store;
