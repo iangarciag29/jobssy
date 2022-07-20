@@ -11,3 +11,10 @@ export type iSidebarRoute = {
     enabled: boolean,
     icon: any
 };
+
+export enum BTN_SIZE {
+    LARGE,
+    MEDIUM,
+    SMALL,
+    EXTRA_SMALL,
+}
