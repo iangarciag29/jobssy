@@ -1,12 +1,12 @@
-import {Spinner} from "flowbite-react";
-import React, {useState} from "react";
+import React from "react";
+
 
 const Home = (): JSX.Element => {
 
-    const [open, setOpen] = useState(false);
+    //useLazyLoadQuery()
 
-    return <div>
-        <h1>HOME</h1>
+    return <div className="m-20">
+
     </div>
 }
 
