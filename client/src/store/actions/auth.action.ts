@@ -14,7 +14,6 @@ const LoginAuthAction = (credentials: { email: string; password: string }, navig
                     "Content-Type": "application/json"
                 },
             }).then(res => {
-                console.log(res);
                 const {data} = res;
                 if (data.success) {
                     dispatch({

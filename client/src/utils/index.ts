@@ -1,4 +1,5 @@
 import {BTN_SIZE} from "../types";
+import {LoginAuthAction, LogoutAction} from "../store/actions/auth.action";
 
 /**
  * Translates the button size enum into a CSS class.
@@ -18,8 +19,27 @@ export const translateSize = (size: BTN_SIZE): string => {
     return "jobssy-sm"
 }
 
+/**
+ * Redux method that passes state to props.
+ * @param state
+ */
 export const mapStateToProps = (state: any) => {
     return {
         auth: state.authState,
     };
+};
+
+/**
+ * Redux method that passes dispatch function to props.
+ * @param dispatch
+ */
+export const mapDispatchToProps = (dispatch: any) => {
+    return {
+        login: (loginState: { email: string; password: string }, navigate: any) => {
+            dispatch(LoginAuthAction(loginState, navigate));
+        },
+        logout: (navigate: any) => {
+            dispatch(LogoutAction(navigate));
+        },
+    }
 };
