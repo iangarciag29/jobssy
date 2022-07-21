@@ -4,25 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'price', 'currency', 'offerer_id', 'address_id', 'category_id'];
 
-    public function offerer(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function offerer(): BelongsTo
     {
-        return $this->hasOne(Offerer::class);
+        return $this->belongsTo(Offerer::class, 'offerer_id');
     }
 
-    public function address(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function address(): BelongsTo
     {
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Address::class, 'address_id');
     }
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function category(): BelongsTo
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

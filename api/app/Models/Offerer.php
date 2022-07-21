@@ -9,7 +9,7 @@ class Offerer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'rating', 'start_time', 'jobs_completed'];
+    protected $fillable = ['user_id', 'rating', 'start_time', 'description', 'jobs_completed'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
