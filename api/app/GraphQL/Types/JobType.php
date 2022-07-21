@@ -21,7 +21,7 @@ class JobType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
                 'description' => 'ID of the job.'
             ],
             'user' => [
@@ -47,6 +47,10 @@ class JobType extends GraphQLType
             'currency' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Job\'s final price currency.'
+            ],
+            'logs' => [
+                'type' => Type::listOf(GraphQL::type('Log')),
+                'description' => 'Job\'s logs.'
             ],
             'state' => [
                 'type' => GraphQL::type('JobState'),

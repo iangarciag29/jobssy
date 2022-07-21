@@ -21,7 +21,7 @@ class OffererType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
                 'description' => 'ID of the offerer profile.'
             ],
             'rating' => [
@@ -36,9 +36,17 @@ class OffererType extends GraphQLType
                 'type' => Type::listOf(GraphQL::type('Bid')),
                 'description' => 'Offerer\'s placed bids.'
             ],
-            'rate' => [
-                'type' => GraphQL::type('Rate'),
+            'description' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Offerer\'s profile description.'
+            ],
+            'rates' => [
+                'type' => Type::listOf(GraphQL::type('Rate')),
                 'description' => 'Offerer\'s rates.'
+            ],
+            'services' => [
+                'type' => Type::listOf(GraphQL::type('Service')),
+                'description' => 'Offerer\'s services.'
             ],
             'start_time' => [
                 'type' => Type::nonNull(Type::string()),

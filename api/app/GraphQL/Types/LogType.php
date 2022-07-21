@@ -20,7 +20,7 @@ class LogType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
                 'description' => 'ID of log.'
             ],
             'job' => [

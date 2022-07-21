@@ -24,7 +24,7 @@ class JobQuery extends Query
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
                 'rules' => ['required']
             ]
         ];

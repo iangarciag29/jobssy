@@ -20,7 +20,7 @@ class ServiceType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
                 'description' => 'ID of the service.'
             ],
             'offerer' => [
