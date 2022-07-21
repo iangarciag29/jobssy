@@ -1,4 +1,4 @@
-import Meta from "../../assets/img/metalogo.svg";
+import Meta from "../../../assets/img/metalogo.svg";
 
 const Footer = (): JSX.Element => {
   return (

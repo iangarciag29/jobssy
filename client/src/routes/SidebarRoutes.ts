@@ -17,7 +17,7 @@ const SidebarRoutes: iSidebarRoute[] = [
     icon: HomeIcon,
   },
   {
-    path: "/app/blog",
+    path: "/app/listings",
     display: "Listings",
     enabled: true,
     icon: BriefcaseIcon,

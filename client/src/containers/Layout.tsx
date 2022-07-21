@@ -5,8 +5,8 @@ import Wrapper from "./Wrapper";
 import routes from "../routes";
 import { iRoute } from "../types";
 import Sidebar from "../components/Sidebar";
-import TopBar from "../components/TopBar/TopBar";
-import Footer from "../components/Footer";
+import TopBar from "../components/Generics/TopBar/TopBar";
+import Footer from "../components/Generics/Footer";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../utils";
 

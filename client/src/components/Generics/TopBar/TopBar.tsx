@@ -3,7 +3,7 @@ import { Avatar, Dropdown, TextInput } from "flowbite-react";
 import { MenuIcon } from "@heroicons/react/outline";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { mapDispatchToProps, mapStateToProps } from "../../utils";
+import { mapDispatchToProps, mapStateToProps } from "../../../utils";
 
 const TopBar = ({ auth, logout }: any) => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const TopBar = ({ auth, logout }: any) => {
               label={
                 <div className="inline-flex">
                   <Avatar
-                    img="https://randomuser.me/api/portraits/men/42.jpg"
+                    img="https://randomuser.me/api/portraits/men/44.jpg"
                     rounded={true}
                   />
                   <div className="ml-5 grid items-center">
@@ -42,6 +42,7 @@ const TopBar = ({ auth, logout }: any) => {
                   </div>
                 </div>
               }
+              arrowIcon={false}
               inline={true}
             >
               <Dropdown.Item>Profile</Dropdown.Item>
