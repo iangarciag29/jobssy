@@ -14,6 +14,9 @@ return new class extends Migration {
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
+            $table->foreignId('address_id')->references('id')->on('addresses')->cascadeOnDelete();
+            $table->foreignId('category_id')->references('id')->on('categories')->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
             $table->float('price');
