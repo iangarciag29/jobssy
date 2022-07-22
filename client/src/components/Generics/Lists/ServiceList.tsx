@@ -6,6 +6,7 @@ import Button from "../Button";
 import { BTN_SIZE } from "../../../types";
 import { useState } from "react";
 import RequestJobModal from "../../Modals/RequestJobModal";
+import { Badge } from "flowbite-react";
 
 const ServiceList = ({ offerer }: { offerer: any }): JSX.Element => {
   const [isNewJobModalOpen, setIsNewJobModalOpen] = useState<boolean>(false);
@@ -45,8 +46,11 @@ const ServiceList = ({ offerer }: { offerer: any }): JSX.Element => {
         >
           <div className="mr-10 space-y-5">
             <h5 className="text-xl font-bold capitalize text-secondary">
-              {service.title} [{service.id}]
+              {service.title}
             </h5>
+            <div className="inline-flex">
+              <Badge color="indigo">{service.category.name}</Badge>
+            </div>
             <p className="text-justify">{service.description}</p>
           </div>
           <div className="grid flex-1 items-center">
