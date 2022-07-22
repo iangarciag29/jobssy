@@ -9,7 +9,7 @@ import { mapStateToProps } from "../../utils";
 
 const SidebarContent = ({ auth }: any): JSX.Element => {
   return (
-    <div className="py-4 text-gray-500 dark:text-gray-400">
+    <div className="py-4 text-gray-500">
       <div className="my-10 text-center">
         <Link to="/app/" className="text-3xl font-bold text-primary">
           Jobssy

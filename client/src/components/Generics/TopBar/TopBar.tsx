@@ -4,16 +4,20 @@ import { MenuIcon } from "@heroicons/react/outline";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { mapDispatchToProps, mapStateToProps } from "../../../utils";
+import { useContext } from "react";
+import { SidebarContext } from "../../../context/SidebarContext";
 
 const TopBar = ({ auth, logout }: any) => {
   const navigate = useNavigate();
+
+  const { toggleSidebar }: any = useContext(SidebarContext);
 
   return (
     <header className="z-30 bg-white py-4 shadow-md">
       <div className="container mx-auto flex h-full items-center justify-between px-6 text-secondary">
         <button
           className="focus:shadow-outline-purple mr-5 -ml-1 rounded-md p-1 focus:outline-none lg:hidden"
-          onClick={() => console.log("hello")}
+          onClick={toggleSidebar}
           aria-label="Menu"
         >
           <MenuIcon className="h-6 w-6" aria-hidden="true" />

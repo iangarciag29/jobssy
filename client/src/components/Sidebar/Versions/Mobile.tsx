@@ -1,4 +1,6 @@
 import SidebarContent from "../SidebarContent";
+import { useContext } from "react";
+import { SidebarContext } from "../../../context/SidebarContext";
 
 const Mobile = (): JSX.Element => {
   const sideVariants = {
@@ -16,14 +18,14 @@ const Mobile = (): JSX.Element => {
     },
   };
 
-  //const {isSidebarOpen, closeSidebar} = useContext(SidebarContext);
+  const { isSidebarOpen, closeSidebar }: any = useContext(SidebarContext);
 
   return (
-    <>
-      <aside className="fixed inset-y-0 z-50 mt-16 w-64 flex-shrink-0 overflow-y-auto bg-white dark:bg-gray-800 lg:hidden">
+    <div className={isSidebarOpen ? "block" : "hidden"}>
+      <aside className="fixed inset-y-0 z-50 mt-16 w-full flex-shrink-0 overflow-y-auto bg-white dark:bg-gray-800 lg:hidden">
         <SidebarContent />
       </aside>
-    </>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ export const SidebarProvider = ({ children }: any) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   const toggleSidebar = (): void => {
-    setIsSidebarOpen(true);
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const closeSidebar = (): void => {
