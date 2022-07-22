@@ -1,3 +1,9 @@
 {
-  "plugins": ["relay"]
+  "plugins": [
+    "relay"
+  ],
+  "presets": [
+    "preset-react",
+    "@babel/preset-typescript"
+  ]
 }
