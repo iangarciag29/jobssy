@@ -20,6 +20,7 @@ class OffererFactory extends Factory
         $users_id = User::all()->pluck('id')->toArray();
 
         return [
+            'id' => uniqid("", true),
             'user_id' => $this->faker->randomElement($users_id),
             'rating' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'start_time' => $this->faker->date(),

@@ -9,7 +9,11 @@ class Offerer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'rating', 'start_time', 'description', 'jobs_completed'];
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
+
+    protected $fillable = ['id', 'user_id', 'rating', 'start_time', 'description', 'jobs_completed'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -28,7 +32,7 @@ class Offerer extends Model
 
     public function rates(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
-        return $this->hasManyThrough(Rate::class, Job::class);
+        return $this->hasManyThrough(Rate::class, Job::class, "rate_id", "offerer_id");
     }
 
     public function bids(): \Illuminate\Database\Eloquent\Relations\HasMany

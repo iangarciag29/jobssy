@@ -13,10 +13,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
-            $table->foreignId('address_id')->references('id')->on('addresses')->cascadeOnDelete();
-            $table->foreignId('category_id')->references('id')->on('categories')->cascadeOnDelete();
+            $table->string('id')->primary();
+            $table->string('offerer_id');
+            $table->string('address_id');
+            $table->string('category_id');
+            $table->foreign('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
+            $table->foreign('address_id')->references('id')->on('addresses')->cascadeOnDelete();
+            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
             $table->float('price');

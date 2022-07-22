@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
         User::factory(100)->create();
         Category::factory(20)->create();
         Offerer::factory(60)->create();
-        Address::factory(20)->create();
+        Address::factory(200)->create();
         Post::factory(50)->create();
         Bid::factory(1000)->create();
+        Rate::factory(300)->create();
         Job::factory(50)->create();
-        Rate::factory(30)->create();
         Service::factory(100)->create();
     }
 }

@@ -17,6 +17,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
+            'id' => uniqid("", true),
             'name' => $this->faker->words(3, true)
         ];
     }

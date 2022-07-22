@@ -13,9 +13,11 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('rates', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('offerer_id')->references('id')->on('offerers');
+            $table->string('id')->primary();
+            $table->string('offerer_id');
+            $table->foreign('offerer_id')->references('id')->on('offerers');
             $table->integer('value');
+            $table->boolean('anonymous')->default(false);
             $table->text('comment')->nullable();
             $table->timestamps();
         });

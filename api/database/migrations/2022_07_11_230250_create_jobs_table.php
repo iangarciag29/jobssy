@@ -13,10 +13,13 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('rate_id')->nullable()->references('id')->on('rates')->cascadeOnDelete();
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreignId('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
+            $table->string('id')->primary();
+            $table->string('rate_id');
+            $table->string('user_id');
+            $table->string('offerer_id');
+            $table->foreign('rate_id')->nullable()->references('id')->on('rates')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
             $table->text('description');
             $table->float('price');
             $table->string('currency');

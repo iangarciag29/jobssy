@@ -24,6 +24,7 @@ class ServiceFactory extends Factory
         $categories_id = Category::all()->pluck('id')->toArray();
 
         return [
+            'id' => uniqid("", true),
             'offerer_id' => $this->faker->randomElement($offerers_id),
             'address_id' => $this->faker->randomElement($addresses_id),
             'category_id' => $this->faker->randomElement($categories_id),

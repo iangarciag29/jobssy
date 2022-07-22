@@ -13,8 +13,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('job_id')->references('id')->on('jobs')->cascadeOnDelete();
+            $table->string('id')->primary();
+            $table->string('job_id');
+            $table->foreign('job_id')->references('id')->on('jobs')->cascadeOnDelete();
             $table->integer('state_from');
             $table->integer('state_to');
             $table->timestamps();

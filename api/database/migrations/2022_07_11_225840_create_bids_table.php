@@ -13,9 +13,11 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('bids', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete();
-            $table->foreignId('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
+            $table->string('id')->primary();
+            $table->string('post_id');
+            $table->string('offerer_id');
+            $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
+            $table->foreign('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
             $table->float('amount');
             $table->string('currency');
             $table->timestamps();

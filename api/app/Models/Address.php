@@ -9,6 +9,10 @@ class Address extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
+
     protected $fillable = ['first_line', 'second_line', 'city', 'state', 'country', 'zipcode', 'latitude', 'longitude'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

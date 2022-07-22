@@ -20,6 +20,7 @@ class PostFactory extends Factory
         $users_id = User::all()->pluck('id')->toArray();
 
         return [
+            'id' => uniqid("", true),
             'user_id' => $this->faker->randomElement($users_id),
             'title' => $this->faker->text(),
             'slug' => $this->faker->slug(),

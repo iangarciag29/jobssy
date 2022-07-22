@@ -24,6 +24,7 @@ class AddressFactory extends Factory
         $users_id = User::all()->pluck('id')->toArray();
 
         return [
+            'id' => uniqid("", true),
             'user_id' => $this->faker->randomElement($users_id),
             'first_line' => $this->faker->streetName(),
             'city' => $this->faker->city(),

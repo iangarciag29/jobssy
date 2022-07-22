@@ -13,6 +13,10 @@ class Job extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
+
     protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'description', 'price', 'currency'];
 
     /**

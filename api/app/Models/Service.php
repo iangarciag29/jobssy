@@ -10,6 +10,10 @@ class Service extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
+
     protected $fillable = ['title', 'description', 'price', 'currency', 'offerer_id', 'address_id', 'category_id'];
 
     public function offerer(): BelongsTo

@@ -9,11 +9,15 @@ class Rate extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['value', 'comment'];
+    public $incrementing = false;
 
-    public function job(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    protected $primaryKey = 'id';
+
+    protected $fillable = ['value', 'comment', 'anonymous'];
+
+    public function job(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->belongsTo(Job::class);
+        return $this->hasOne(Job::class, 'rate_id', 'id');
     }
 
     public function offerer() {

@@ -23,6 +23,7 @@ class BidFactory extends Factory
         $offerers_id = Offerer::all()->pluck('id')->toArray();
 
         return [
+            'id' => uniqid("", true),
             'post_id' => $this->faker->randomElement($posts_id),
             'offerer_id' => $this->faker->randomElement($offerers_id),
             'amount' => $this->faker->randomFloat(2, 100, 10000),

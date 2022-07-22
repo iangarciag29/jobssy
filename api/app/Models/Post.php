@@ -9,6 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
+
     protected $fillable = ['user_id', 'title', 'slug', 'description', 'price', 'visible', 'currency'];
 
     public function bids(): \Illuminate\Database\Eloquent\Relations\HasMany

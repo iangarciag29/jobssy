@@ -21,7 +21,9 @@ class RateFactory extends Factory
         $offerers_id = Offerer::all()->pluck('id')->toArray();
 
         return [
+            'id' => uniqid("", true),
             'offerer_id' => $this->faker->randomElement($offerers_id),
+            'anonymous' => $this->faker->randomElement([true, false]),
             'value' => $this->faker->randomNumber([1, 2, 3, 4, 5]),
             'comment' => $this->faker->text()
         ];

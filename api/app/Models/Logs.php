@@ -9,6 +9,10 @@ class Logs extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
+
     protected $fillable = ['job_id', 'state_from', 'state_to'];
 
     public function job(): \Illuminate\Database\Eloquent\Relations\BelongsTo
