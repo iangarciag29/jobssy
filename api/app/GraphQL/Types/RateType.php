@@ -35,6 +35,10 @@ class RateType extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Rate value.'
             ],
+            'anonymous' => [
+                'type' => Type::nonNull(Type::boolean()),
+                'description' => 'Rate user will be hidden.'
+            ],
             'comment' => [
                 'type' => Type::string(),
                 'description' => 'User comment about job.'
