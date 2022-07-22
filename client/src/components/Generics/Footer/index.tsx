@@ -2,7 +2,7 @@ import Meta from "../../../assets/img/metalogo.svg";
 
 const Footer = (): JSX.Element => {
   return (
-    <footer className="font-regular absolute bottom-0 inline-block w-5/6 bg-gray-50 py-5 text-center text-xs tracking-wider text-gray-600 sm:text-sm">
+    <footer className="font-regular absolute bottom-0 inline-block w-full bg-gray-50 py-5 text-center text-xs tracking-wider text-gray-600 sm:text-sm md:w-5/6">
       <p>
         Jobssy |{" "}
         <a href="https://meta.com" target="_blank" rel="noreferrer">
