@@ -1,121 +1,216 @@
-"""Collection of addresses."""
+"""
+Collection of addresses.
+"""
 type Address {
   """ID of the address"""
   id: ID!
 
-  """User linked to the address."""
+  """
+  User linked to the address.
+  """
   user: User
 
-  """Address line 1"""
+  """
+  Address line 1
+  """
   first_line: String!
 
-  """Address line 2"""
+  """
+  Address line 2
+  """
   second_line: String
 
-  """City"""
+  """
+  City
+  """
   city: String!
 
-  """State"""
+  """
+  State
+  """
   state: String!
 
-  """Country"""
+  """
+  Country
+  """
   country: String!
 
-  """Zip code"""
+  """
+  Zip code
+  """
   zipcode: Int!
 
-  """Latitude"""
+  """
+  Latitude
+  """
   latitude: Int!
 
-  """Longitude"""
+  """
+  Longitude
+  """
   longitude: Int!
 
-  """Bid creation date."""
+  """
+  Bid creation date.
+  """
   created_at: String!
 
-  """Last time bid was updated."""
+  """
+  Last time bid was updated.
+  """
   updated_at: String!
 }
 
-"""Bid object used for posts."""
+"""
+Bid object used for posts.
+"""
 type Bid {
+<<<<<<< HEAD
   """ID of the bid."""
   id: ID!
+=======
+  """
+  ID of the bid.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Bid offerer."""
+  """
+  Bid offerer.
+  """
   offerer: Offerer
 
-  """Post the bid was made on."""
+  """
+  Post the bid was made on.
+  """
   post: Post
 
-  """Bid amount."""
+  """
+  Bid amount.
+  """
   amount: Float!
 
-  """Currency."""
+  """
+  Currency.
+  """
   currency: String!
 
-  """Bid creation date."""
+  """
+  Bid creation date.
+  """
   created_at: String!
 
-  """Last time bid was updated."""
+  """
+  Last time bid was updated.
+  """
   updated_at: String!
 }
 
-"""Offerer service category."""
+"""
+Offerer service category.
+"""
 type Category {
+<<<<<<< HEAD
   """ID of the category."""
   id: ID!
+=======
+  """
+  ID of the category.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Name of the category."""
+  """
+  Name of the category.
+  """
   name: String!
 
-  """List of all category services."""
+  """
+  List of all category services.
+  """
   services: [Service]
 
-  """Bid creation date."""
+  """
+  Bid creation date.
+  """
   created_at: String!
 
-  """Last time bid was updated."""
+  """
+  Last time bid was updated.
+  """
   updated_at: String!
 }
 
-"""Job between a user and an offerer."""
+"""
+Job between a user and an offerer.
+"""
 type Job {
+<<<<<<< HEAD
   """ID of the job."""
   id: ID!
+=======
+  """
+  ID of the job.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Job's client."""
+  """
+  Job's client.
+  """
   user: User
 
-  """Job's worker."""
+  """
+  Job's worker.
+  """
   offerer: Offerer
 
-  """Job's rate given by the user."""
+  """
+  Job's rate given by the user.
+  """
   rate: Rate
 
-  """Job's description."""
+  """
+  Job's description.
+  """
   description: String!
 
-  """Job's final price."""
+  """
+  Job's final price.
+  """
   price: Float!
 
-  """Job's final price currency."""
+  """
+  Job's final price currency.
+  """
   currency: String!
 
+<<<<<<< HEAD
   """Job's logs."""
   logs: [Log]
 
   """Job's state."""
+=======
+  """
+  Job's state.
+  """
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
   state: JobState
 
-  """Created at date."""
+  """
+  Created at date.
+  """
   created_at: String!
 
-  """Updated at date."""
+  """
+  Updated at date.
+  """
   updated_at: String!
 }
 
-"""Valid states that a job can have."""
+"""
+Valid states that a job can have.
+"""
 enum JobState {
   USER_CREATED
   OFFERER_CREATED
@@ -129,79 +224,190 @@ enum JobState {
   OFFERER_CHANGES
 }
 
-"""State logger for job state transactions."""
+"""
+State logger for job state transactions.
+"""
 type Log {
+<<<<<<< HEAD
   """ID of log."""
   id: ID!
+=======
+  """
+  ID of log.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Job related to the LOG."""
+  """
+  Job related to the LOG.
+  """
   job: Job
 
-  """Previous state."""
+  """
+  Previous state.
+  """
   state_from: Int!
 
-  """Next state."""
+  """
+  Next state.
+  """
   state_to: Int!
 
-  """Created at date."""
+  """
+  Created at date.
+  """
   created_at: String!
 
-  """Updated at date."""
+  """
+  Updated at date.
+  """
   updated_at: String!
 }
 
 type Mutation {
-  """Creates a new address."""
-  createAddress(user_id: Int!, first_line: String!, second_line: String, city: String!, state: String!, country: String!, zipcode: Int!, latitude: Int!, longitude: Int!): Address
+  """
+  Creates a new address.
+  """
+  createAddress(
+    user_id: Int!
+    first_line: String!
+    second_line: String
+    city: String!
+    state: String!
+    country: String!
+    zipcode: Int!
+    latitude: Int!
+    longitude: Int!
+  ): Address
 
-  """Updates an address"""
+  """
+  Updates an address
+  """
   updateAddress(id: Int!): Address
 
-  """Deletes an address."""
-  deleteAddress(id: Int!, first_line: String, second_line: String, city: String, state: String, country: String, zipcode: Int, latitude: Int, longitude: Int): Boolean
+  """
+  Deletes an address.
+  """
+  deleteAddress(
+    id: Int!
+    first_line: String
+    second_line: String
+    city: String
+    state: String
+    country: String
+    zipcode: Int
+    latitude: Int
+    longitude: Int
+  ): Boolean
 
-  """Creates a new bid."""
-  createBid(offerer_id: Int!, post_id: Int!, amount: Float!, currency: String): Bid
+  """
+  Creates a new bid.
+  """
+  createBid(
+    offerer_id: Int!
+    post_id: Int!
+    amount: Float!
+    currency: String
+  ): Bid
 
-  """Creates a new category."""
+  """
+  Creates a new category.
+  """
   createCategory(name: String!): Category
 
-  """Creates a new post."""
-  creatPost(user_id: Int!, title: String!, description: String!, price: Float!, currency: String!): Post
+  """
+  Creates a new post.
+  """
+  creatPost(
+    user_id: Int!
+    title: String!
+    description: String!
+    price: Float!
+    currency: String!
+  ): Post
 
-  """Creates a new offerer profile."""
+  """
+  Creates a new offerer profile.
+  """
   createOffererProfile(user_id: Int!): Offerer
 
-  """Creates a new rate."""
-  createRate(offerer_id: Int!, job_id: Int!, value: Int!, comment: String!): Rate
+  """
+  Creates a new rate.
+  """
+  createRate(
+    offerer_id: Int!
+    job_id: Int!
+    value: Int!
+    comment: String!
+  ): Rate
 
-  """Creates a new service."""
-  createService(offerer_id: Int!, address_id: Int!, category_id: Int!, title: String!, description: String!, price: Float!, currency: String): Service
+  """
+  Creates a new service.
+  """
+  createService(
+    offerer_id: Int!
+    address_id: Int!
+    category_id: Int!
+    title: String!
+    description: String!
+    price: Float!
+    currency: String
+  ): Service
 
-  """Creates a new job."""
-  createJob(rate_id: Int!, user_id: Int!, offerer_id: Int!, description: String!, price: Float!, currency: String!, started_by_offerer: Boolean!): Job
+  """
+  Creates a new job.
+  """
+  createJob(
+    rate_id: Int!
+    user_id: Int!
+    offerer_id: Int!
+    description: String!
+    price: Float!
+    currency: String!
+    started_by_offerer: Boolean!
+  ): Job
 
-  """Updates the state of a certain job."""
+  """
+  Updates the state of a certain job.
+  """
   updateState(id: Int!, new_state: Int!): Job
 
-  """Creates a new log."""
+  """
+  Creates a new log.
+  """
   createLog(job_id: Int!, state_from: Int!, state_to: Int!): Log
 }
 
-"""User's offerer profile."""
+"""
+User's offerer profile.
+"""
 type Offerer {
+<<<<<<< HEAD
   """ID of the offerer profile."""
   id: ID!
+=======
+  """
+  ID of the offerer profile.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Offerer's rating."""
+  """
+  Offerer's rating.
+  """
   rating: Int!
 
-  """Offerer's user details."""
+  """
+  Offerer's user details.
+  """
   user: User
 
-  """Offerer's placed bids."""
+  """
+  Offerer's placed bids.
+  """
   bids: [Bid]
 
+<<<<<<< HEAD
   """Offerer's profile description."""
   description: String!
 
@@ -210,53 +416,96 @@ type Offerer {
 
   """Offerer's services."""
   services: [Service]
+=======
+  """
+  Offerer's rates.
+  """
+  rate: Rate
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Profile creation date."""
+  """
+  Profile creation date.
+  """
   start_time: String!
 
-  """Amount of jobs completed."""
+  """
+  Amount of jobs completed.
+  """
   jobs_completed: Int!
 
-  """Created at date."""
+  """
+  Created at date.
+  """
   created_at: String!
 
-  """Updated at date."""
+  """
+  Updated at date.
+  """
   updated_at: String!
 }
 
-"""User's post looking for a job to be done."""
+"""
+User's post looking for a job to be done.
+"""
 type Post {
+<<<<<<< HEAD
   """ID of the post."""
   id: ID!
+=======
+  """
+  ID of the post.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Author of the post."""
+  """
+  Author of the post.
+  """
   user: User
 
-  """Post title."""
+  """
+  Post title.
+  """
   title: String!
 
-  """Post slug."""
+  """
+  Post slug.
+  """
   slug: String!
 
-  """Post description."""
+  """
+  Post description.
+  """
   description: String!
 
-  """Post requested price."""
+  """
+  Post requested price.
+  """
   price: Float!
 
-  """Post visibility."""
+  """
+  Post visibility.
+  """
   visible: Boolean!
 
-  """Post requested price currency."""
+  """
+  Post requested price currency.
+  """
   currency: String!
 
-  """Bids made to this post."""
+  """
+  Bids made to this post.
+  """
   bids: [Bid]
 
-  """Created at date."""
+  """
+  Created at date.
+  """
   created_at: String!
 
-  """Updated at date."""
+  """
+  Updated at date.
+  """
   updated_at: String!
 }
 
@@ -282,108 +531,201 @@ type Query {
   logs: [Log]
 }
 
-"""Rate given by the user to an specific job."""
+"""
+Rate given by the user to an specific job.
+"""
 type Rate {
+<<<<<<< HEAD
   """ID of the rate."""
   id: ID!
+=======
+  """
+  ID of the rate.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Job worker."""
+  """
+  Job worker.
+  """
   offerer: Offerer
 
-  """Job."""
+  """
+  Job.
+  """
   job: Job
 
-  """Rate value."""
+  """
+  Rate value.
+  """
   value: Int!
 
+<<<<<<< HEAD
   """Rate user will be hidden."""
   anonymous: Boolean!
 
   """User comment about job."""
+=======
+  """
+  User comment about job.
+  """
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
   comment: String
 
-  """Created at date."""
+  """
+  Created at date.
+  """
   created_at: String!
 
-  """Updated at date."""
+  """
+  Updated at date.
+  """
   updated_at: String!
 }
 
-"""Offered service."""
+"""
+Offered service.
+"""
 type Service {
+<<<<<<< HEAD
   """ID of the service."""
   id: ID!
+=======
+  """
+  ID of the service.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """Offerer of the service."""
+  """
+  Offerer of the service.
+  """
   offerer: Offerer
 
-  """Address of the service."""
+  """
+  Address of the service.
+  """
   address: Address
 
-  """Category of the service."""
+  """
+  Category of the service.
+  """
   category: Category
 
-  """Title of the service."""
+  """
+  Title of the service.
+  """
   title: String!
 
-  """Description of the service."""
+  """
+  Description of the service.
+  """
   description: String!
 
-  """Price of the service."""
+  """
+  Price of the service.
+  """
   price: Float!
 
-  """Currency of the service."""
+  """
+  Currency of the service.
+  """
   currency: String!
 
-  """Created at date."""
+  """
+  Created at date.
+  """
   created_at: String!
 
-  """Updated at date."""
+  """
+  Updated at date.
+  """
   updated_at: String!
 }
 
-"""Collection of users."""
+"""
+Collection of users.
+"""
 type User {
+<<<<<<< HEAD
   """ID of the user."""
   id: ID!
+=======
+  """
+  ID of the user.
+  """
+  id: Int!
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
 
-  """First name."""
+  """
+  First name.
+  """
   first_name: String!
 
-  """Last name."""
+  """
+  Last name.
+  """
   last_name: String!
 
-  """Email address."""
+  """
+  Email address.
+  """
   email: String!
 
-  """Email verification date."""
+  """
+  Email verification date.
+  """
   email_verified_at: String
 
-  """Cellphone."""
+  """
+  Cellphone.
+  """
   cellphone: String
 
-  """Gender. [M -> Male, F -> Female, U -> Undefined]"""
+  """
+  Gender. [M -> Male, F -> Female, U -> Undefined]
+  """
   gender: String!
 
-  """Birthdate."""
+  """
+  Birthdate.
+  """
   birthdate: String!
 
-  """Is user verified."""
+  """
+  Is user verified.
+  """
   verified: Boolean!
 
+<<<<<<< HEAD
   """Is user offering jobs."""
   is_offerer: Boolean!
 
   """Profile picture URL."""
+=======
+  """
+  Is user offering jobs.
+  """
+  is_offerer: Boolean!
+
+  """
+  Profile picture URL.
+  """
+>>>>>>> e0ee420314f74367b1e17e8d7ce465b2d3dfcfa4
   picture: String
 
-  """Posts that user has published."""
+  """
+  Posts that user has published.
+  """
   posts: [Post]
 
-  """Addresses that are related to user."""
+  """
+  Addresses that are related to user.
+  """
   addresses: [Address]
 
-  """Jobs that the user is part of."""
+  """
+  Jobs that the user is part of.
+  """
   jobs: [Job]
 }
-
