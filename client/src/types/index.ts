@@ -1,10 +1,10 @@
-import { ExoticComponent } from "react";
+import { ExoticComponent, LazyExoticComponent } from "react";
 
 // TYPES
 
 export type iRoute = {
   path: string;
-  component: ExoticComponent;
+  component: ExoticComponent | LazyExoticComponent<any>;
 };
 
 export type iSidebarRoute = {

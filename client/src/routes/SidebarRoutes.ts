@@ -1,6 +1,7 @@
 import { iSidebarRoute } from "../types";
 import {
   BriefcaseIcon,
+  CubeIcon,
   HomeIcon,
   UserGroupIcon,
   UserIcon,
@@ -33,6 +34,12 @@ const SidebarRoutes: iSidebarRoute[] = [
     display: "Profile",
     enabled: true,
     icon: UserIcon,
+  },
+  {
+    path: "/app/jobs",
+    display: "My jobs",
+    enabled: true,
+    icon: CubeIcon,
   },
 ];
 
