@@ -28,11 +28,11 @@ class LogType extends GraphQLType
                 'description' => 'Job related to the LOG.'
             ],
             'state_from' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => GraphQL::type('JobState'),
                 'description' => 'Previous state.'
             ],
             'state_to' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => GraphQL::type('JobState'),
                 'description' => 'Next state.'
             ],
             'created_at' => [
