@@ -9,6 +9,7 @@ import RequestJobModal from "../../Modals/RequestJobModal";
 import { Badge } from "flowbite-react";
 
 const ServiceList = ({ offerer }: { offerer: any }): JSX.Element => {
+  const [selectedService, setSelectedService] = useState({});
   const [isNewJobModalOpen, setIsNewJobModalOpen] = useState<boolean>(false);
 
   const data: ServiceList_services$data = useFragment(
@@ -21,6 +22,9 @@ const ServiceList = ({ offerer }: { offerer: any }): JSX.Element => {
           price
           currency
           created_at
+          offerer {
+            id
+          }
           address {
             city
             state
@@ -62,14 +66,17 @@ const ServiceList = ({ offerer }: { offerer: any }): JSX.Element => {
               <Button
                 size={BTN_SIZE.SMALL}
                 text="Request"
-                onClick={() => setIsNewJobModalOpen(true)}
+                onClick={() => {
+                  setSelectedService(service);
+                  setIsNewJobModalOpen(true);
+                }}
               />
             </div>
           </div>
           <RequestJobModal
             isModalOpen={isNewJobModalOpen}
             setIsModalOpen={setIsNewJobModalOpen}
-            service={service}
+            service={selectedService}
           />
         </div>
       ))}
