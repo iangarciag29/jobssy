@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -51,22 +53,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    public function addresses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function address(): HasOne
     {
-        return $this->hasMany(Address::class);
+        return $this->hasOne(Address::class);
     }
 
-    public function offerer(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function offerer(): HasOne
     {
         return $this->hasOne(Offerer::class);
     }
 
-    public function jobs()
+    public function jobs(): HasMany
     {
         return $this->hasMany(Job::class);
     }

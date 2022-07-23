@@ -2,6 +2,57 @@
 
 declare(strict_types=1);
 
+use App\GraphQL\Mutations\Address\CreateAddressMutation;
+use App\GraphQL\Mutations\Address\DeleteAddressMutation;
+use App\GraphQL\Mutations\Address\UpdateAddressMutation;
+use App\GraphQL\Mutations\Bid\CreateBidMutation;
+use App\GraphQL\Mutations\Category\CreateCategoryMutation;
+use App\GraphQL\Mutations\Job\CreateJobMutation;
+use App\GraphQL\Mutations\Job\UpdateStateMutation;
+use App\GraphQL\Mutations\Log\CreateLogMutation;
+use App\GraphQL\Mutations\Offerer\CreateOffererProfileMutation;
+use App\GraphQL\Mutations\Post\CreatePostMutation;
+use App\GraphQL\Mutations\Rate\CreateRateMutation;
+use App\GraphQL\Mutations\Service\CreateServiceMutation;
+use App\GraphQL\Queries\Address\AddressesQuery;
+use App\GraphQL\Queries\Address\AddressQuery;
+use App\GraphQL\Queries\Bid\BidQuery;
+use App\GraphQL\Queries\Bid\BidsQuery;
+use App\GraphQL\Queries\Category\CategoriesQuery;
+use App\GraphQL\Queries\Category\CategoryQuery;
+use App\GraphQL\Queries\Job\JobQuery;
+use App\GraphQL\Queries\Job\JobsQuery;
+use App\GraphQL\Queries\Log\LogsQuery;
+use App\GraphQL\Queries\Offerer\OffererByUserQuery;
+use App\GraphQL\Queries\Offerer\OffererQuery;
+use App\GraphQL\Queries\Offerer\OfferersQuery;
+use App\GraphQL\Queries\Post\PostQuery;
+use App\GraphQL\Queries\Post\PostsQuery;
+use App\GraphQL\Queries\Rate\RateQuery;
+use App\GraphQL\Queries\Rate\RatesQuery;
+use App\GraphQL\Queries\Service\ServiceQuery;
+use App\GraphQL\Queries\Service\ServicesQuery;
+use App\GraphQL\Queries\User\UserQuery;
+use App\GraphQL\Queries\User\UsersQuery;
+use App\GraphQL\Types\AddressType;
+use App\GraphQL\Types\BidType;
+use App\GraphQL\Types\CategoryType;
+use App\GraphQL\Types\enums\JobStateType;
+use App\GraphQL\Types\JobType;
+use App\GraphQL\Types\LogType;
+use App\GraphQL\Types\OffererType;
+use App\GraphQL\Types\PostType;
+use App\GraphQL\Types\RateType;
+use App\GraphQL\Types\ServiceType;
+use App\GraphQL\Types\UserType;
+use Rebing\GraphQL\GraphQL;
+use Rebing\GraphQL\GraphQLController;
+use Rebing\GraphQL\Support\ExecutionMiddleware\AddAuthUserContextValueMiddleware;
+use Rebing\GraphQL\Support\ExecutionMiddleware\AutomaticPersistedQueriesMiddleware;
+use Rebing\GraphQL\Support\ExecutionMiddleware\ValidateOperationParamsMiddleware;
+use Rebing\GraphQL\Support\PaginationType;
+use Rebing\GraphQL\Support\SimplePaginationType;
+
 return [
     'route' => [
         // The prefix for routes; do NOT use a leading slash!
@@ -9,7 +60,7 @@ return [
 
         // The controller/method to use in GraphQL request.
         // Also supported array syntax: `[\Rebing\GraphQL\GraphQLController::class, 'query']`
-        'controller' => \Rebing\GraphQL\GraphQLController::class . '@query',
+        'controller' => GraphQLController::class . '@query',
 
         // Any middleware for the graphql route group
         // This middleware will apply to all schemas
@@ -77,73 +128,74 @@ return [
         'default' => [
             'query' => [
                 # ADDRESS MODEL
-                'address' => \App\GraphQL\Queries\Address\AddressQuery::class,
-                'addresses' => \App\GraphQL\Queries\Address\AddressesQuery::class,
+                'address' => AddressQuery::class,
+                'addresses' => AddressesQuery::class,
                 # USER MODEL
-                'user' => \App\GraphQL\Queries\User\UserQuery::class,
-                'users' => \App\GraphQL\Queries\User\UsersQuery::class,
+                'user' => UserQuery::class,
+                'users' => UsersQuery::class,
                 # OFFERER MODEL
-                'offerer' => \App\GraphQL\Queries\Offerer\OffererQuery::class,
-                'offerers' => \App\GraphQL\Queries\Offerer\OfferersQuery::class,
+                'offerer' => OffererQuery::class,
+                'offererByUser' => OffererByUserQuery::class,
+                'offerers' => OfferersQuery::class,
                 # BID MODEL
-                'bid' => \App\GraphQL\Queries\Bid\BidQuery::class,
-                'bids' => \App\GraphQL\Queries\Bid\BidsQuery::class,
+                'bid' => BidQuery::class,
+                'bids' => BidsQuery::class,
                 # POST MODEL
-                'post' => \App\GraphQL\Queries\Post\PostQuery::class,
-                'posts' => \App\GraphQL\Queries\Post\PostsQuery::class,
+                'post' => PostQuery::class,
+                'posts' => PostsQuery::class,
                 # JOB MODEL
-                'job' => \App\GraphQL\Queries\Job\JobQuery::class,
-                'jobs' => \App\GraphQL\Queries\Job\JobsQuery::class,
+                'job' => JobQuery::class,
+                'jobs' => JobsQuery::class,
                 # RATE MODEL
-                'rate' => \App\GraphQL\Queries\Rate\RateQuery::class,
-                'rates' => \App\GraphQL\Queries\Rate\RatesQuery::class,
+                'rate' => RateQuery::class,
+                'rates' => RatesQuery::class,
                 # CATEGORY MODEL
-                'category' => \App\GraphQL\Queries\Category\CategoryQuery::class,
-                'categories' => \App\GraphQL\Queries\Category\CategoriesQuery::class,
+                'category' => CategoryQuery::class,
+                'categories' => CategoriesQuery::class,
                 # SERVICE MODEL
-                'service' => \App\GraphQL\Queries\Service\ServiceQuery::class,
-                'services' => \App\GraphQL\Queries\Service\ServicesQuery::class,
+                'service' => ServiceQuery::class,
+                'services' => ServicesQuery::class,
                 # LOG MODEL
-                'logs' => \App\GraphQL\Queries\Log\LogsQuery::class,
+                'logs' => LogsQuery::class,
             ],
             'mutation' => [
                 # ADDRESS MODEL
-                'createAddress' => \App\GraphQL\Mutations\Address\CreateAddressMutation::class,
-                'updateAddress' => \App\GraphQL\Mutations\Address\UpdateAddressMutation::class,
-                'deleteAddress' => \App\GraphQL\Mutations\Address\DeleteAddressMutation::class,
+                'createAddress' => CreateAddressMutation::class,
+                'updateAddress' => UpdateAddressMutation::class,
+                'deleteAddress' => DeleteAddressMutation::class,
                 # BID MODEL
-                'createBid' => \App\GraphQL\Mutations\Bid\CreateBidMutation::class,
+                'createBid' => CreateBidMutation::class,
                 # CATEGORY MODEL
-                'createCategory' => \App\GraphQL\Mutations\Category\CreateCategoryMutation::class,
+                'createCategory' => CreateCategoryMutation::class,
                 # POST MODEL
-                'creatPost' => \App\GraphQL\Mutations\Post\CreatePostMutation::class,
+                'creatPost' => CreatePostMutation::class,
                 # OFFERER MODEL
-                'createOffererProfile' => \App\GraphQL\Mutations\Offerer\CreateOffererProfileMutation::class,
+                'createOffererProfile' => CreateOffererProfileMutation::class,
                 # RATE MODEL
-                'createRate' => \App\GraphQL\Mutations\Rate\CreateRateMutation::class,
+                'createRate' => CreateRateMutation::class,
                 # SERVICE MODEL
-                'createService' => \App\GraphQL\Mutations\Service\CreateServiceMutation::class,
+                'createService' => CreateServiceMutation::class,
                 # JOB MODEL
-                'createJob' => \App\GraphQL\Mutations\Job\CreateJobMutation::class,
-                'updateState' => \App\GraphQL\Mutations\Job\UpdateStateMutation::class,
+                'createJob' => CreateJobMutation::class,
+                'updateState' => UpdateStateMutation::class,
                 # LOG MODEL
-                'createLog' => \App\GraphQL\Mutations\Log\CreateLogMutation::class,
+                'createLog' => CreateLogMutation::class,
             ],
             // The types only available in this schema
             'types' => [
                 # MODELS
-                'Address' => \App\GraphQL\Types\AddressType::class,
-                'User' => \App\GraphQL\Types\UserType::class,
-                'Offerer' => \App\GraphQL\Types\OffererType::class,
-                'Bid' => \App\GraphQL\Types\BidType::class,
-                'Post' => \App\GraphQL\Types\PostType::class,
-                'Job' => \App\GraphQL\Types\JobType::class,
-                'Rate' => \App\GraphQL\Types\RateType::class,
-                'Category' => \App\GraphQL\Types\CategoryType::class,
-                'Log' => \App\GraphQL\Types\LogType::class,
-                'Service' => \App\GraphQL\Types\ServiceType::class,
+                'Address' => AddressType::class,
+                'User' => UserType::class,
+                'Offerer' => OffererType::class,
+                'Bid' => BidType::class,
+                'Post' => PostType::class,
+                'Job' => JobType::class,
+                'Rate' => RateType::class,
+                'Category' => CategoryType::class,
+                'Log' => LogType::class,
+                'Service' => ServiceType::class,
                 # ENUM
-                \App\GraphQL\Types\enums\JobStateType::class
+                JobStateType::class
             ],
 
             // Laravel HTTP middleware
@@ -184,7 +236,7 @@ return [
     //     'message' => '',
     //     'locations' => []
     // ]
-    'error_formatter' => [\Rebing\GraphQL\GraphQL::class, 'formatError'],
+    'error_formatter' => [GraphQL::class, 'formatError'],
 
     /*
      * Custom Error Handling
@@ -193,7 +245,7 @@ return [
      *
      * The default handler will pass exceptions to laravel Error Handling mechanism
      */
-    'errors_handler' => [\Rebing\GraphQL\GraphQL::class, 'handleErrors'],
+    'errors_handler' => [GraphQL::class, 'handleErrors'],
 
     /*
      * Options to limit the query complexity and depth. See the doc
@@ -210,20 +262,20 @@ return [
      * You can define your own pagination type.
      * Reference \Rebing\GraphQL\Support\PaginationType::class
      */
-    'pagination_type' => \Rebing\GraphQL\Support\PaginationType::class,
+    'pagination_type' => PaginationType::class,
 
     /*
      * You can define your own simple pagination type.
      * Reference \Rebing\GraphQL\Support\SimplePaginationType::class
      */
-    'simple_pagination_type' => \Rebing\GraphQL\Support\SimplePaginationType::class,
+    'simple_pagination_type' => SimplePaginationType::class,
 
     /*
      * Config for GraphiQL (see (https://github.com/graphql/graphiql).
      */
     'graphiql' => [
         'prefix' => 'graphiql', // Do NOT use a leading slash
-        'controller' => \Rebing\GraphQL\GraphQLController::class . '@graphiql',
+        'controller' => GraphQLController::class . '@graphiql',
         'middleware' => [],
         'view' => 'graphql::graphiql',
         'display' => env('ENABLE_GRAPHIQL', true),
@@ -289,10 +341,10 @@ return [
      * Execution middlewares
      */
     'execution_middleware' => [
-        \Rebing\GraphQL\Support\ExecutionMiddleware\ValidateOperationParamsMiddleware::class,
+        ValidateOperationParamsMiddleware::class,
         // AutomaticPersistedQueriesMiddleware listed even if APQ is disabled, see the docs for the `'apq'` configuration
-        \Rebing\GraphQL\Support\ExecutionMiddleware\AutomaticPersistedQueriesMiddleware::class,
-        \Rebing\GraphQL\Support\ExecutionMiddleware\AddAuthUserContextValueMiddleware::class,
+        AutomaticPersistedQueriesMiddleware::class,
+        AddAuthUserContextValueMiddleware::class,
         // \Rebing\GraphQL\Support\ExecutionMiddleware\UnusedVariablesMiddleware::class,
     ],
 ];
