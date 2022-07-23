@@ -28,6 +28,7 @@ class JobFactory extends Factory
             'user_id' => $this->faker->randomElement($users_id),
             'offerer_id' => $this->faker->randomElement($offerers_id),
             'rate_id' => $this->faker->randomElement($rates_id),
+            'title' => $this->faker->text(5),
             'description' => $this->faker->realText(),
             'price' => $this->faker->randomFloat(2, 1000, 10000),
             'state' => $this->faker->randomElement(JobState::options()),

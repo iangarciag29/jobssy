@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Address>
+ * @extends Factory
  */
 class AddressFactory extends Factory
 {
@@ -19,7 +19,7 @@ class AddressFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $users_id = User::all()->pluck('id')->toArray();
 
