@@ -67,9 +67,9 @@ class UserType extends GraphQLType
                 'type' => Type::listOf(GraphQL::type('Post')),
                 'description' => 'Posts that user has published.'
             ],
-            'addresses' => [
-                'type' => Type::listOf(GraphQL::type('Address')),
-                'description' => 'Addresses that are related to user.'
+            'address' => [
+                'type' => GraphQL::type('Address'),
+                'description' => 'User address.'
             ],
             'jobs' => [
                 'type' => Type::listOf(GraphQL::type('Job')),
