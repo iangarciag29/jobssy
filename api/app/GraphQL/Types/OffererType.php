@@ -48,6 +48,10 @@ class OffererType extends GraphQLType
                 'type' => Type::listOf(GraphQL::type('Service')),
                 'description' => 'Offerer\'s services.'
             ],
+            'jobs' => [
+                'type' => Type::listOf(GraphQL::type('Job')),
+                'description' => 'Offerer\'s job.'
+            ],
             'start_time' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Profile creation date.'
