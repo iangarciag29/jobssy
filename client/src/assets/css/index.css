@@ -2,23 +2,31 @@
 @tailwind components;
 
 .jobssy-btn {
-  @apply rounded-lg bg-jobssy-blue px-4 py-1 text-gray-50 shadow;
+    @apply rounded-lg bg-jobssy-blue px-4 py-1 text-gray-50 shadow;
 }
 
 .jobssy-lg {
-  @apply text-lg;
+    @apply text-lg;
 }
 
 .jobssy-md {
-  @apply text-base;
+    @apply text-base;
 }
 
 .jobssy-sm {
-  @apply text-sm;
+    @apply text-sm;
 }
 
 .jobssy-xs {
-  @apply text-xs;
+    @apply text-xs;
+}
+
+.jobssy-form-input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+}
+
+.jobssy-span {
+    @apply text-sm font-semibold uppercase text-jobssy-green;
 }
 
 @tailwind utilities;
