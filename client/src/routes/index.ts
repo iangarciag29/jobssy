@@ -7,6 +7,7 @@ const Listings = lazy(() => import("../pages/users/Listings"));
 const Workers = lazy(() => import("../pages/offerers/OffererList"));
 const Worker = lazy(() => import("../pages/offerers/Worker"));
 const Jobs = lazy(() => import("../pages/jobs/index"));
+const Job = lazy(() => import("../pages/jobs/Job"));
 
 /**
  * List the app is going to use to generate all routes available under /app/.
@@ -35,6 +36,10 @@ const routes: iRoute[] = [
   {
     path: "/jobs",
     component: Jobs,
+  },
+  {
+    path: "/jobs/:id",
+    component: Job,
   },
 ];
 export default routes;

@@ -93,6 +93,9 @@ type Job {
   """Job's rate given by the user."""
   rate: Rate
 
+  """Job's title."""
+  title: String!
+
   """Job's description."""
   description: String!
 
@@ -138,10 +141,10 @@ type Log {
   job: Job
 
   """Previous state."""
-  state_from: Int!
+  state_from: JobState
 
   """Next state."""
-  state_to: Int!
+  state_to: JobState
 
   """Created at date."""
   created_at: String!
@@ -179,7 +182,7 @@ type Mutation {
   createService(offerer_id: Int!, address_id: Int!, category_id: Int!, title: String!, description: String!, price: Float!, currency: String): Service
 
   """Creates a new job."""
-  createJob(rate_id: Int!, user_id: Int!, offerer_id: Int!, description: String!, price: Float!, currency: String!, started_by_offerer: Boolean!): Job
+  createJob(user_id: ID!, offerer_id: ID!, title: String!, description: String!, price: Float!, currency: String!, started_by_offerer: Boolean!): Job
 
   """Updates the state of a certain job."""
   updateState(id: Int!, new_state: Int!): Job
@@ -210,6 +213,9 @@ type Offerer {
 
   """Offerer's services."""
   services: [Service]
+
+  """Offerer's job."""
+  jobs: [Job]
 
   """Profile creation date."""
   start_time: String!
@@ -266,11 +272,12 @@ type Query {
   user(id: ID!): User
   users: [User]
   offerer(id: ID!): Offerer
+  offererByUser(id: ID!): Offerer
   offerers: [Offerer]
   bid(id: ID!): Bid
   bids: [Bid]
   post(id: ID!): Post
-  posts: [Post]
+  posts(fetch_invisible: Boolean!): [Post]
   job(id: ID!): Job
   jobs: [Job]
   rate(id: ID!): Rate
@@ -380,8 +387,8 @@ type User {
   """Posts that user has published."""
   posts: [Post]
 
-  """Addresses that are related to user."""
-  addresses: [Address]
+  """User address."""
+  address: Address
 
   """Jobs that the user is part of."""
   jobs: [Job]

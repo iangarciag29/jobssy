@@ -2,18 +2,22 @@ import SearchIcon from "@heroicons/react/outline/SearchIcon";
 import { Avatar, Dropdown, TextInput } from "flowbite-react";
 import { MenuIcon } from "@heroicons/react/outline";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { mapDispatchToProps, mapStateToProps } from "../../utils";
+import { useContext } from "react";
+import { SidebarContext } from "../../context/SidebarContext";
 
 const TopBar = ({ auth, logout }: any) => {
   const navigate = useNavigate();
+
+  const { toggleSidebar }: any = useContext(SidebarContext);
 
   return (
     <header className="z-30 bg-white py-4 shadow-md">
       <div className="container mx-auto flex h-full items-center justify-between px-6 text-secondary">
         <button
           className="focus:shadow-outline-purple mr-5 -ml-1 rounded-md p-1 focus:outline-none lg:hidden"
-          onClick={() => console.log("hello")}
+          onClick={toggleSidebar}
           aria-label="Menu"
         >
           <MenuIcon className="h-6 w-6" aria-hidden="true" />
@@ -35,7 +39,7 @@ const TopBar = ({ auth, logout }: any) => {
                     img="https://randomuser.me/api/portraits/men/42.jpg"
                     rounded={true}
                   />
-                  <div className="ml-5 grid items-center">
+                  <div className="ml-2 grid items-center">
                     <span>
                       {auth.user.first_name} {auth.user.last_name}
                     </span>
@@ -44,7 +48,9 @@ const TopBar = ({ auth, logout }: any) => {
               }
               inline={true}
             >
-              <Dropdown.Item>Profile</Dropdown.Item>
+              <Link to="/app/profile">
+                <Dropdown.Item>Profile</Dropdown.Item>
+              </Link>
               <Dropdown.Item>Blog Posts</Dropdown.Item>
               <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />
