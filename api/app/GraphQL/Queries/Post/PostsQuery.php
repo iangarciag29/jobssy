@@ -19,9 +19,24 @@ class PostsQuery extends Query
         return Type::listOf(GraphQL::type('Post'));
     }
 
-    public function resolve($root, $args)
+    public function args(): array
     {
-        return Post::all();
+        return [
+            'fetch_invisible' => [
+                'name' => 'fetch_invisible',
+                'type' => Type::nonNull(Type::boolean()),
+                'rules' => ['required']
+            ]
+        ];
+    }
+
+    public function resolve($root, $args): \Illuminate\Database\Eloquent\Collection
+    {
+        if ($args['fetch_invisible']) {
+            return Post::all();
+        } else {
+            return Post::where("visible", true)->get();
+        }
     }
 
 }
