@@ -4,7 +4,7 @@ import { ChildrenElement } from "../types";
  * Adjusts ChildrenElement type with custom page variables.
  */
 interface PagePropType extends ChildrenElement {
-  title: string;
+  title: string | JSX.Element;
 }
 
 /**

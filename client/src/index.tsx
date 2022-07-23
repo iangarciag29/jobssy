@@ -8,6 +8,12 @@ import { SidebarProvider } from "./context/SidebarContext";
 import { Provider } from "react-redux";
 import store from "./store";
 import axios from "axios";
+import LogRocket from "logrocket";
+// @ts-ignore
+import setupLogRocketReact from "logrocket-react";
+
+LogRocket.init("tupofi/jobssy");
+setupLogRocketReact(LogRocket);
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 

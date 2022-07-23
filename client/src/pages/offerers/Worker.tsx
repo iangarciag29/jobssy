@@ -32,7 +32,7 @@ const Worker = (): JSX.Element => {
             last_name
             email
             cellphone
-            addresses {
+            address {
               country
               state
             }
