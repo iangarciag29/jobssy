@@ -4,7 +4,9 @@ namespace App\GraphQL\Mutations\Job;
 
 use App\Enum\JobState;
 use App\Models\Job;
-use App\Models\Rate;
+use App\Models\Logs;
+use App\Models\Offerer;
+use App\Models\User;
 use Exception;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
@@ -36,17 +38,17 @@ class CreateJobMutation extends Mutation
     public function args(): array
     {
         return [
-            'rate_id' => [
-                'name' => 'rate_id',
-                'type' => Type::nonNull(Type::int()),
-            ],
             'user_id' => [
                 'name' => 'user_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'offerer_id' => [
                 'name' => 'offerer_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
+            ],
+            'title' => [
+                'name' => 'title',
+                'type' => Type::nonNull(Type::string()),
             ],
             'description' => [
                 'name' => 'description',
@@ -75,23 +77,30 @@ class CreateJobMutation extends Mutation
      */
     public function resolve($root, $args): Job
     {
-        $rate = Rate::find($args['rate_id']);
-        $user = Rate::find($args['user_id']);
-        $offerer = Rate::find($args['offerer_id']);
-        if (!$rate) throw new Exception('[!] A Rate ID is needed.');
+        $user = User::findOrFail($args['user_id']);
+        $offerer = Offerer::findOrFail($args['offerer_id']);
         if (!$user) throw new Exception('[!] A User ID is needed.');
         if (!$offerer) throw new Exception('[!] An Offerer ID is needed.');
         $job = new Job();
+        $log = new Logs();
+        $job->id = uniqid("", true);
+        $log->id = uniqid("", true);
         $job->fill($args);
-        $job->rate_id = $args['rate_id'];
+        $job->rate_id = null;
         $job->user_id = $args['user_id'];
         $job->offerer_id = $args['offerer_id'];
         if ($args['started_by_offerer']) {
             $job->state = JobState::OFFERER_CREATED;
+            $log->state_from = JobState::OFFERER_CREATED;
+            $log->state_to = JobState::OFFERER_CREATED;
         } else {
             $job->state = JobState::USER_CREATED;
+            $log->state_from = JobState::USER_CREATED;
+            $log->state_to = JobState::USER_CREATED;
         }
         $job->save();
+        $log->job_id = $job->id;
+        $log->save();
         return $job;
     }
 }
