@@ -3,8 +3,6 @@ import RatingBadge from "../../RatingBadge";
 import { AtSymbolIcon, GlobeIcon, PhoneIcon } from "@heroicons/react/outline";
 
 const ProfileCard = ({ offerer }: any): JSX.Element => {
-  console.log(offerer);
-
   return (
     <div className="relative flex flex-col space-y-10 rounded-xl bg-white p-10 shadow">
       <div className="flex flex-row ">
@@ -23,10 +21,10 @@ const ProfileCard = ({ offerer }: any): JSX.Element => {
           <span className="text-sm font-light italic">
             Member since {offerer.start_time}
           </span>
-          {offerer.user.addresses.length > 0 && (
+          {offerer.user.address > 0 && (
             <span className="inline-flex text-sm font-light text-gray-900">
               <GlobeIcon className="mt-0.5 mr-1 h-4 w-4" />
-              {offerer.user.addresses[0].country}
+              {offerer.user.address.country}
             </span>
           )}
         </div>
