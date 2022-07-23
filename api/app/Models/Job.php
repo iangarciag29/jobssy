@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enum\JobState;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +16,7 @@ class Job extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'description', 'price', 'currency'];
+    protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'description', 'title', 'price', 'currency'];
 
     /**
      * @return BelongsTo User the job belongs to. [VALUE CAN NOT CHANGE]
