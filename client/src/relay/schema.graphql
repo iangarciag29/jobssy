@@ -280,6 +280,8 @@ type Query {
   posts(fetch_invisible: Boolean!): [Post]
   job(id: ID!): Job
   jobs: [Job]
+  jobsByUser(id: ID!): [Job]
+  jobsByOfferer(id: ID!): [Job]
   rate(id: ID!): Rate
   rates: [Rate]
   category(id: ID!): Category
