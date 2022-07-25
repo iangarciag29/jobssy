@@ -56,6 +56,7 @@ class UpdateStateMutation extends Mutation
         $newState = $args['new_state'];
         $job = Job::findOrFail($args['id']);
         $newLog = new Logs();
+        $newLog->id = uniqid("", true);
         $newLog->job_id = $job->id;
         $newLog->state_from = $job->state;
         $newLog->state_to = $newState;
