@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations\Job;
 
 use App\Enum\JobState;
 use App\Models\Job;
-use App\Models\Logs;
 use App\Models\Offerer;
 use App\Models\User;
 use Exception;
@@ -82,25 +81,17 @@ class CreateJobMutation extends Mutation
         if (!$user) throw new Exception('[!] A User ID is needed.');
         if (!$offerer) throw new Exception('[!] An Offerer ID is needed.');
         $job = new Job();
-        $log = new Logs();
         $job->id = uniqid("", true);
-        $log->id = uniqid("", true);
         $job->fill($args);
         $job->rate_id = null;
         $job->user_id = $args['user_id'];
         $job->offerer_id = $args['offerer_id'];
         if ($args['started_by_offerer']) {
             $job->state = JobState::OFFERER_CREATED;
-            $log->state_from = JobState::OFFERER_CREATED;
-            $log->state_to = JobState::OFFERER_CREATED;
         } else {
             $job->state = JobState::USER_CREATED;
-            $log->state_from = JobState::USER_CREATED;
-            $log->state_to = JobState::USER_CREATED;
         }
         $job->save();
-        $log->job_id = $job->id;
-        $log->save();
         return $job;
     }
 }
