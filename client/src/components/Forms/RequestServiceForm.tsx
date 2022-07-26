@@ -7,6 +7,7 @@ import { graphql } from "babel-plugin-relay/macro";
 import { useMutation } from "react-relay";
 import { useNavigate } from "react-router-dom";
 import { AlertHandler } from "../../utils/AlertHandler";
+import { SweetAlertResult } from "sweetalert2";
 
 type ServiceFormInputType = {
   title: string;
@@ -74,7 +75,7 @@ const RequestServiceForm = ({
           icon: "success",
           title: "Sent",
           text: "The job has been created.",
-        }).then((res) => {
+        }).then((res: SweetAlertResult) => {
           navigate(`/app/jobs/${createJob.id}`);
           return;
         });
