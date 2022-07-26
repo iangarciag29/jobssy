@@ -21,6 +21,7 @@ use App\GraphQL\Queries\Bid\BidsQuery;
 use App\GraphQL\Queries\Category\CategoriesQuery;
 use App\GraphQL\Queries\Category\CategoryQuery;
 use App\GraphQL\Queries\Job\JobQuery;
+use App\GraphQL\Queries\Job\JobsByEntityQuery;
 use App\GraphQL\Queries\Job\JobsQuery;
 use App\GraphQL\Queries\Log\LogsQuery;
 use App\GraphQL\Queries\Offerer\OffererByUserQuery;
@@ -146,6 +147,7 @@ return [
                 # JOB MODEL
                 'job' => JobQuery::class,
                 'jobs' => JobsQuery::class,
+                'jobsByEntity' => JobsByEntityQuery::class,
                 # RATE MODEL
                 'rate' => RateQuery::class,
                 'rates' => RatesQuery::class,
