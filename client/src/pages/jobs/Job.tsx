@@ -8,6 +8,7 @@ import { ClockIcon, CurrencyDollarIcon } from "@heroicons/react/outline";
 import StateToBadge from "../../utils/StateToBadge";
 import { Tooltip } from "flowbite-react";
 import JobStateTimeline from "../../components/Generics/Timeline/JobStateTimeline";
+import BasicProfile from "../../components/Generics/Cards/BasicProfile";
 
 const Job = (): JSX.Element => {
   const { id } = useParams();
@@ -28,12 +29,20 @@ const Job = (): JSX.Element => {
               id
               first_name
               last_name
+              email
+              cellphone
+              verified
+              created_at
             }
           }
           user {
             id
             first_name
             last_name
+            email
+            cellphone
+            verified
+            created_at
           }
           price
           currency
@@ -52,9 +61,9 @@ const Job = (): JSX.Element => {
 
   return (
     <Page title={`Job - ${job.title}`}>
-      <div className="flex flex-col space-y-10">
+      <div className="mb-10 flex flex-col space-y-10">
         <div className="relative rounded-xl bg-white p-10 shadow">
-          <div className="flex flex-row">
+          <div className="flex flex-col lg:flex-row">
             <div className="flex w-full flex-col space-y-5 lg:w-2/3">
               <span className="jobssy-span">Description</span>
               <p>{job.description}</p>
@@ -79,9 +88,30 @@ const Job = (): JSX.Element => {
             </Tooltip>
           </div>
         </div>
-        <div className="rounded-xl bg-white px-10 py-5 shadow">
-          <h4 className="mb-5 text-lg font-semibold">Timeline</h4>
-          <JobStateTimeline job={job} />
+        <div className="flex flex-col space-y-5 space-x-0 lg:flex-row lg:space-y-0 lg:space-x-10">
+          <div className="flex w-full flex-col space-y-5 rounded-xl bg-white p-10 shadow lg:w-1/2">
+            <h4 className="text-lg font-bold">Customer details</h4>
+            <BasicProfile profile={job.user} />
+            <h4 className="text-lg font-bold">Worker details</h4>
+            <BasicProfile profile={job.offerer?.user} />
+          </div>
+          <div className="h-max w-full rounded-xl bg-white p-10 shadow lg:w-1/2">
+            <h1>Job tools</h1>
+          </div>
+        </div>
+        <div className="flex flex-col space-x-0 space-y-10 lg:flex-row lg:space-x-10 lg:space-y-0">
+          <div className="h-max max-h-full w-full rounded-xl bg-white px-10 py-5 shadow lg:w-2/3">
+            <h4 className="mb-5 text-lg font-semibold">Timeline</h4>
+            <JobStateTimeline job={job} />
+          </div>
+          <div className="w-full rounded-xl bg-white p-10 shadow lg:w-1/3">
+            <h5 className="font-semibold">Job location</h5>
+            <div className="mt-5 grid h-96 w-full items-center bg-jobssy-blue p-10">
+              <p className="rounded text-center text-4xl uppercase text-gray-50">
+                Imagine a google maps map right here :)
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Page>
