@@ -280,8 +280,7 @@ type Query {
   posts(fetch_invisible: Boolean!): [Post]
   job(id: ID!): Job
   jobs: [Job]
-  jobsByUser(id: ID!): [Job]
-  jobsByOfferer(id: ID!): [Job]
+  jobsByEntity(id: ID!, offerer: Boolean!): [Job]
   rate(id: ID!): Rate
   rates: [Rate]
   category(id: ID!): Category
@@ -394,5 +393,11 @@ type User {
 
   """Jobs that the user is part of."""
   jobs: [Job]
+
+  """Created at date."""
+  created_at: String!
+
+  """Updated at date."""
+  updated_at: String!
 }
 
