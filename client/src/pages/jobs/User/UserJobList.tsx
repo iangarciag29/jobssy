@@ -3,13 +3,13 @@ import { useLazyLoadQuery } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../../utils";
+import { Tooltip } from "flowbite-react";
+import { Link } from "react-router-dom";
+import StateToBadge from "../../../utils/StateToBadge";
 import {
   UserJobListQuery,
   UserJobListQuery$data,
 } from "./__generated__/UserJobListQuery.graphql";
-import { Tooltip } from "flowbite-react";
-import { Link } from "react-router-dom";
-import StateToBadge from "../../../utils/StateToBadge";
 
 const UserJobList = ({ auth }: any): JSX.Element => {
   const { id } = auth.user;
@@ -17,7 +17,7 @@ const UserJobList = ({ auth }: any): JSX.Element => {
   const data: UserJobListQuery$data = useLazyLoadQuery<UserJobListQuery>(
     graphql`
       query UserJobListQuery($id: ID!) {
-        jobsByUser(id: $id) {
+        jobsByEntity(id: $id, offerer: false) {
           id
           title
           description
@@ -35,9 +35,7 @@ const UserJobList = ({ auth }: any): JSX.Element => {
     { id },
   );
 
-  const { jobsByUser } = data;
-
-  console.log(jobsByUser);
+  const { jobsByEntity } = data;
 
   return (
     <div>
@@ -63,7 +61,7 @@ const UserJobList = ({ auth }: any): JSX.Element => {
             </tr>
           </thead>
           <tbody>
-            {jobsByUser?.map((job: any, idx: number) => (
+            {jobsByEntity?.map((job: any, idx: number) => (
               <tr
                 className={`border-b ${
                   idx % 2 === 0 ? "bg-white" : "bg-gray-50"
@@ -86,12 +84,9 @@ const UserJobList = ({ auth }: any): JSX.Element => {
                   ${job.price} {job.currency}
                 </td>
                 <td className="py-4 px-6">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                  >
+                  <button className="font-medium text-blue-600 hover:underline dark:text-blue-500">
                     Edit
-                  </a>
+                  </button>
                 </td>
               </tr>
             ))}
