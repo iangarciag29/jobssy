@@ -37,11 +37,11 @@ class UpdateStateMutation extends Mutation
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'new_state' => [
                 'name' => 'new_state',
-                'type' => Type::nonNull(Type::int())
+                'type' => GraphQL::type('JobState')
             ]
         ];
     }
