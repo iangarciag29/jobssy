@@ -8,6 +8,7 @@ use App\GraphQL\Mutations\Address\UpdateAddressMutation;
 use App\GraphQL\Mutations\Bid\CreateBidMutation;
 use App\GraphQL\Mutations\Category\CreateCategoryMutation;
 use App\GraphQL\Mutations\Job\CreateJobMutation;
+use App\GraphQL\Mutations\Job\UpdateJobMutation;
 use App\GraphQL\Mutations\Job\UpdateStateMutation;
 use App\GraphQL\Mutations\Log\CreateLogMutation;
 use App\GraphQL\Mutations\Offerer\CreateOffererProfileMutation;
@@ -180,6 +181,7 @@ return [
                 # JOB MODEL
                 'createJob' => CreateJobMutation::class,
                 'updateState' => UpdateStateMutation::class,
+                'updateJob' => UpdateJobMutation::class,
                 # LOG MODEL
                 'createLog' => CreateLogMutation::class,
             ],
