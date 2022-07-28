@@ -33,6 +33,7 @@ const UserJobList = ({ auth }: any): JSX.Element => {
       }
     `,
     { id },
+    { fetchPolicy: "network-only" },
   );
 
   const { jobsByEntity } = data;
