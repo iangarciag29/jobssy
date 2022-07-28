@@ -10,8 +10,12 @@ import {
   ListingsQuery$data,
 } from "./__generated__/ListingsQuery.graphql";
 import PostList from "../../components/Generics/Lists/PostList";
+import { PlusIcon } from "@heroicons/react/outline";
+import { useState } from "react";
+import PostListingModal from "../../components/Modals/PostListingModal";
 
 const Listings = ({ auth }: any): JSX.Element => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const data: ListingsQuery$data = useLazyLoadQuery<ListingsQuery>(
@@ -57,9 +61,18 @@ const Listings = ({ auth }: any): JSX.Element => {
           ? "Find what people need."
           : "Request a service you need."
       }
+      actionBtn={
+        <button
+          className="inline-flex rounded-xl bg-jobssy-green px-6 py-1 text-green-50 shadow"
+          onClick={() => setIsOpen(true)}
+        >
+          <PlusIcon className=" mr-2 mt-1 h-4 w-4" />
+          <span>New</span>
+        </button>
+      }
     >
-      <h1>These are all the user listings</h1>
       <PostList posts={posts} />
+      <PostListingModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </Page>
   );
 };
