@@ -1,20 +1,12 @@
-import { SubmitHandler, useForm } from "react-hook-form";
 import { BTN_SIZE } from "../../types";
 import Button from "../Generics/Button";
-import { useId } from "react";
+import { useId, useRef } from "react";
 // @ts-ignore
 import { graphql } from "babel-plugin-relay/macro";
 import { useMutation } from "react-relay";
 import { useNavigate } from "react-router-dom";
 import { AlertHandler } from "../../utils/AlertHandler";
 import { SweetAlertResult } from "sweetalert2";
-
-type ServiceFormInputType = {
-  title: string;
-  description: string;
-  price: number;
-  currency: string;
-};
 
 const RequestServiceForm = ({
   service,
@@ -26,11 +18,10 @@ const RequestServiceForm = ({
   const priceId = useId();
   const currencyId = useId();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ServiceFormInputType>();
+  const titleRef = useRef<any>();
+  const descriptionRef = useRef<any>();
+  const priceRef = useRef<any>();
+  const currencyRef = useRef<any>();
 
   const navigate = useNavigate();
 
@@ -58,15 +49,15 @@ const RequestServiceForm = ({
     }
   `);
 
-  const onSubmit: SubmitHandler<ServiceFormInputType> = (data: any) => {
+  const onSubmit = () => {
     commitMutation({
       variables: {
         user_id: user.id,
         offerer_id: service.offerer.id,
-        title: data.title,
-        description: data.description,
-        price: parseFloat(data.price),
-        currency: data.currency,
+        title: titleRef.current.value,
+        description: descriptionRef.current.value,
+        price: parseFloat(priceRef.current.value),
+        currency: currencyRef.current.value,
         started_by_offerer: false,
       },
       onCompleted: (data: any) => {
@@ -75,7 +66,7 @@ const RequestServiceForm = ({
           icon: "success",
           title: "Sent",
           text: "The job has been created.",
-        }).then((res: SweetAlertResult) => {
+        }).then((_: SweetAlertResult) => {
           navigate(`/app/jobs/${createJob.id}`);
           return;
         });
@@ -88,25 +79,25 @@ const RequestServiceForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <div className="flex flex-col space-y-5">
         <div className="flex flex-col">
           <label htmlFor={titleId}>Title</label>
           <input
             type="text"
             id={titleId}
+            ref={titleRef}
             className="jobssy-form-input"
             defaultValue={service.title}
-            {...register("title")}
           />
         </div>
         <div className="flex flex-col">
           <label htmlFor={descriptionId}>Job description</label>
           <textarea
             id={descriptionId}
+            ref={descriptionRef}
             className="jobssy-form-input"
             defaultValue={service.description}
-            {...register("description")}
           />
         </div>
         <div className="flex flex-row space-x-10">
@@ -118,8 +109,8 @@ const RequestServiceForm = ({
               step={0.01}
               className="jobssy-form-input"
               id={priceId}
+              ref={priceRef}
               defaultValue={service.price}
-              {...register("price")}
             />
           </div>
           <div className="w-1/2">
@@ -130,8 +121,8 @@ const RequestServiceForm = ({
               minLength={3}
               className="jobssy-form-input"
               id={currencyId}
+              ref={currencyRef}
               defaultValue={service.currency}
-              {...register("currency")}
             />
           </div>
         </div>
@@ -149,6 +140,7 @@ const RequestServiceForm = ({
             text="Send request"
             type="submit"
             disabled={isMutationInFlight}
+            onClick={() => onSubmit()}
           />
         </div>
       </div>
