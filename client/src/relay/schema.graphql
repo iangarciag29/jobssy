@@ -185,7 +185,10 @@ type Mutation {
   createJob(user_id: ID!, offerer_id: ID!, title: String!, description: String!, price: Float!, currency: String!, started_by_offerer: Boolean!): Job
 
   """Updates the state of a certain job."""
-  updateState(id: Int!, new_state: Int!): Job
+  updateState(id: ID!, new_state: JobState): Job
+
+  """Updates a job."""
+  updateJob(id: ID!, title: String!, description: String!, price: Float!, currency: String!): Job
 
   """Creates a new log."""
   createLog(job_id: Int!, state_from: Int!, state_to: Int!): Log
