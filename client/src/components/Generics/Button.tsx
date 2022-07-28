@@ -9,7 +9,7 @@ const Button = ({
   type,
   disabled = false,
 }: {
-  text: string;
+  text: string | JSX.Element;
   onClick?: () => void;
   size: BTN_SIZE;
   className?: string;
