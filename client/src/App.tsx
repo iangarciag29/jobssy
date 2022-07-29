@@ -4,7 +4,6 @@ import PageSwitchAccessibility from "./components/Accessibility/PageSwitchAccess
 
 const Landing = lazy(() => import("./pages/Landing"));
 const Login = lazy(() => import("./pages/Auth/Login"));
-const SignUp = lazy(() => import("./pages/Auth/SignUp"));
 const Layout = lazy(() => import("./containers/Layout"));
 
 function App(): JSX.Element {
@@ -15,7 +14,6 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route path="/app/*" element={<Layout />} />
         </Routes>
       </Router>
