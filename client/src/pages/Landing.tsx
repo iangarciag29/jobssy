@@ -1,12 +1,57 @@
 import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import CompleteProfileModal from "../components/Modals/CompleteProfileModal";
+import { AlertHandler } from "../utils/AlertHandler";
 
 const Landing = (): JSX.Element => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [data, setData] = useState<any>({});
+
+  const firstNameRef = useRef<any>();
+  const lastNameRef = useRef<any>();
+  const emailRef = useRef<any>();
+  const passwordRef = useRef<any>();
+  const passwordConfirmationRef = useRef<any>();
+
+  const registerUser = (): void => {
+    setData({
+      first_name: firstNameRef.current.value,
+      last_name: lastNameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      password_confirmation: passwordConfirmationRef.current.value,
+    });
+    if (
+      data.first_name === "" ||
+      data.last_name === "" ||
+      data.email === "" ||
+      data.password === "" ||
+      data.password_confirmation === ""
+    ) {
+      if (data.password !== data.password_confirmation) {
+        AlertHandler.fire({
+          icon: "error",
+          title: "Oh!",
+          text: "The passwords does not match.",
+        });
+      } else {
+        AlertHandler.fire({
+          icon: "error",
+          title: "Oh!",
+          text: "Please fill out all the required fields.",
+        });
+      }
+      return;
+    }
+    setIsOpen(true);
+  };
+
   return (
     <section
-      className="relative h-full w-full bg-cover bg-center md:h-screen"
+      className="relative h-screen w-full bg-cover bg-center"
       style={{
         backgroundImage:
-          "url(https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=2850&amp;q=80)",
+          "url(https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=2850&amp;q=80) center center no-repeat",
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-jobssy-blue to-secondary opacity-90" />
@@ -48,9 +93,9 @@ const Landing = (): JSX.Element => {
           </div>
 
           <div className="relative z-10 mt-20 w-full max-w-2xl lg:mt-0 lg:w-5/12">
-            <div className="flex flex-col items-start justify-start rounded-xl bg-white p-10 shadow-2xl">
+            <div className="flex flex-col items-start justify-start rounded-xl bg-white px-10 pt-5 pb-10 shadow-2xl">
               <h4 className="w-full text-3xl font-bold">Signup</h4>
-              <div className="relative mt-6 w-full space-y-8">
+              <div className="relative mt-6 w-full space-y-5">
                 <div className="relative flex flex-row space-x-5">
                   <div>
                     <label className="font-medium text-gray-900">
@@ -58,8 +103,10 @@ const Landing = (): JSX.Element => {
                     </label>
                     <input
                       type="text"
+                      ref={firstNameRef}
                       className="mt-2 block w-full rounded-lg bg-gray-100 px-4 py-4 text-lg placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
                       placeholder="Enter your first name"
+                      required={true}
                     />
                   </div>
                   <div>
@@ -68,8 +115,10 @@ const Landing = (): JSX.Element => {
                     </label>
                     <input
                       type="text"
+                      ref={lastNameRef}
                       className="mt-2 block w-full rounded-lg bg-gray-100 px-4 py-4 text-lg placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
                       placeholder="Enter your last name"
+                      required={true}
                     />
                   </div>
                 </div>
@@ -77,20 +126,39 @@ const Landing = (): JSX.Element => {
                   <label className="font-medium text-gray-900">Email</label>
                   <input
                     type="text"
+                    ref={emailRef}
                     className="mt-2 block w-full rounded-lg bg-gray-100 px-4 py-4 text-xl placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
                     placeholder="Enter Your Email Address"
+                    required={true}
                   />
                 </div>
                 <div className="relative">
                   <label className="font-medium text-gray-900">Password</label>
                   <input
                     type="password"
+                    ref={passwordRef}
                     className="mt-2 block w-full rounded-lg bg-gray-100 px-4 py-4 text-xl placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
                     placeholder="Password"
+                    required={true}
                   />
                 </div>
                 <div className="relative">
-                  <button className="ease inline-block w-full rounded-lg bg-secondary px-5 py-4 text-center text-base font-bold text-white transition duration-200 hover:bg-primary">
+                  <label className="font-medium text-gray-900">
+                    Confirm your password
+                  </label>
+                  <input
+                    type="password"
+                    ref={passwordConfirmationRef}
+                    className="mt-2 block w-full rounded-lg bg-gray-100 px-4 py-4 text-xl placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
+                    placeholder="Password confirmation"
+                    required={true}
+                  />
+                </div>
+                <div className="relative">
+                  <button
+                    className="ease inline-block w-full rounded-lg bg-secondary px-5 py-4 text-center text-base font-bold text-white transition duration-200 hover:bg-primary"
+                    onClick={() => registerUser()}
+                  >
                     Create Account
                   </button>
                 </div>
@@ -101,6 +169,11 @@ const Landing = (): JSX.Element => {
                 </p>
               </div>
             </div>
+            <CompleteProfileModal
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              data={data}
+            />
           </div>
         </div>
       </div>
