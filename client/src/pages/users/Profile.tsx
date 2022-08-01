@@ -29,12 +29,7 @@ const Profile = ({ auth }: any): JSX.Element => {
           is_offerer
           address {
             id
-            first_line
-            second_line
-            city
-            state
-            country
-            zipcode
+            name
             latitude
             longitude
             created_at
@@ -104,12 +99,7 @@ const Profile = ({ auth }: any): JSX.Element => {
               <span className="text-sm uppercase text-jobssy-green">
                 My Address
               </span>
-              <span>{user.address.first_line}</span>
-              {user.address.second_line && <span>{user.email}</span>}
-              <span>{user.address.city}</span>
-              <span>{user.address.state}</span>
-              <span>{user.address.country}</span>
-              <span>{user.address.zipcode}</span>
+              <span>{user.address.name}</span>
             </div>
           )}
         </div>

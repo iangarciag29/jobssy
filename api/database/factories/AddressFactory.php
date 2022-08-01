@@ -26,11 +26,7 @@ class AddressFactory extends Factory
         return [
             'id' => uniqid("", true),
             'user_id' => $this->faker->randomElement($users_id),
-            'first_line' => $this->faker->streetName(),
-            'city' => $this->faker->city(),
-            'state' => $this->faker->countryCode(),
-            'country' => $this->faker->country(),
-            'zipcode' => $this->faker->numberBetween(70000, 90000),
+            'name' => $this->faker->streetName(),
             'latitude' => $this->faker->latitude(),
             'longitude' => $this->faker->longitude()
         ];

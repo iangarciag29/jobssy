@@ -27,29 +27,9 @@ class AddressType extends GraphQLType
                 'type' => GraphQL::type('User'),
                 'description' => 'User linked to the address.'
             ],
-            'first_line' => [
+            'name' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'Address line 1'
-            ],
-            'second_line' => [
-                'type' => Type::string(),
-                'description' => 'Address line 2'
-            ],
-            'city' => [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'City'
-            ],
-            'state' => [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'State'
-            ],
-            'country' => [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'Country'
-            ],
-            'zipcode' => [
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'Zip code'
+                'description' => 'Address name'
             ],
             'latitude' => [
                 'type' => Type::nonNull(Type::int()),
@@ -61,11 +41,11 @@ class AddressType extends GraphQLType
             ],
             'created_at' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'Bid creation date.'
+                'description' => 'Address creation date.'
             ],
             'updated_at' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'Last time bid was updated.'
+                'description' => 'Last time address was updated.'
             ]
         ];
     }

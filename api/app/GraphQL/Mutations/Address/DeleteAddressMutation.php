@@ -24,41 +24,9 @@ class DeleteAddressMutation extends Mutation
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
                 'rules' => ['required']
-            ],
-            'first_line' => [
-                'name' => 'first_line',
-                'type' => Type::string(),
-            ],
-            'second_line' => [
-                'name' => 'second_line',
-                'type' => Type::string(),
-            ],
-            'city' => [
-                'name' => 'city',
-                'type' => Type::string(),
-            ],
-            'state' => [
-                'name' => 'state',
-                'type' => Type::string(),
-            ],
-            'country' => [
-                'name' => 'country',
-                'type' => Type::string(),
-            ],
-            'zipcode' => [
-                'name' => 'zipcode',
-                'type' => Type::int(),
-            ],
-            'latitude' => [
-                'name' => 'latitude',
-                'type' => Type::int(),
-            ],
-            'longitude' => [
-                'name' => 'longitude',
-                'type' => Type::int(),
-            ],
+            ]
         ];
     }
 
