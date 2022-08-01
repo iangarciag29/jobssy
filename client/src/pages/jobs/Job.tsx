@@ -8,10 +8,9 @@ import {
   ArrowLeftIcon,
   ClockIcon,
   CurrencyDollarIcon,
-  DotsHorizontalIcon,
 } from "@heroicons/react/outline";
 import StateToBadge from "../../utils/StateToBadge";
-import { Dropdown, Tooltip } from "flowbite-react";
+import { Spinner, Tooltip } from "flowbite-react";
 import JobStateTimeline from "../../components/Generics/Timeline/JobStateTimeline";
 import BasicProfile from "../../components/Generics/Cards/BasicProfile";
 import { useRef, useState } from "react";
@@ -20,6 +19,9 @@ import { BTN_SIZE, JOB_STATE } from "../../types";
 import { SaveAsIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../utils";
+import { useLoadScript } from "@react-google-maps/api";
+import JobMap from "../../components/Maps/JobMap";
+import { AlertHandler } from "../../utils/AlertHandler";
 
 const Job = ({ auth }: any): JSX.Element => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -30,6 +32,11 @@ const Job = ({ auth }: any): JSX.Element => {
   const descriptionRef = useRef<any>();
   const priceRef = useRef<any>();
   const currencyRef = useRef<any>();
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+    libraries: ["places"],
+  });
 
   if (!id) throw new Error();
 
@@ -105,8 +112,12 @@ const Job = ({ auth }: any): JSX.Element => {
 
   const [commitStateChangeMutation, isStateChangeMutationInFlight] =
     useMutation(graphql`
-      mutation JobStateUpdateMutation($id: ID!, $new_state: JobState!) {
-        updateState(id: $id, new_state: $new_state) {
+      mutation JobStateUpdateMutation(
+        $id: ID!
+        $new_state: JobState!
+        $author_id: ID!
+      ) {
+        updateState(id: $id, new_state: $new_state, author_id: $author_id) {
           state
           logs {
             id
@@ -137,6 +148,22 @@ const Job = ({ auth }: any): JSX.Element => {
               auth.user.id === user.id
                 ? JOB_STATE.USER_CHANGES
                 : JOB_STATE.OFFERER_CHANGES,
+            author_id: auth.user.id,
+          },
+          onCompleted: (response, errors) => {
+            if (errors && errors?.length > 0) {
+              let errorMSG = "";
+              errors.map(
+                (error: any) =>
+                  (errorMSG += `<li class="text-base font-semibold">${error.message}</li>`),
+              );
+              AlertHandler.fire({
+                icon: "error",
+                title: "Error",
+                html: `<ul>${errorMSG}</ul>`,
+                confirmButtonColor: "#384E77",
+              });
+            }
           },
           onError: (error: Error) => {
             console.error(error);
@@ -250,20 +277,16 @@ const Job = ({ auth }: any): JSX.Element => {
               />
             </div>
           )}
+          {isMutationInFlight || (isStateChangeMutationInFlight && <Spinner />)}
           <div className="absolute top-5 right-5 text-right">
-            <div className="mb-2 flex justify-end">
-              <Dropdown
-                label={<DotsHorizontalIcon className="h-5 w-5" />}
-                inline={true}
-                placement="left-start"
-                arrowIcon={false}
-              >
-                <Dropdown.Item onClick={() => setIsEditing(true)}>
-                  Edit
-                </Dropdown.Item>
-                <Dropdown.Item>Close job</Dropdown.Item>
-              </Dropdown>
-            </div>
+            {!isEditing && (
+              <Button
+                text="Edit"
+                size={BTN_SIZE.SMALL}
+                onClick={() => setIsEditing(true)}
+                className="mb-5 bg-transparent text-jobssy-blue shadow-none hover:underline"
+              />
+            )}
             <Tooltip content="Status">
               <StateToBadge stateValue={job.state as string} />
             </Tooltip>
@@ -276,13 +299,15 @@ const Job = ({ auth }: any): JSX.Element => {
             <h4 className="text-lg font-bold">Worker details</h4>
             <BasicProfile profile={job.offerer?.user} />
           </div>
-          <div className="h-max w-full rounded-xl bg-white p-10 shadow lg:w-1/2">
-            <h5 className="font-semibold">Job location</h5>
-            <div className="mt-5 grid h-96 w-full items-center bg-jobssy-blue p-10">
-              <p className="rounded text-center text-4xl uppercase text-gray-50">
-                Imagine a google maps map right here :)
-              </p>
-            </div>
+          <div className="h-max w-full rounded-xl bg-white px-10 pt-5 pb-10 shadow lg:w-1/2">
+            <h5 className="mb-5 font-semibold">Job location</h5>
+            {!isLoaded ? (
+              <div className="grid h-96 items-center text-center">
+                <Spinner size="xl" />
+              </div>
+            ) : (
+              <JobMap />
+            )}
           </div>
         </div>
         <div className="flex flex-col space-x-0 space-y-10 lg:flex-row lg:space-x-10 lg:space-y-0">
