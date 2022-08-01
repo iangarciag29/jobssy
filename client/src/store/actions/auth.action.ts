@@ -13,7 +13,7 @@ const LoginAuthAction = (
   return async (dispatch: any) => {
     try {
       await axios
-        .post("https://api.jobssy.ian.software/login", credentials, {
+        .post(`${process.env.REACT_APP_API_URL}/login`, credentials, {
           headers: {
             "Content-Type": "application/json",
           },
