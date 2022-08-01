@@ -33,12 +33,14 @@ const Landing = (): JSX.Element => {
           icon: "error",
           title: "Oh!",
           text: "The passwords does not match.",
+          confirmButtonColor: "#384E77",
         });
       } else {
         AlertHandler.fire({
           icon: "error",
           title: "Oh!",
           text: "Please fill out all the required fields.",
+          confirmButtonColor: "#384E77",
         });
       }
       return;

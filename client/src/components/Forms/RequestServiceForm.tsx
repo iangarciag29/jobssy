@@ -66,6 +66,7 @@ const RequestServiceForm = ({
           icon: "success",
           title: "Sent",
           text: "The job has been created.",
+          confirmButtonColor: "#384E77",
         }).then((_: SweetAlertResult) => {
           navigate(`/app/jobs/${createJob.id}`);
           return;
