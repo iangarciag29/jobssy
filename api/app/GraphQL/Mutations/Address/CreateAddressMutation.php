@@ -39,29 +39,9 @@ class CreateAddressMutation extends Mutation
                 'name' => 'user_id',
                 'type' => Type::nonNull(Type::int()),
             ],
-            'first_line' => [
-                'name' => 'first_line',
+            'name' => [
+                'name' => 'name',
                 'type' => Type::nonNull(Type::string()),
-            ],
-            'second_line' => [
-                'name' => 'second_line',
-                'type' => Type::string(),
-            ],
-            'city' => [
-                'name' => 'city',
-                'type' => Type::nonNull(Type::string()),
-            ],
-            'state' => [
-                'name' => 'state',
-                'type' => Type::nonNull(Type::string()),
-            ],
-            'country' => [
-                'name' => 'country',
-                'type' => Type::nonNull(Type::string()),
-            ],
-            'zipcode' => [
-                'name' => 'zipcode',
-                'type' => Type::nonNull(Type::int()),
             ],
             'latitude' => [
                 'name' => 'latitude',

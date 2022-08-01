@@ -26,9 +26,7 @@ const ServiceList = ({ offerer }: { offerer: any }): JSX.Element => {
             id
           }
           address {
-            city
-            state
-            country
+            name
           }
           category {
             name

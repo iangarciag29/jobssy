@@ -34,11 +34,11 @@ class CategoryType extends GraphQLType
             ],
             'created_at' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'Bid creation date.'
+                'description' => 'Category creation date.'
             ],
             'updated_at' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'Last time bid was updated.'
+                'description' => 'Last time category was updated.'
             ]
         ];
     }

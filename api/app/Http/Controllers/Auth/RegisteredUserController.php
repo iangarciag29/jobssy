@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserSignupRequest;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
@@ -27,6 +28,12 @@ class RegisteredUserController extends Controller
             "message" => "Validation failed.",
         ]);
 
+        $address = new Address();
+        $address->id = uniqid("", true);
+        $address->name = $request->address_name;
+        $address->latitude = $request->address_lat;
+        $address->longitude = $request->address_lng;
+
         $user = User::create([
             'id' => uniqid("", true),
             'first_name' => $request->first_name,
@@ -37,6 +44,10 @@ class RegisteredUserController extends Controller
             'gender' => $request->gender,
             'birthdate' => $request->birthdate,
         ]);
+
+        $address->user_id = $user->id;
+
+        $address->save();
 
         event(new Registered($user));
         Auth::login($user);

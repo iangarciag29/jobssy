@@ -33,8 +33,7 @@ const Worker = (): JSX.Element => {
             email
             cellphone
             address {
-              country
-              state
+              name
             }
           }
           ...ServiceList_services

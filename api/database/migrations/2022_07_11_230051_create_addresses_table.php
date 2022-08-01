@@ -16,14 +16,9 @@ return new class extends Migration {
             $table->string('id')->primary();
             $table->string('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->string('first_line');
-            $table->string('second_line')->nullable();
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
-            $table->integer('zipcode');
-            $table->bigInteger('latitude');
-            $table->bigInteger('longitude');
+            $table->string('name');
+            $table->float('latitude', 11, 8);
+            $table->float('longitude', 11, 8);
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class Address extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['first_line', 'second_line', 'city', 'state', 'country', 'zipcode', 'latitude', 'longitude'];
+    protected $fillable = ['name', 'latitude', 'longitude'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
