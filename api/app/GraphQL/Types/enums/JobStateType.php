@@ -23,6 +23,9 @@ class JobStateType extends EnumType
             'PENDING_START' => 8,
             'USER_CHANGES' => 9,
             'OFFERER_CHANGES' => 10,
+            'WORKING' => 11,
+            'FINISHED' => 12,
+            'CANCELLED' => 13,
         ],
     ];
 }

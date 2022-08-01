@@ -73,6 +73,27 @@ const StateToBadge = ({ stateValue }: { stateValue: string }) => {
         </span>
       );
 
+    case JOB_STATE.WORKING:
+      return (
+        <span className="mr-2 rounded bg-purple-100 px-2.5 py-0.5 text-xs font-semibold text-purple-800 dark:bg-purple-200 dark:text-purple-900">
+          In progress
+        </span>
+      );
+
+    case JOB_STATE.FINISHED:
+      return (
+        <span className="mr-2 rounded bg-red-100 px-2.5 py-0.5 text-xs font-semibold text-red-800 dark:bg-red-200 dark:text-red-900">
+          Finished
+        </span>
+      );
+
+    case JOB_STATE.CANCELLED:
+      return (
+        <span className="mr-2 rounded bg-pink-100 px-2.5 py-0.5 text-xs font-semibold text-pink-800 dark:bg-pink-200 dark:text-pink-900">
+          Job cancelled
+        </span>
+      );
+
     default:
       return (
         <span className="rounded bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-800 dark:bg-gray-700 dark:text-gray-300">

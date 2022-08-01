@@ -22,4 +22,8 @@ enum JobState: int
     case PENDING_START = 8;
     case USER_CHANGES = 9;
     case OFFERER_CHANGES = 10;
+    case WORKING = 11;
+    case FINISHED = 12;
+    case CANCELLED = 13;
+
 }
