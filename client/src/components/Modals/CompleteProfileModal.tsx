@@ -1,5 +1,5 @@
-import { Modal } from "flowbite-react";
-import React, { useId, useRef } from "react";
+import { Modal, Spinner } from "flowbite-react";
+import React, { useId, useRef, useState } from "react";
 import Button from "../Generics/Button";
 import { BTN_SIZE } from "../../types";
 import moment from "moment";
@@ -9,6 +9,8 @@ import { mapDispatchToProps } from "../../utils";
 import { AlertHandler } from "../../utils/AlertHandler";
 import { useNavigate } from "react-router-dom";
 import { SweetAlertResult } from "sweetalert2";
+import AddressPicker from "../Address/AddressPicker";
+import { useLoadScript } from "@react-google-maps/api";
 
 const CompleteProfileModal = ({
   isOpen,
@@ -31,17 +33,41 @@ const CompleteProfileModal = ({
 
   const navigate = useNavigate();
 
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+    libraries: ["places"],
+  });
+
+  const [address, setAddress] = useState<{
+    name: String;
+    lat: number;
+    lng: number;
+  }>({ name: "", lat: 0, lng: 0 });
+
   const createUser = (): void => {
+    if (address.name === "") {
+      AlertHandler.fire({
+        icon: "warning",
+        title: "Warning",
+        text: "You must select a valid address.",
+        confirmButtonColor: "#384E77",
+      });
+      return;
+    }
+
     const userData = {
       ...data,
       birthdate: moment(birthdateRef.current.value).format("YYYY/MM/DD"),
       cellphone: cellphoneRef.current.value,
       gender: genderRef.current.value,
+      address_name: address.name,
+      address_lat: address.lat,
+      address_lng: address.lng,
     };
 
     (async () => {
       await axios
-        .post("https://api.jobssy.ian.software/register", userData)
+        .post(`${process.env.REACT_APP_API_URL}/register`, userData)
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -49,6 +75,7 @@ const CompleteProfileModal = ({
               icon: "success",
               title: "Welcome",
               text: "You have been registered successfully.",
+              confirmButtonColor: "#384E77",
             }).then((_: SweetAlertResult) => {
               login(
                 { email: userData.email, password: userData.password },
@@ -63,7 +90,7 @@ const CompleteProfileModal = ({
   return (
     <Modal
       show={isOpen}
-      size="xl"
+      size="2xl"
       popup={true}
       onClose={() => setIsOpen(false)}
     >
@@ -114,18 +141,24 @@ const CompleteProfileModal = ({
                   htmlFor="email"
                   className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
-                  Your email
+                  Your birthdate
                 </label>
                 <input
                   type="date"
                   id={birthdateId}
                   ref={birthdateRef}
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                  placeholder="Enter your birthdate"
                   required={true}
                 />
               </div>
             </div>
+          </div>
+          <div>
+            {!isLoaded ? (
+              <Spinner size="lg" />
+            ) : (
+              <AddressPicker setAddress={setAddress} />
+            )}
           </div>
           <div className="flex w-full justify-end">
             <Button
