@@ -38,6 +38,14 @@ const UserJobList = ({ auth }: any): JSX.Element => {
 
   const { jobsByEntity } = data;
 
+  if (jobsByEntity && jobsByEntity?.length <= 0) {
+    return (
+      <div className="my-20 grid items-center text-center">
+        <p className="text-gray-700">You do not have any jobs.</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
