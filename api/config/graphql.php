@@ -7,6 +7,7 @@ use App\GraphQL\Mutations\Address\DeleteAddressMutation;
 use App\GraphQL\Mutations\Address\UpdateAddressMutation;
 use App\GraphQL\Mutations\Bid\CreateBidMutation;
 use App\GraphQL\Mutations\Category\CreateCategoryMutation;
+use App\GraphQL\Mutations\Category\DeleteCategoryMutation;
 use App\GraphQL\Mutations\Job\CreateJobMutation;
 use App\GraphQL\Mutations\Job\UpdateJobMutation;
 use App\GraphQL\Mutations\Job\UpdateStateMutation;
@@ -170,6 +171,7 @@ return [
                 'createBid' => CreateBidMutation::class,
                 # CATEGORY MODEL
                 'createCategory' => CreateCategoryMutation::class,
+                'deleteCategory' => DeleteCategoryMutation::class,
                 # POST MODEL
                 'creatPost' => CreatePostMutation::class,
                 # OFFERER MODEL
