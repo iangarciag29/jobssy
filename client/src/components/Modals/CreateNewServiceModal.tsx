@@ -9,6 +9,10 @@ import {
 import NewServiceForm from "../Forms/NewServiceForm";
 import { useLoadScript } from "@react-google-maps/api";
 import { libraries } from "../../utils/GMapsLibraries";
+import { useEffect } from "react";
+import { AlertHandler } from "../../utils/AlertHandler";
+import { useNavigate } from "react-router-dom";
+import { SweetAlertResult } from "sweetalert2";
 
 const CreateNewServiceModal = ({
   isModalOpen,
@@ -18,6 +22,8 @@ const CreateNewServiceModal = ({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     libraries,
   });
+
+  const navigate = useNavigate();
 
   const data: CreateNewServiceModalQuery$data =
     useLazyLoadQuery<CreateNewServiceModalQuery>(
@@ -33,6 +39,19 @@ const CreateNewServiceModal = ({
     );
 
   const { categories } = data;
+
+  useEffect(() => {
+    if (isModalOpen && categories && categories.length <= 0) {
+      AlertHandler.fire({
+        icon: "warning",
+        title: "Warning!",
+        text: "There are no categories available!",
+        confirmButtonColor: "#384E77",
+      }).then((_: SweetAlertResult) => {
+        navigate("/app/categories");
+      });
+    }
+  }, [categories, isModalOpen, navigate]);
 
   if (!categories) return <></>;
 
