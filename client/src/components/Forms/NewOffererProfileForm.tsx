@@ -34,7 +34,8 @@ const NewOffererProfileForm = ({ auth }: any): JSX.Element => {
       },
       onCompleted: (response: any, errors: any) => {
         if (!HandleGraphQLError(errors)) return;
-        navigate("/app/profile");
+        const { id } = response.createOffererProfile;
+        navigate(`/app/workers/${id}`);
       },
     });
   };
