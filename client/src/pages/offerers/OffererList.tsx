@@ -43,6 +43,7 @@ const OffererList = (): JSX.Element => {
             last_name
             email
             cellphone
+            verified
             address {
               id
               name
@@ -58,6 +59,7 @@ const OffererList = (): JSX.Element => {
           }
           rating
           jobs_completed
+          start_time
         }
       }
     `,
