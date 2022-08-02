@@ -21,7 +21,8 @@ import { connect } from "react-redux";
 import { mapStateToProps } from "../../utils";
 import { useLoadScript } from "@react-google-maps/api";
 import JobMap from "../../components/Maps/JobMap";
-import { AlertHandler } from "../../utils/AlertHandler";
+import { libraries } from "../../utils/GMapsLibraries";
+import { HandleGraphQLError } from "../../utils/ErrorHandler";
 
 const Job = ({ auth }: any): JSX.Element => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -35,7 +36,7 @@ const Job = ({ auth }: any): JSX.Element => {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
-    libraries: ["places"],
+    libraries,
   });
 
   if (!id) throw new Error();
@@ -155,19 +156,8 @@ const Job = ({ auth }: any): JSX.Element => {
             author_id: auth.user.id,
           },
           onCompleted: (response, errors) => {
-            if (errors && errors?.length > 0) {
-              let errorMSG = "";
-              errors.map(
-                (error: any) =>
-                  (errorMSG += `<li class="text-base font-semibold">${error.message}</li>`),
-              );
-              AlertHandler.fire({
-                icon: "error",
-                title: "Error",
-                html: `<ul>${errorMSG}</ul>`,
-                confirmButtonColor: "#384E77",
-              });
-            }
+            if (!HandleGraphQLError(errors)) return;
+            console.log(response);
           },
           onError: (error: Error) => {
             console.error(error);

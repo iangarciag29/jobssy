@@ -91,10 +91,7 @@ const LoginForm = ({ login }: any): JSX.Element => {
               </button>
               <p>
                 Don't have an account?{" "}
-                <Link
-                  to="/signup"
-                  className="mx-auto text-secondary hover:underline"
-                >
+                <Link to="/" className="mx-auto text-secondary hover:underline">
                   SignUp
                 </Link>
               </p>

@@ -7,10 +7,13 @@ import { useId, useRef } from "react";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../utils";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
+import { useNavigate } from "react-router-dom";
 
 const NewOffererProfileForm = ({ auth }: any): JSX.Element => {
   const descriptionId = useId();
   const descriptionRef = useRef<any>();
+
+  const navigate = useNavigate();
 
   const [commitMutation, isMutationInFlight] = useMutation(graphql`
     mutation NewOffererProfileFormMutation(
@@ -29,8 +32,9 @@ const NewOffererProfileForm = ({ auth }: any): JSX.Element => {
         user_id: auth.user.id,
         description: descriptionRef?.current.value,
       },
-      onCompleted: (response, errors) => {
-        HandleGraphQLError(errors);
+      onCompleted: (response: any, errors: any) => {
+        if (!HandleGraphQLError(errors)) return;
+        navigate("/app/profile");
       },
     });
   };
@@ -72,7 +76,7 @@ const NewOffererProfileForm = ({ auth }: any): JSX.Element => {
           id={descriptionId}
           rows={5}
           ref={descriptionRef}
-          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-jobssy-blue focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="Please provide a profile description"
         ></textarea>
       </div>

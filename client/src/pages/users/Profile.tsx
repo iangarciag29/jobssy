@@ -18,6 +18,7 @@ import * as timeago from "timeago.js";
 import Button from "../../components/Generics/Button";
 import { BTN_SIZE } from "../../types";
 import { PencilIcon } from "@heroicons/react/solid";
+import { libraries } from "../../utils/GMapsLibraries";
 
 const Profile = ({ auth }: any): JSX.Element => {
   const { id } = auth.user;
@@ -25,7 +26,7 @@ const Profile = ({ auth }: any): JSX.Element => {
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
-    libraries: ["places"],
+    libraries,
   });
 
   const data: ProfileQuery$data = useLazyLoadQuery<ProfileQuery>(

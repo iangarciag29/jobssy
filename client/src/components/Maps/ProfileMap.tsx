@@ -1,4 +1,4 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef } from "react";
 
 type MapOptions = google.maps.MapOptions;
@@ -38,7 +38,7 @@ const ProfileMap = ({ user }: any): JSX.Element => {
         options={options}
         onLoad={onLoad}
       >
-        <Marker position={center} />
+        <MarkerF position={center} />
       </GoogleMap>
     </div>
   );

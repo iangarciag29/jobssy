@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { SweetAlertResult } from "sweetalert2";
 import AddressPicker from "../Address/AddressPicker";
 import { useLoadScript } from "@react-google-maps/api";
+import { libraries } from "../../utils/GMapsLibraries";
 
 const CompleteProfileModal = ({
   isOpen,
@@ -35,7 +36,7 @@ const CompleteProfileModal = ({
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
-    libraries: ["places"],
+    libraries,
   });
 
   const [address, setAddress] = useState<{

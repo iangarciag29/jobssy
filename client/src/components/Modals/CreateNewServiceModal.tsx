@@ -8,6 +8,7 @@ import {
 } from "./__generated__/CreateNewServiceModalQuery.graphql";
 import NewServiceForm from "../Forms/NewServiceForm";
 import { useLoadScript } from "@react-google-maps/api";
+import { libraries } from "../../utils/GMapsLibraries";
 
 const CreateNewServiceModal = ({
   isModalOpen,
@@ -15,7 +16,7 @@ const CreateNewServiceModal = ({
 }: any): JSX.Element => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
-    libraries: ["places"],
+    libraries,
   });
 
   const data: CreateNewServiceModalQuery$data =
