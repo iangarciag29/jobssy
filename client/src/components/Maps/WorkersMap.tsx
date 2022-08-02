@@ -16,11 +16,6 @@ const WorkersMap = ({
   currentLocation: LatLngLiteral;
   mapRef: any;
 }): JSX.Element => {
-  const center = useMemo(
-    () => ({ lat: 37.4820967332291, lng: -122.16371302583619 }),
-    [],
-  );
-
   const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 
   const options = useMemo<MapOptions>(
@@ -30,15 +25,15 @@ const WorkersMap = ({
       clickableIcons: false,
       draggable: true,
       minZoom: 5,
-      maxZoom: 10,
+      maxZoom: 15,
     }),
     [],
   );
 
   return (
     <GoogleMap
-      zoom={10}
-      center={center}
+      zoom={13}
+      center={currentLocation}
       mapContainerStyle={{ width: "100%", height: "100%" }}
       onLoad={onLoad}
       options={options}
