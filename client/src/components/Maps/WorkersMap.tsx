@@ -20,10 +20,13 @@ const WorkersMap = ({
   bounds: any;
   setBounds: any;
 }): JSX.Element => {
-  const onLoad = useCallback((map: any) => {
-    mapRef.current = map;
-    setBounds(new window.google.maps.LatLngBounds());
-  }, []);
+  const onLoad = useCallback(
+    (map: any) => {
+      mapRef.current = map;
+      setBounds(new window.google.maps.LatLngBounds());
+    },
+    [setBounds],
+  );
 
   const options = useMemo<MapOptions>(
     () => ({
@@ -37,29 +40,30 @@ const WorkersMap = ({
     [],
   );
 
+  const center = useMemo<LatLngLiteral>(
+    () => currentLocation,
+    [currentLocation],
+  );
+
   return (
     <GoogleMap
       zoom={13}
-      center={currentLocation}
+      center={center}
       mapContainerStyle={{ width: "100%", height: "100%" }}
       onLoad={onLoad}
       options={options}
       onZoomChanged={() => {
         if (mapRef.current !== null) {
-          console.log(
-            "[DEBUG] [GMAPS] BOUNDS :: ZOOM_CHANGED :: ",
-            mapRef.current.getBounds(),
-          );
-          setBounds(mapRef.current.getBounds());
+          const bounds = mapRef.current.getBounds();
+          console.log("[DEBUG] [GMAPS] BOUNDS :: ZOOM_CHANGED :: ", bounds);
+          setBounds(bounds);
         }
       }}
       onDragEnd={() => {
         if (mapRef.current !== null) {
-          console.log(
-            "[DEBUG] [GMAPS] BOUNDS :: DRAG_END :: ",
-            mapRef.current.getBounds(),
-          );
-          setBounds(mapRef.current.getBounds());
+          const bounds = mapRef.current.getBounds();
+          console.log("[DEBUG] [GMAPS] BOUNDS :: DRAG_END :: ", bounds);
+          setBounds(bounds);
         }
       }}
     >
