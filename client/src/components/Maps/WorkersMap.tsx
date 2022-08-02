@@ -1,11 +1,20 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo } from "react";
 import { GoogleMap, MarkerClusterer, MarkerF } from "@react-google-maps/api";
 
 type MapOptions = google.maps.MapOptions;
+type LatLngLiteral = google.maps.LatLngLiteral;
 
-const WorkersMap = ({ addresses, selectOfferer }: any): JSX.Element => {
-  const mapRef = useRef<GoogleMap>();
-
+const WorkersMap = ({
+  addresses,
+  selectOfferer,
+  currentLocation,
+  mapRef,
+}: {
+  addresses: any;
+  selectOfferer: any;
+  currentLocation: LatLngLiteral;
+  mapRef: any;
+}): JSX.Element => {
   const center = useMemo(
     () => ({ lat: 37.4820967332291, lng: -122.16371302583619 }),
     [],
@@ -33,6 +42,7 @@ const WorkersMap = ({ addresses, selectOfferer }: any): JSX.Element => {
       onLoad={onLoad}
       options={options}
     >
+      <MarkerF position={currentLocation} />
       <MarkerClusterer>
         {(cluster) =>
           addresses.map((item: any) => (

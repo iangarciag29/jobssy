@@ -1,4 +1,4 @@
-import { useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { Spinner } from "flowbite-react";
 import WorkersMap from "../../components/Maps/WorkersMap";
 import { useLazyLoadQuery } from "react-relay";
@@ -11,13 +11,16 @@ import {
 import { libraries } from "../../utils/GMapsLibraries";
 import Sidebar from "../../components/Maps/Workers/Sidebar";
 import Filters from "../../components/Maps/Workers/Filters";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OffererPreviewModal from "../../components/Modals/OffererPreviewModal";
+import { AlertHandler } from "../../utils/AlertHandler";
 
 const OffererList = (): JSX.Element => {
   const [offererPreviewModalOpen, setOffererPreviewModalOpen] =
     useState<boolean>(false);
   const [selectedOfferer, setSelectedOfferer] = useState<any>({});
+
+  const mapRef = useRef<GoogleMap>();
 
   const selectOfferer = (offerer: any) => {
     setSelectedOfferer(offerer);
@@ -61,23 +64,64 @@ const OffererList = (): JSX.Element => {
     {},
   );
 
+  const [latitude, setLatitude] = useState<any>(null);
+  const [longitude, setLongitude] = useState<any>(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: any) => {
+          let lat = position.coords.latitude;
+          let lng = position.coords.longitude;
+
+          setLatitude(lat);
+          setLongitude(lng);
+        },
+        () => {
+          if (navigator.geolocation) {
+            navigator.permissions.query({ name: "geolocation" }).then((res) => {
+              if (res.state === "denied") {
+                AlertHandler.fire({
+                  icon: "warning",
+                  title: "Warning!",
+                  text: "Jobssy's location features will not be available if location services are disabled.",
+                });
+              }
+            });
+          } else {
+            AlertHandler.fire({
+              icon: "error",
+              title: "Error",
+              text: "Unable to access your location.",
+            });
+          }
+        },
+      );
+    }
+  }, []);
+
   const { offerers } = data;
 
   if (!offerers) return <></>;
 
   return (
     <div className="flex min-h-[90vh] flex-col lg:flex-row">
-      {isLoaded ? (
+      {isLoaded && latitude && longitude ? (
         <div className="fixed relative w-full bg-cyan-400 lg:w-3/4">
           <div className="absolute top-0 right-0 left-0 z-10 grid min-h-[5vh] items-center bg-gray-50">
-            <Filters />
+            <Filters
+              mapRef={mapRef}
+              currentLocation={{ lat: latitude, lng: longitude }}
+            />
           </div>
           <WorkersMap
             addresses={offerers.map((offerer: any) => ({
               address: offerer.user.address,
               offerer,
             }))}
+            mapRef={mapRef}
             selectOfferer={selectOfferer}
+            currentLocation={{ lat: latitude, lng: longitude }}
           />
         </div>
       ) : (
