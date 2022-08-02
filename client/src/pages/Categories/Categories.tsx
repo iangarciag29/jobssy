@@ -9,7 +9,7 @@ import Page from "../../containers/Page";
 import Button from "../../components/Generics/Button";
 import { BTN_SIZE } from "../../types";
 import { PlusIcon } from "@heroicons/react/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateCategoryModal from "../../components/Modals/CreateCategoryModal";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
 
@@ -47,6 +47,12 @@ const Categories = (): JSX.Element => {
   };
 
   const { categories } = data;
+
+  useEffect(() => {
+    if (categories && categories.length <= 0) {
+      setIsModalOpen(true);
+    }
+  }, [categories]);
 
   return (
     <Page
