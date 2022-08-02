@@ -19,8 +19,9 @@ const OffererList = (): JSX.Element => {
   const [offererPreviewModalOpen, setOffererPreviewModalOpen] =
     useState<boolean>(false);
   const [selectedOfferer, setSelectedOfferer] = useState<any>({});
+  const [bounds, setBounds] = useState({});
 
-  const mapRef = useRef<GoogleMap>();
+  const mapRef = useRef<GoogleMap>(null);
 
   const selectOfferer = (offerer: any) => {
     setSelectedOfferer(offerer);
@@ -121,6 +122,8 @@ const OffererList = (): JSX.Element => {
               address: offerer.user.address,
               offerer,
             }))}
+            bounds={bounds}
+            setBounds={setBounds}
             mapRef={mapRef}
             selectOfferer={selectOfferer}
             currentLocation={{ lat: latitude, lng: longitude }}
