@@ -22,6 +22,7 @@ const OffererInfo = ({ user }: any) => {
     graphql`
       query OffererInfoQuery($id: ID!) {
         offererByUser(id: $id) {
+          id
           description
           jobs_completed
           rating
@@ -64,8 +65,6 @@ const OffererInfo = ({ user }: any) => {
   );
 
   const offerer = data.offererByUser;
-
-  console.log(offerer);
 
   if (!offerer)
     return (
@@ -123,6 +122,7 @@ const OffererInfo = ({ user }: any) => {
           />
         </div>
         <CreateNewServiceModal
+          offerer={offerer}
           isModalOpen={newServiceModalOpen}
           setIsModalOpen={setNewServiceModalOpen}
         />

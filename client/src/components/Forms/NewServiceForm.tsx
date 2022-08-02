@@ -13,9 +13,11 @@ import { HandleGraphQLError } from "../../utils/ErrorHandler";
 const NewServiceForm = ({
   categories,
   auth,
+  offerer,
 }: {
   categories: any;
   auth?: any;
+  offerer: any;
 }): JSX.Element => {
   const titleId = useId();
   const categoryId = useId();
@@ -35,53 +37,52 @@ const NewServiceForm = ({
     lng: number;
   }>({ name: "", lat: 0, lng: 0 });
 
-  const [commitAddressMutation, isAddressMutationInFlight] =
-    useMutation(graphql`
-      mutation NewServiceFormAddressMutation(
-        $user_id: ID!
-        $name: String!
-        $latitude: Float!
-        $longitude: Float!
+  const [commitAddressMutation] = useMutation(graphql`
+    mutation NewServiceFormAddressMutation(
+      $user_id: ID!
+      $name: String!
+      $latitude: Float!
+      $longitude: Float!
+    ) {
+      createAddress(
+        user_id: $user_id
+        name: $name
+        latitude: $latitude
+        longitude: $longitude
       ) {
-        createAddress(
-          user_id: $user_id
-          name: $name
-          latitude: $latitude
-          longitude: $longitude
-        ) {
-          id
-        }
+        id
       }
-    `);
+    }
+  `);
 
-  const [commitNewServiceMutation, isNewServiceMutationInFlight] =
-    useMutation(graphql`
-      mutation NewServiceFormMutation(
-        $offerer_id: ID!
-        $address_id: ID!
-        $category_id: ID!
-        $title: String!
-        $description: String!
-        $price: Float!
-        $currency: String!
+  const [commitNewServiceMutation] = useMutation(graphql`
+    mutation NewServiceFormMutation(
+      $offerer_id: ID!
+      $address_id: ID!
+      $category_id: ID!
+      $title: String!
+      $description: String!
+      $price: Float!
+      $currency: String!
+    ) {
+      createService(
+        offerer_id: $offerer_id
+        address_id: $address_id
+        category_id: $category_id
+        title: $title
+        description: $description
+        price: $price
+        currency: $currency
       ) {
-        createService(
-          offerer_id: $offerer_id
-          address_id: $address_id
-          category_id: $category_id
-          title: $title
-          description: $description
-          price: $price
-          currency: $currency
-        ) {
-          id
-          title
-          description
-        }
+        id
+        title
+        description
       }
-    `);
+    }
+  `);
 
-  const handleSubmit = (): void => {
+  const handleSubmit = (e: any): void => {
+    e.preventDefault();
     commitAddressMutation({
       variables: {
         user_id: auth.user.id,
@@ -89,21 +90,19 @@ const NewServiceForm = ({
         latitude: address.lat,
         longitude: address.lng,
       },
-      onCompleted: (addressResponse: any, addressErrors) => {
+      onCompleted: (addressResponse: any, addressErrors: any) => {
         if (!HandleGraphQLError(addressErrors)) return;
         const address_id = addressResponse.createAddress.id;
-
         const data = {
-          offerer_id: auth.user.id,
+          offerer_id: offerer.id,
           address_id,
           title: titleRef.current.value,
           description: descriptionRef.current.value,
-          price: priceRef.current.value,
+          price: parseFloat(priceRef.current.value),
           category_id: categoryRef.current.value,
           currency: currencyRef.current.value,
         };
 
-        console.log(data);
         commitNewServiceMutation({
           variables: data,
           onCompleted: (response, errors) => {
@@ -114,14 +113,6 @@ const NewServiceForm = ({
       },
     });
   };
-
-  if (isNewServiceMutationInFlight || isAddressMutationInFlight) {
-    return (
-      <div className="grid h-56 items-center text-center">
-        <Spinner size="xl" />
-      </div>
-    );
-  }
 
   return (
     <form>
@@ -221,11 +212,7 @@ const NewServiceForm = ({
         </div>
       </div>
       <div className="flex justify-end">
-        <Button
-          text="Post"
-          size={BTN_SIZE.SMALL}
-          onClick={() => handleSubmit()}
-        />
+        <Button text="Post" size={BTN_SIZE.SMALL} onClick={handleSubmit} />
       </div>
     </form>
   );

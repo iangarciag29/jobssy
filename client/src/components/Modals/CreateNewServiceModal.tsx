@@ -17,6 +17,7 @@ import { SweetAlertResult } from "sweetalert2";
 const CreateNewServiceModal = ({
   isModalOpen,
   setIsModalOpen,
+  offerer,
 }: any): JSX.Element => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
@@ -60,7 +61,7 @@ const CreateNewServiceModal = ({
       <Modal.Header>Create a new service</Modal.Header>
       <Modal.Body>
         {isLoaded ? (
-          <NewServiceForm categories={categories} />
+          <NewServiceForm categories={categories} offerer={offerer} />
         ) : (
           <div className="grid h-56 items-center text-center">
             <Spinner size="xl" />
