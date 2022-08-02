@@ -32,6 +32,10 @@ class JobType extends GraphQLType
                 'type' => GraphQL::type('Offerer'),
                 'description' => 'Job\'s worker.'
             ],
+            'address' => [
+                'type' => GraphQL::type('Address'),
+                'description' => 'Job\'s address.'
+            ],
             'rate' => [
                 'type' => GraphQL::type('Rate'),
                 'description' => 'Job\'s rate given by the user.'

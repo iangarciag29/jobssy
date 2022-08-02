@@ -6,7 +6,7 @@ use App\Models\Address;
 use App\Models\Category;
 use App\Models\Offerer;
 use App\Models\Service;
-use Exception;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -39,15 +39,15 @@ class CreateServiceMutation extends Mutation
         return [
             'offerer_id' => [
                 'name' => 'offerer_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'address_id' => [
                 'name' => 'address_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'category_id' => [
                 'name' => 'category_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'title' => [
                 'name' => 'title',
@@ -72,17 +72,18 @@ class CreateServiceMutation extends Mutation
      * Mutation resolver.
      * @param * $root The object this resolve method belongs to.
      * @param array $args Mutation arguments.
-     * @throws Exception
+     * @throws Error
      */
     public function resolve($root, array $args): Service
     {
         $offerer = Offerer::find($args['offerer_id']);
-        if (!$offerer) throw new Exception('[!] An Offerer ID is required');
+        if (!$offerer) throw new Error('[!] An Offerer ID is required');
         $address = Address::find($args['address_id']);
-        if (!$address) throw new Exception('[!] An Address ID is required.');
+        if (!$address) throw new Error('[!] An Address ID is required.');
         $category = Category::find($args['category_id']);
-        if (!$category) throw new Exception('[!] A Category ID is required.');
+        if (!$category) throw new Error('[!] A Category ID is required.');
         $service = new Service();
+        $service->id = uniqid("", true);
         $service->fill($args);
         $service->offerer_id = $args['offerer_id'];
         $service->address_id = $args['address_id'];

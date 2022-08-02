@@ -21,7 +21,7 @@ class CategoriesQuery extends Query
 
     public function resolve($root, $args)
     {
-        return Category::all();
+        return Category::orderBy('name')->get();
     }
 
 }

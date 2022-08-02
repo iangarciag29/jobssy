@@ -6,6 +6,7 @@ use App\Models\Offerer;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -38,7 +39,11 @@ class CreateOffererProfileMutation extends Mutation
         return [
             'user_id' => [
                 'name' => 'user_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
+            ],
+            'description' => [
+                'name' => 'description',
+                'type' => Type::nonNull(Type::string()),
             ],
         ];
     }
@@ -52,12 +57,18 @@ class CreateOffererProfileMutation extends Mutation
     public function resolve($root, $args): Offerer
     {
         $user = User::find($args['user_id']);
-        if (!$user) throw new Exception('[!] A User ID is required.');
+        if (!$user) throw new Error('[!] A User ID is required.');
+        if ($user->is_offerer) throw new Error("You are already an offerer.");
         $offerer = new Offerer();
+        $offerer->id = uniqid("", true);
         $offerer->rating = 0;
-        $offerer->rate = 0;
+        $offerer->jobs_completed = 0;
         $offerer->user_id = $args['user_id'];
+        $offerer->start_time = Carbon::now()->toDateString();
+        $offerer->description = $args['description'];
         $offerer->save();
+        $user->is_offerer = 1;
+        $user->save();
         return $offerer;
     }
 }

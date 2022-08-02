@@ -50,6 +50,7 @@ class CreateCategoryMutation extends Mutation
     public function resolve($root, $args): Category
     {
         $category = new Category();
+        $category->id = uniqid("", true);
         $category->fill($args);
         $category->save();
         return $category;

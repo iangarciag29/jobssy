@@ -3,10 +3,12 @@
 namespace App\GraphQL\Mutations\Job;
 
 use App\Enum\JobState;
+use App\Models\Address;
 use App\Models\Job;
 use App\Models\Offerer;
 use App\Models\User;
 use Exception;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -45,6 +47,10 @@ class CreateJobMutation extends Mutation
                 'name' => 'offerer_id',
                 'type' => Type::nonNull(Type::id()),
             ],
+            'address_id' => [
+                'name' => 'address_id',
+                'type' => Type::nonNull(Type::id()),
+            ],
             'title' => [
                 'name' => 'title',
                 'type' => Type::nonNull(Type::string()),
@@ -78,8 +84,10 @@ class CreateJobMutation extends Mutation
     {
         $user = User::findOrFail($args['user_id']);
         $offerer = Offerer::findOrFail($args['offerer_id']);
-        if (!$user) throw new Exception('[!] A User ID is needed.');
-        if (!$offerer) throw new Exception('[!] An Offerer ID is needed.');
+        $address = Address::findOrFail($args['address_id']);
+        if (!$user) throw new Error('[!] A User ID is needed.');
+        if (!$offerer) throw new Error('[!] An Offerer ID is needed.');
+        if (!$address) throw new Error('[!] An Address ID is needed.');
         $job = new Job();
         $job->id = uniqid("", true);
         $job->fill($args);

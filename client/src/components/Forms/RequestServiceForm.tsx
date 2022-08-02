@@ -29,6 +29,7 @@ const RequestServiceForm = ({
     mutation RequestServiceFormMutation(
       $user_id: ID!
       $offerer_id: ID!
+      $address_id: ID!
       $title: String!
       $description: String!
       $price: Float!
@@ -38,6 +39,7 @@ const RequestServiceForm = ({
       createJob(
         user_id: $user_id
         offerer_id: $offerer_id
+        address_id: $address_id
         title: $title
         description: $description
         price: $price
@@ -54,6 +56,7 @@ const RequestServiceForm = ({
       variables: {
         user_id: user.id,
         offerer_id: service.offerer.id,
+        address_id: service.address.id,
         title: titleRef.current.value,
         description: descriptionRef.current.value,
         price: parseFloat(priceRef.current.value),
