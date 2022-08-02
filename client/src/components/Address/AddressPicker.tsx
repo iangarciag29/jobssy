@@ -65,7 +65,7 @@ const AddressPicker = ({ setAddress }: any): JSX.Element => {
                   value={description}
                   key={place_id}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                    `relative cursor-default select-none py-2 px-4 ${
                       active ? "bg-jobssy-blue text-white" : "text-gray-900"
                     }`
                   }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enum\JobState;
+use App\Models\Address;
 use App\Models\Offerer;
 use App\Models\Rate;
 use App\Models\User;
@@ -23,10 +24,12 @@ class JobFactory extends Factory
         $users_id = User::all()->pluck('id')->toArray();
         $offerers_id = Offerer::all()->pluck('id')->toArray();
         $rates_id = Rate::all()->pluck('id')->toArray();
+        $addresses_id = Address::all()->pluck('id')->toArray();
         return [
             'id' => uniqid("", true),
             'user_id' => $this->faker->randomElement($users_id),
             'offerer_id' => $this->faker->randomElement($offerers_id),
+            'address_id' => $this->faker->randomElement($addresses_id),
             'rate_id' => $this->faker->randomElement($rates_id),
             'title' => $this->faker->text(5),
             'description' => $this->faker->realText(),

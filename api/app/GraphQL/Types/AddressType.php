@@ -32,11 +32,11 @@ class AddressType extends GraphQLType
                 'description' => 'Address name'
             ],
             'latitude' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::float()),
                 'description' => 'Latitude'
             ],
             'longitude' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::float()),
                 'description' => 'Longitude'
             ],
             'created_at' => [

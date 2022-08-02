@@ -59,6 +59,10 @@ const Job = ({ auth }: any): JSX.Element => {
               created_at
             }
           }
+          address {
+            longitude
+            latitude
+          }
           user {
             id
             first_name
@@ -301,12 +305,12 @@ const Job = ({ auth }: any): JSX.Element => {
           </div>
           <div className="h-max w-full rounded-xl bg-white px-10 pt-5 pb-10 shadow lg:w-1/2">
             <h5 className="mb-5 font-semibold">Job location</h5>
-            {!isLoaded ? (
+            {!isLoaded || !job.address ? (
               <div className="grid h-96 items-center text-center">
                 <Spinner size="xl" />
               </div>
             ) : (
-              <JobMap />
+              <JobMap address={job.address} />
             )}
           </div>
         </div>

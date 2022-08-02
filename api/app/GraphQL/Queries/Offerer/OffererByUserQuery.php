@@ -35,8 +35,6 @@ class OffererByUserQuery extends Query
     {
         $id = $args['id'];
 
-        return Offerer::whereHas('user', function ($q) use ($id) {
-            $q->where('id', $id);
-        })->get();
+        return Offerer::where("user_id", $id)->get()[0];
     }
 }

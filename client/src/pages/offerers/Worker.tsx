@@ -33,6 +33,7 @@ const Worker = (): JSX.Element => {
             email
             cellphone
             address {
+              id
               name
             }
           }

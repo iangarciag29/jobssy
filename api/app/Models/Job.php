@@ -16,7 +16,7 @@ class Job extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'description', 'title', 'price', 'currency'];
+    protected $fillable = ['rate_id', 'user_id', 'offerer_id', 'address_id', 'description', 'title', 'price', 'currency'];
 
     /**
      * @return BelongsTo User the job belongs to. [VALUE CAN NOT CHANGE]
@@ -35,11 +35,11 @@ class Job extends Model
     }
 
     /**
-     * @return HasOne Address where the job is going to be done.
+     * @return BelongsTo Address where the job is going to be done.
      */
-    public function address(): HasOne
+    public function address(): BelongsTo
     {
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Address::class);
     }
 
     /**

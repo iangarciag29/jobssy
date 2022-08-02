@@ -37,7 +37,7 @@ class CreateAddressMutation extends Mutation
         return [
             'user_id' => [
                 'name' => 'user_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'name' => [
                 'name' => 'name',
@@ -45,11 +45,11 @@ class CreateAddressMutation extends Mutation
             ],
             'latitude' => [
                 'name' => 'latitude',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::float()),
             ],
             'longitude' => [
                 'name' => 'longitude',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::float()),
             ],
         ];
     }
@@ -65,6 +65,7 @@ class CreateAddressMutation extends Mutation
         $user = User::find($args['user_id']);
         if (!$user) throw new Exception("[!] A User ID is required.");
         $address = new Address();
+        $address->id = uniqid("", true);
         $address->fill($args);
         $address->user_id = $args['user_id'];
         $address->save();
