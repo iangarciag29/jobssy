@@ -9,6 +9,7 @@ import TopBar from "../components/Generics/TopBar/TopBar";
 import Footer from "../components/Generics/Footer";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../utils";
+import { Spinner } from "flowbite-react";
 
 const Error404 = lazy(() => import("./../pages/Error404"));
 
@@ -36,7 +37,13 @@ const Layout = ({ auth }: any): JSX.Element => {
       <div className="flex w-full flex-1 flex-col">
         <TopBar />
         <Wrapper>
-          <Suspense fallback={<h1>[DEBUG] [Layout.tsx] LOADING...</h1>}>
+          <Suspense
+            fallback={
+              <div className="grid h-[80vh] w-full items-center text-center">
+                <Spinner size="xl" />
+              </div>
+            }
+          >
             <Routes>
               {routes.map((route: iRoute, idx: number) => (
                 <Route

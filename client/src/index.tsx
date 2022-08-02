@@ -11,6 +11,7 @@ import axios from "axios";
 import LogRocket from "logrocket";
 // @ts-ignore
 import setupLogRocketReact from "logrocket-react";
+import { Spinner } from "flowbite-react";
 
 LogRocket.init("tupofi/jobssy");
 setupLogRocketReact(LogRocket);
@@ -25,7 +26,13 @@ root.render(
     <RelayEnvironmentProvider environment={relayEnvironment}>
       <StrictMode>
         <SidebarProvider>
-          <Suspense fallback={<h1>LOADING...</h1>}>
+          <Suspense
+            fallback={
+              <div className="grid h-screen w-full items-center text-center">
+                <Spinner size="xl" />
+              </div>
+            }
+          >
             <App />
           </Suspense>
         </SidebarProvider>
