@@ -10,7 +10,7 @@ const Button = ({
   disabled = false,
 }: {
   text: string | JSX.Element;
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   size: BTN_SIZE;
   className?: string;
   type?: any;
