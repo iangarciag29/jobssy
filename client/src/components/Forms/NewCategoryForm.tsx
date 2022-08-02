@@ -9,8 +9,7 @@ import { Spinner } from "flowbite-react";
 
 const NewCategoryForm = (): JSX.Element => {
   const nameId = useId();
-
-  const nameRef = useRef<any>();
+  const nameRef = useRef<HTMLInputElement | null>(null);
 
   const [commitMutation, isMutationInFlight] = useMutation(graphql`
     mutation NewCategoryFormMutation($name: String!) {
@@ -22,6 +21,7 @@ const NewCategoryForm = (): JSX.Element => {
   `);
 
   const onSubmit = (): void => {
+    if (!nameRef.current) return;
     commitMutation({
       variables: {
         name: nameRef.current.value,
