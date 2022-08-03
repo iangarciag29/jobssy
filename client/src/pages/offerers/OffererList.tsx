@@ -103,6 +103,10 @@ const OffererList = (): JSX.Element => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("[DEBUG] [GMAPS] EVENT :: BOUNDS_CHANGED ::", bounds);
+  }, [bounds]);
+
   const { offerers } = data;
 
   if (!offerers) return <></>;
@@ -135,7 +139,7 @@ const OffererList = (): JSX.Element => {
         </div>
       )}
       <div className="w-full overflow-auto bg-gray-50 py-10 lg:w-1/4">
-        <Sidebar offerers={offerers} selectOfferer={selectOfferer} />
+        <Sidebar offerers={offerers} bounds={bounds} />
       </div>
       <OffererPreviewModal
         offerer={selectedOfferer}

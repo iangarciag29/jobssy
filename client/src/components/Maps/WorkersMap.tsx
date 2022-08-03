@@ -20,13 +20,9 @@ const WorkersMap = ({
   bounds: any;
   setBounds: any;
 }): JSX.Element => {
-  const onLoad = useCallback(
-    (map: any) => {
-      mapRef.current = map;
-      setBounds(new window.google.maps.LatLngBounds());
-    },
-    [setBounds],
-  );
+  const onLoad = useCallback((map: any) => {
+    mapRef.current = map;
+  }, []);
 
   const options = useMemo<MapOptions>(
     () => ({
@@ -40,10 +36,7 @@ const WorkersMap = ({
     [],
   );
 
-  const center = useMemo<LatLngLiteral>(
-    () => currentLocation,
-    [currentLocation],
-  );
+  const center = useMemo<LatLngLiteral>(() => currentLocation, []);
 
   return (
     <GoogleMap
@@ -52,20 +45,7 @@ const WorkersMap = ({
       mapContainerStyle={{ width: "100%", height: "100%" }}
       onLoad={onLoad}
       options={options}
-      onZoomChanged={() => {
-        if (mapRef.current !== null) {
-          const bounds = mapRef.current.getBounds();
-          console.log("[DEBUG] [GMAPS] BOUNDS :: ZOOM_CHANGED :: ", bounds);
-          setBounds(bounds);
-        }
-      }}
-      onDragEnd={() => {
-        if (mapRef.current !== null) {
-          const bounds = mapRef.current.getBounds();
-          console.log("[DEBUG] [GMAPS] BOUNDS :: DRAG_END :: ", bounds);
-          setBounds(bounds);
-        }
-      }}
+      onBoundsChanged={() => setBounds(mapRef.current.getBounds())}
     >
       <MarkerF
         position={currentLocation}

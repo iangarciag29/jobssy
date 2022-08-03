@@ -3,7 +3,7 @@ import { CheckCircleIcon } from "@heroicons/react/outline";
 import { Tooltip } from "flowbite-react";
 import * as timeago from "timeago.js";
 
-const Sidebar = ({ offerers, selectOfferer }: any): JSX.Element => {
+const Sidebar = ({ offerers, bounds }: any): JSX.Element => {
   const navigate = useNavigate();
 
   return (
