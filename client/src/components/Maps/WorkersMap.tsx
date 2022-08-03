@@ -45,7 +45,18 @@ const WorkersMap = ({
       mapContainerStyle={{ width: "100%", height: "100%" }}
       onLoad={onLoad}
       options={options}
-      onBoundsChanged={() => setBounds(mapRef.current.getBounds())}
+      onBoundsChanged={() =>
+        setBounds({
+          ne: {
+            lat: mapRef.current.getBounds().getNorthEast().lat(),
+            lng: mapRef.current.getBounds().getNorthEast().lng(),
+          },
+          sw: {
+            lat: mapRef.current.getBounds().getSouthWest().lat(),
+            lng: mapRef.current.getBounds().getSouthWest().lng(),
+          },
+        })
+      }
     >
       <MarkerF
         position={currentLocation}
