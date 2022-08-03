@@ -103,10 +103,6 @@ const OffererList = (): JSX.Element => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("[DEBUG] [GMAPS] EVENT :: BOUNDS_CHANGED ::", bounds);
-  }, [bounds]);
-
   const { offerers } = data;
 
   if (!offerers) return <></>;
