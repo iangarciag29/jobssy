@@ -23,6 +23,8 @@ import { useLoadScript } from "@react-google-maps/api";
 import JobMap from "../../components/Maps/JobMap";
 import { libraries } from "../../utils/GMapsLibraries";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
+import EditButton from "../../components/Bidding/EditButton";
+import ControBar from "../../components/Bidding/ControBar";
 
 const Job = ({ auth }: any): JSX.Element => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -88,7 +90,7 @@ const Job = ({ auth }: any): JSX.Element => {
 
   if (!job) throw new Error();
 
-  const [commitMutation, isMutationInFlight] = useMutation(graphql`
+  const [commitMutation] = useMutation(graphql`
     mutation JobUpdateMutation(
       $id: ID!
       $title: String!
@@ -115,24 +117,23 @@ const Job = ({ auth }: any): JSX.Element => {
     }
   `);
 
-  const [commitStateChangeMutation, isStateChangeMutationInFlight] =
-    useMutation(graphql`
-      mutation JobStateUpdateMutation(
-        $id: ID!
-        $new_state: JobState!
-        $author_id: ID!
-      ) {
-        updateState(id: $id, new_state: $new_state, author_id: $author_id) {
-          state
-          logs {
-            id
-            state_to
-            state_from
-            created_at
-          }
+  const [commitStateChangeMutation] = useMutation(graphql`
+    mutation JobStateUpdateMutation(
+      $id: ID!
+      $new_state: JobState!
+      $author_id: ID!
+    ) {
+      updateState(id: $id, new_state: $new_state, author_id: $author_id) {
+        state
+        logs {
+          id
+          state_to
+          state_from
+          created_at
         }
       }
-    `);
+    }
+  `);
 
   const updateJobDetails = (): void => {
     setIsEditing(false);
@@ -187,7 +188,7 @@ const Job = ({ auth }: any): JSX.Element => {
       }
     >
       <div className="mb-10 flex flex-col space-y-10">
-        <div className="relative rounded-xl bg-white p-10 shadow">
+        <div className="relative rounded-xl bg-white px-10 pt-10 shadow">
           <div className="flex flex-col lg:flex-row">
             <div className="flex w-full flex-col space-y-5 pr-0 lg:w-3/5 lg:pr-10">
               {isEditing && (
@@ -271,20 +272,18 @@ const Job = ({ auth }: any): JSX.Element => {
               />
             </div>
           )}
-          {isMutationInFlight || (isStateChangeMutationInFlight && <Spinner />)}
           <div className="absolute top-5 right-5 text-right">
             {!isEditing && (
-              <Button
-                text="Edit"
-                size={BTN_SIZE.SMALL}
-                onClick={() => setIsEditing(true)}
-                className="mb-5 bg-transparent text-jobssy-blue shadow-none hover:underline"
+              <EditButton
+                setIsEditing={setIsEditing}
+                jobState={job.state as string}
               />
             )}
             <Tooltip content="Status">
               <StateToBadge stateValue={job.state as string} />
             </Tooltip>
           </div>
+          <ControBar job={job} />
         </div>
         <div className="flex flex-col space-y-5 space-x-0 lg:flex-row lg:space-y-0 lg:space-x-10">
           <div className="flex w-full flex-col space-y-5 rounded-xl bg-white p-10 shadow lg:w-1/2">

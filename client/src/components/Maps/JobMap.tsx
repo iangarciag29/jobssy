@@ -23,7 +23,7 @@ const JobMap = ({ address }: any): JSX.Element => {
       lat: address.latitude,
       lng: address.longitude,
     }),
-    [address],
+    [],
   );
 
   return (

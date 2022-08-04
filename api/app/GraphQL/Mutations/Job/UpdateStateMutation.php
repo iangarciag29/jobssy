@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations\Job;
 use App\Enum\JobState;
 use App\Models\Job;
 use App\Models\Logs;
-use Exception;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
@@ -19,8 +18,8 @@ class UpdateStateMutation extends Mutation
      * @var array[] Valid transaction dictionary.
      */
     private $allowedTransactions = [
-        "USER_CREATED" => [JobState::OFFERER_APPROVED, JobState::CANCELLED],
-        "OFFERER_CREATED" => [JobState::USER_APPROVED, JobState::CANCELLED],
+        "USER_CREATED" => [JobState::OFFERER_APPROVED, JobState::CANCELLED, JobState::OFFERER_CHANGES, JobState::USER_CHANGES, JobState::DENIED_BY_OFFERER],
+        "OFFERER_CREATED" => [JobState::USER_APPROVED, JobState::CANCELLED, JobState::USER_CHANGES, JobState::OFFERER_CHANGES, JobState::DENIED_BY_USER],
         "STARTED" => [JobState::WORKING, JobState::CANCELLED],
         "DENIED_BY_USER" => [],
         "DENIED_BY_OFFERER" => [],
@@ -76,14 +75,14 @@ class UpdateStateMutation extends Mutation
      * @param $root Mutation root object.
      * @param $args Mutation arguments.
      * @return Job
-     * @throws Exception
+     * @throws Error
      */
     public function resolve($root, $args): Job
     {
         $newState = $args['new_state'];
         $job = Job::findOrFail($args['id']);
-        if ($job->user->id != $args['author_id'] || $job->offerer->user->id != $args['author_id']) throw new Error("[!] This author ID does not match any job's participant.");
-        if (!$this->validateStateChange($job->state, $newState)) throw new Error('[!] The desired transaction cannot be made due logic restrictions.');
+        if ($job->user->id != $args['author_id'] && $job->offerer->user->id != $args['author_id']) throw new Error("This author ID does not match any job's participant.");
+        if (!$this->validateStateChange($job->state, $newState)) throw new Error('The desired transaction cannot be made due logic restrictions.');
         $newLog = new Logs();
         $newLog->id = uniqid("", true);
         $newLog->job_id = $job->id;

@@ -1,12 +1,14 @@
 import { EyeIcon, LocationMarkerIcon } from "@heroicons/react/outline";
 import { Tooltip } from "flowbite-react";
 
+type LatLngLiteral = google.maps.LatLngLiteral;
+
 const Filters = ({
   mapRef,
   currentLocation,
 }: {
   mapRef: any;
-  currentLocation: any;
+  currentLocation: LatLngLiteral;
 }): JSX.Element => {
   return (
     <div className="flex w-full flex-row justify-center space-x-10">
