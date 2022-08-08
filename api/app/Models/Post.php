@@ -13,11 +13,16 @@ class Post extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['user_id', 'title', 'slug', 'description', 'price', 'visible', 'currency'];
+    protected $fillable = ['user_id', 'category_id', 'title', 'slug', 'description', 'price', 'visible', 'currency'];
 
     public function bids(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Bid::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'category_id');
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

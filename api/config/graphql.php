@@ -173,7 +173,7 @@ return [
                 'createCategory' => CreateCategoryMutation::class,
                 'deleteCategory' => DeleteCategoryMutation::class,
                 # POST MODEL
-                'creatPost' => CreatePostMutation::class,
+                'createPost' => CreatePostMutation::class,
                 # OFFERER MODEL
                 'createOffererProfile' => CreateOffererProfileMutation::class,
                 # RATE MODEL

@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Post;
 use App\Models\Post;
 use App\Models\User;
 use Exception;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Illuminate\Support\Str;
@@ -38,7 +39,7 @@ class CreatePostMutation extends Mutation
         return [
             'user_id' => [
                 'name' => 'user_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'title' => [
                 'name' => 'title',
@@ -63,13 +64,14 @@ class CreatePostMutation extends Mutation
      * Mutation resolver.
      * @param * $root The object this resolve method belongs to.
      * @param array $args Mutation arguments.
-     * @throws Exception
+     * @throws Error
      */
     public function resolve($root, $args): Post
     {
         $user = User::find($args['user_id']);
-        if (!$user) throw new Exception('[!] A User ID is required.');
+        if (!$user) throw new Error('[!] A User ID is required.');
         $post = new Post();
+        $post->id = uniqid("", true);
         $post->fill($args);
         $post->user_id = $args['user_id'];
         $post->slug = Str::slug($args['title'], '-');
