@@ -3,6 +3,8 @@ import { useRef, useState } from "react";
 import CompleteProfileModal from "../components/Modals/CompleteProfileModal";
 import { AlertHandler } from "../utils/AlertHandler";
 
+import BackgroundImage from "../assets/img/landingsplash.jpg";
+
 const Landing = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>({});
@@ -52,8 +54,8 @@ const Landing = (): JSX.Element => {
     <section
       className="relative h-screen w-full bg-cover bg-center"
       style={{
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=2850&amp;q=80) center center no-repeat",
+        background: `url(${BackgroundImage}) center center no-repeat`,
+        backgroundSize: "cover",
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-jobssy-blue to-secondary opacity-90" />
