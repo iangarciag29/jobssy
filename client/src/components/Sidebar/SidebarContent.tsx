@@ -11,7 +11,7 @@ const SidebarContent = ({ auth }: any): JSX.Element => {
   return (
     <div className="py-4 text-gray-500">
       <div className="my-10 text-center">
-        <Link to="/app/" className="text-3xl font-bold text-primary">
+        <Link to="/app/" className="text-3xl font-bold text-white">
           Jobssy
         </Link>
       </div>
@@ -23,7 +23,7 @@ const SidebarContent = ({ auth }: any): JSX.Element => {
               <li className="relative px-6 py-3" key={idx}>
                 <NavLink
                   to={route.path}
-                  className="inline-flex w-full items-center text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                  className="inline-flex w-full items-center text-sm font-semibold text-gray-400 transition-colors duration-150 hover:text-gray-300"
                 >
                   <route.icon className="h-5 w-5" />
                   <span className="ml-4">{route.display}</span>
