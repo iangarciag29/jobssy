@@ -164,7 +164,7 @@ type Mutation {
   deleteCategory(id: ID!): Boolean
 
   """Creates a new post."""
-  creatPost(user_id: Int!, title: String!, description: String!, price: Float!, currency: String!): Post
+  createPost(user_id: ID!, title: String!, description: String!, price: Float!, currency: String!): Post
 
   """Creates a new offerer profile."""
   createOffererProfile(user_id: ID!, description: String!): Offerer
