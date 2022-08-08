@@ -1,6 +1,6 @@
 import { Label, Modal, Textarea, TextInput } from "flowbite-react";
-import React, { useId } from "react";
-import { useLazyLoadQuery } from "react-relay";
+import React, { useId, useRef } from "react";
+import { useLazyLoadQuery, useMutation } from "react-relay";
 // @ts-ignore
 import { graphql } from "babel-plugin-relay/macro";
 import {
@@ -9,19 +9,30 @@ import {
 } from "./__generated__/PostListingModalQuery.graphql";
 import Button from "../Generics/Button";
 import { BTN_SIZE } from "../../types";
+import { HandleGraphQLError } from "../../utils/ErrorHandler";
+import { connect } from "react-redux";
+import { mapStateToProps } from "../../utils";
 
 const PostListingModal = ({
   isOpen,
   setIsOpen,
+  auth,
 }: {
   isOpen: boolean | undefined;
   setIsOpen: (open: boolean) => void;
+  auth?: any;
 }): JSX.Element => {
   const titleId = useId();
   const descriptionId = useId();
   const categoryId = useId();
   const priceId = useId();
   const currencyId = useId();
+
+  const titleRef = useRef<any>();
+  const descriptionRef = useRef<any>();
+  const categoryRef = useRef<any>();
+  const priceRef = useRef<any>();
+  const currencyRef = useRef<any>();
 
   const data: PostListingModalQuery$data =
     useLazyLoadQuery<PostListingModalQuery>(
@@ -35,6 +46,42 @@ const PostListingModal = ({
       `,
       {},
     );
+
+  const [commitMutation] = useMutation(graphql`
+    mutation PostListingModalMutation(
+      $user_id: ID!
+      $title: String!
+      $description: String!
+      $price: Float!
+      $currency: String!
+    ) {
+      createPost(
+        user_id: $user_id
+        title: $title
+        description: $description
+        price: $price
+        currency: $currency
+      ) {
+        id
+      }
+    }
+  `);
+
+  const submitPost = (): void => {
+    commitMutation({
+      variables: {
+        user_id: auth.user.id,
+        title: titleRef.current.value,
+        description: descriptionRef.current.value,
+        price: priceRef.current.value,
+        currency: currencyRef.current.value,
+      },
+      onCompleted: (response, errors) => {
+        if (!HandleGraphQLError(errors)) return;
+        console.log(response);
+      },
+    });
+  };
 
   const { categories } = data;
 
@@ -55,7 +102,7 @@ const PostListingModal = ({
             <div className="mb-2 block">
               <Label htmlFor={titleId} value="Title" />
             </div>
-            <TextInput id={titleId} required={true} />
+            <TextInput id={titleId} required={true} ref={titleRef} />
           </div>
           <div>
             <div className="mb-2 block">
@@ -65,6 +112,7 @@ const PostListingModal = ({
               id={descriptionId}
               required={true}
               rows={5}
+              ref={descriptionRef}
               placeholder="Please provide a detailed description of the service you are requesting."
             />
           </div>
@@ -78,6 +126,7 @@ const PostListingModal = ({
               </label>
               <select
                 id={categoryId}
+                ref={categoryRef}
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               >
                 {categories?.map((category: any) => (
@@ -95,6 +144,7 @@ const PostListingModal = ({
                 <TextInput
                   step={0.1}
                   id={priceId}
+                  ref={priceRef}
                   required={true}
                   addon="$"
                   placeholder="0.00"
@@ -109,6 +159,7 @@ const PostListingModal = ({
                 <TextInput
                   id={currencyId}
                   type="text"
+                  ref={currencyRef}
                   maxLength={3}
                   minLength={3}
                   placeholder="USD"
@@ -118,7 +169,11 @@ const PostListingModal = ({
             </div>
           </div>
           <div className="flex w-full justify-end">
-            <Button size={BTN_SIZE.MEDIUM} text="Post" />
+            <Button
+              size={BTN_SIZE.MEDIUM}
+              text="Post"
+              onClick={() => submitPost()}
+            />
           </div>
         </div>
       </Modal.Body>
@@ -126,4 +181,4 @@ const PostListingModal = ({
   );
 };
 
-export default PostListingModal;
+export default connect(mapStateToProps, null)(PostListingModal);
