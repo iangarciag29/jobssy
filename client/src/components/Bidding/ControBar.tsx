@@ -1,6 +1,8 @@
 import { JOB_STATE } from "../../types";
-import DenyOfferBtn from "./DenyOffer";
-import ApproveButton from "./ApproveButton";
+import DenyOfferBtn from "./buttons/DenyOffer";
+import ApproveButton from "./buttons/ApproveButton";
+import WorkingButton from "./buttons/WorkingButton";
+import FinishJobButton from "./buttons/FinishJobButton";
 
 const ControBar = ({ job }: any): JSX.Element => {
   const state: JOB_STATE = JOB_STATE[job.state as keyof typeof JOB_STATE];
@@ -10,15 +12,16 @@ const ControBar = ({ job }: any): JSX.Element => {
     case JOB_STATE.DENIED_BY_OFFERER:
     case JOB_STATE.CANCELLED:
     case JOB_STATE.FINISHED:
-    case JOB_STATE.WORKING:
       return <></>;
     default:
       return (
         <div className="relative">
           <hr className="mt-10" />
           <div className="flex flex-row justify-around pt-5">
-            <DenyOfferBtn job={job} />
             <ApproveButton job={job} />
+            <WorkingButton job={job} />
+            <FinishJobButton job={job} />
+            <DenyOfferBtn job={job} />
           </div>
           <span className="jobssy-span absolute top-3 left-0">Control Bar</span>
         </div>
