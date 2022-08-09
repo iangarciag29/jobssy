@@ -1,5 +1,5 @@
 import { Label, Modal, Textarea, TextInput } from "flowbite-react";
-import React, { useId, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import { useLazyLoadQuery, useMutation } from "react-relay";
 // @ts-ignore
 import { graphql } from "babel-plugin-relay/macro";
@@ -12,6 +12,9 @@ import { BTN_SIZE } from "../../types";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../utils";
+import { AlertHandler } from "../../utils/AlertHandler";
+import { SweetAlertResult } from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const PostListingModal = ({
   isOpen,
@@ -34,6 +37,8 @@ const PostListingModal = ({
   const priceRef = useRef<any>();
   const currencyRef = useRef<any>();
 
+  const navigate = useNavigate();
+
   const data: PostListingModalQuery$data =
     useLazyLoadQuery<PostListingModalQuery>(
       graphql`
@@ -50,6 +55,7 @@ const PostListingModal = ({
   const [commitMutation] = useMutation(graphql`
     mutation PostListingModalMutation(
       $user_id: ID!
+      $category_id: ID!
       $title: String!
       $description: String!
       $price: Float!
@@ -57,6 +63,7 @@ const PostListingModal = ({
     ) {
       createPost(
         user_id: $user_id
+        category_id: $category_id
         title: $title
         description: $description
         price: $price
@@ -71,9 +78,10 @@ const PostListingModal = ({
     commitMutation({
       variables: {
         user_id: auth.user.id,
+        category_id: categoryRef.current.value,
         title: titleRef.current.value,
         description: descriptionRef.current.value,
-        price: priceRef.current.value,
+        price: parseFloat(priceRef.current.value),
         currency: currencyRef.current.value,
       },
       onCompleted: (response, errors) => {
@@ -84,6 +92,19 @@ const PostListingModal = ({
   };
 
   const { categories } = data;
+
+  useEffect(() => {
+    if (isOpen && categories && categories.length <= 0) {
+      AlertHandler.fire({
+        icon: "warning",
+        title: "Warning!",
+        text: "There are no categories available!",
+        confirmButtonColor: "#384E77",
+      }).then((_: SweetAlertResult) => {
+        navigate("/app/categories");
+      });
+    }
+  }, [categories, isOpen, navigate]);
 
   return (
     <Modal
