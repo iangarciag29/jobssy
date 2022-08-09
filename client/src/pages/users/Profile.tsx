@@ -19,10 +19,14 @@ import Button from "../../components/Generics/Button";
 import { BTN_SIZE } from "../../types";
 import { PencilIcon } from "@heroicons/react/solid";
 import { libraries } from "../../utils/GMapsLibraries";
+import UpdateAddressModal from "../../components/Modals/UpdateAddressModal";
+import { useState } from "react";
 
 const Profile = ({ auth }: any): JSX.Element => {
   const { id } = auth.user;
   const navigate: any = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
@@ -140,6 +144,7 @@ const Profile = ({ auth }: any): JSX.Element => {
                 size={BTN_SIZE.SMALL}
                 text={<PencilIcon className="h-4 w-4" />}
                 className="px-2"
+                onClick={() => setIsModalOpen(true)}
               />
             </div>
             {user.address && (
@@ -172,6 +177,10 @@ const Profile = ({ auth }: any): JSX.Element => {
           )}
         </div>
       </div>
+      <UpdateAddressModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </Page>
   );
 };
