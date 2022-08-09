@@ -27,6 +27,10 @@ class PostType extends GraphQLType
                 'type' => GraphQL::type('User'),
                 'description' => 'Author of the post.'
             ],
+            'category' => [
+                'type' => GraphQL::type('Category'),
+                'description' => 'Category of the post.'
+            ],
             'title' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Post title.'
