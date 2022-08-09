@@ -12,6 +12,8 @@ import { PlusIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import CreateCategoryModal from "../../components/Modals/CreateCategoryModal";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
+import { AlertHandler } from "../../utils/AlertHandler";
+import { SweetAlertResult } from "sweetalert2";
 
 const Categories = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -41,7 +43,14 @@ const Categories = (): JSX.Element => {
       },
       onCompleted: (response, errors) => {
         if (!HandleGraphQLError(errors)) return;
-        categories?.filter((category: any) => category.id !== id);
+        AlertHandler.fire({
+          icon: "success",
+          title: "Success!",
+          text: "The category was deleted!",
+          confirmButtonColor: "#384E77",
+        }).then((_: SweetAlertResult) => {
+          categories?.filter((category: any) => category.id !== id);
+        });
       },
     });
   };
