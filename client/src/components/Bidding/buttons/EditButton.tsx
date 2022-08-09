@@ -1,5 +1,5 @@
-import { BTN_SIZE, JOB_STATE } from "../../types";
-import Button from "../Generics/Button";
+import { BTN_SIZE, JOB_STATE } from "../../../types";
+import Button from "../../Generics/Button";
 
 const EditButton = ({
   setIsEditing,

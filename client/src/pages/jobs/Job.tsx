@@ -8,6 +8,8 @@ import {
   ArrowLeftIcon,
   ClockIcon,
   CurrencyDollarIcon,
+  GlobeIcon,
+  LocationMarkerIcon,
 } from "@heroicons/react/outline";
 import StateToBadge from "../../utils/StateToBadge";
 import { Spinner, Tooltip } from "flowbite-react";
@@ -23,7 +25,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import JobMap from "../../components/Maps/JobMap";
 import { libraries } from "../../utils/GMapsLibraries";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
-import EditButton from "../../components/Bidding/EditButton";
+import EditButton from "../../components/Bidding/buttons/EditButton";
 import ControBar from "../../components/Bidding/ControBar";
 
 const Job = ({ auth }: any): JSX.Element => {
@@ -63,6 +65,7 @@ const Job = ({ auth }: any): JSX.Element => {
             }
           }
           address {
+            name
             longitude
             latitude
           }
@@ -188,7 +191,7 @@ const Job = ({ auth }: any): JSX.Element => {
       }
     >
       <div className="mb-10 flex flex-col space-y-10">
-        <div className="relative rounded-xl bg-white px-10 pt-10 shadow">
+        <div className="relative rounded-xl bg-white px-10 pt-10 pb-5 shadow">
           <div className="flex flex-col lg:flex-row">
             <div className="flex w-full flex-col space-y-5 pr-0 lg:w-3/5 lg:pr-10">
               {isEditing && (
@@ -294,12 +297,23 @@ const Job = ({ auth }: any): JSX.Element => {
           </div>
           <div className="h-max w-full rounded-xl bg-white px-10 pt-5 pb-10 shadow lg:w-1/2">
             <h5 className="mb-5 font-semibold">Job location</h5>
+
             {!isLoaded || !job.address ? (
               <div className="grid h-96 items-center text-center">
                 <Spinner size="xl" />
               </div>
             ) : (
-              <JobMap address={job.address} />
+              <>
+                <div className="mb-5">
+                  <p className="inline-flex text-sm">
+                    <span>
+                      <LocationMarkerIcon className="mr-2 h-5 w-5" />
+                    </span>
+                    {job.address?.name}
+                  </p>
+                </div>
+                <JobMap address={job.address} />
+              </>
             )}
           </div>
         </div>

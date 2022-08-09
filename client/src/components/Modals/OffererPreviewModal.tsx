@@ -22,6 +22,9 @@ const OffererPreviewModal = ({
           <h3 className="font-bold">
             {offerer.user?.first_name} {offerer.user?.last_name}
           </h3>
+          <span className="text-xs text-gray-700">
+            {offerer.services?.length} service(s) listed.
+          </span>
           <p className="text-justify">{offerer.description}</p>
         </div>
       </Modal.Body>

@@ -1,4 +1,4 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef } from "react";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -27,15 +27,15 @@ const JobMap = ({ address }: any): JSX.Element => {
   );
 
   return (
-    <div className="h-96">
+    <div className="relative h-96">
       <GoogleMap
-        zoom={6}
+        zoom={12}
         center={center}
         mapContainerStyle={{ width: "100%", height: "100%" }}
         options={options}
         onLoad={onLoad}
       >
-        <Marker position={center} />
+        <MarkerF position={center} />
       </GoogleMap>
     </div>
   );

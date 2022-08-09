@@ -1,11 +1,11 @@
-import { BTN_SIZE, JOB_STATE } from "../../types";
-import Button from "../Generics/Button";
+import { BTN_SIZE, JOB_STATE } from "../../../types";
+import Button from "../../Generics/Button";
 import { useMutation } from "react-relay";
 // @ts-ignore
 import { graphql } from "babel-plugin-relay/macro";
 import { connect } from "react-redux";
-import { mapStateToProps } from "../../utils";
-import { HandleGraphQLError } from "../../utils/ErrorHandler";
+import { mapStateToProps } from "../../../utils";
+import { HandleGraphQLError } from "../../../utils/ErrorHandler";
 
 const DenyOfferBtn = ({ job, auth }: { job: any; auth?: any }): JSX.Element => {
   const state: JOB_STATE = JOB_STATE[job.state as keyof typeof JOB_STATE];
@@ -52,8 +52,11 @@ const DenyOfferBtn = ({ job, auth }: { job: any; auth?: any }): JSX.Element => {
     case JOB_STATE.PENDING_START:
     case JOB_STATE.WORKING:
     case JOB_STATE.USER_CHANGES:
+    case JOB_STATE.STARTED:
       return <></>;
     default:
+      if (job.state === JOB_STATE.USER_CREATED && auth.user.id === job.user.id)
+        return <></>;
       return (
         <Button
           text="Deny job"
