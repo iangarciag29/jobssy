@@ -18,7 +18,7 @@ class UpdateStateMutation extends Mutation
      * @var array[] Valid transaction dictionary.
      */
     private $allowedTransactions = [
-        "USER_CREATED" => [JobState::OFFERER_APPROVED, JobState::CANCELLED, JobState::OFFERER_CHANGES, JobState::USER_CHANGES, JobState::DENIED_BY_OFFERER],
+        "USER_CREATED" => [JobState::OFFERER_APPROVED, JobState::CANCELLED, JobState::OFFERER_CHANGES, JobState::USER_CHANGES, JobState::DENIED_BY_OFFERER, JobState::STARTED],
         "OFFERER_CREATED" => [JobState::USER_APPROVED, JobState::CANCELLED, JobState::USER_CHANGES, JobState::OFFERER_CHANGES, JobState::DENIED_BY_USER],
         "STARTED" => [JobState::WORKING, JobState::CANCELLED],
         "DENIED_BY_USER" => [],
