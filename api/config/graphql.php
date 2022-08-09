@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\GraphQL\Mutations\Address\CreateAddressMutation;
 use App\GraphQL\Mutations\Address\DeleteAddressMutation;
-use App\GraphQL\Mutations\Address\UpdateAddressMutation;
+use App\GraphQL\Mutations\User\UpdateAddressMutation;
 use App\GraphQL\Mutations\Bid\CreateBidMutation;
 use App\GraphQL\Mutations\Category\CreateCategoryMutation;
 use App\GraphQL\Mutations\Category\DeleteCategoryMutation;
