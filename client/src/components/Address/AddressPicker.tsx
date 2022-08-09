@@ -6,7 +6,7 @@ import usePlacesAutocomplete, {
 import React, { Fragment, useId } from "react";
 import { SelectorIcon } from "@heroicons/react/outline";
 
-const AddressPicker = ({ setAddress }: any): JSX.Element => {
+const AddressPicker = ({ setAddress }: { setAddress: any }): JSX.Element => {
   const {
     ready,
     value,
