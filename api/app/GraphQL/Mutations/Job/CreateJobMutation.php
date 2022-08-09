@@ -7,7 +7,6 @@ use App\Models\Address;
 use App\Models\Job;
 use App\Models\Offerer;
 use App\Models\User;
-use Exception;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
@@ -78,7 +77,7 @@ class CreateJobMutation extends Mutation
      * Mutation resolver.
      * @param * $root The object this resolve method belongs to.
      * @param array $args Mutation arguments.
-     * @throws Exception
+     * @throws Error
      */
     public function resolve($root, $args): Job
     {
@@ -88,6 +87,7 @@ class CreateJobMutation extends Mutation
         if (!$user) throw new Error('[!] A User ID is needed.');
         if (!$offerer) throw new Error('[!] An Offerer ID is needed.');
         if (!$address) throw new Error('[!] An Address ID is needed.');
+        //if ($user->id == $offerer->user->id) throw new Error('You cannot request your own services.');
         $job = new Job();
         $job->id = uniqid("", true);
         $job->fill($args);
