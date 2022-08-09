@@ -11,7 +11,7 @@ import {
 } from "./__generated__/ListingsQuery.graphql";
 import PostList from "../../components/Generics/Lists/PostList";
 import { PlusIcon } from "@heroicons/react/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostListingModal from "../../components/Modals/PostListingModal";
 
 const Listings = ({ auth }: any): JSX.Element => {
@@ -47,13 +47,6 @@ const Listings = ({ auth }: any): JSX.Element => {
     return <></>;
   }
 
-  if (posts?.length <= 0)
-    return (
-      <div>
-        <p>Sorry, but there are no listings right now.</p>
-      </div>
-    );
-
   return (
     <Page
       title={
@@ -71,7 +64,16 @@ const Listings = ({ auth }: any): JSX.Element => {
         </button>
       }
     >
-      <PostList posts={posts} />
+      {posts.length <= 0 ? (
+        <div className="grid w-full items-center p-20">
+          <p className="text-center text-gray-600">
+            Sorry, but there are no listings right now. <br /> Create a new one
+            with the top right button.
+          </p>
+        </div>
+      ) : (
+        <PostList posts={posts} />
+      )}
       <PostListingModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </Page>
   );
