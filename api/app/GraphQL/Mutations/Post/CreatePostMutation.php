@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Mutations\Post;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-use Exception;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
@@ -41,6 +41,10 @@ class CreatePostMutation extends Mutation
                 'name' => 'user_id',
                 'type' => Type::nonNull(Type::id()),
             ],
+            'category_id' => [
+                'name' => 'category_id',
+                'type' => Type::nonNull(Type::id()),
+            ],
             'title' => [
                 'name' => 'title',
                 'type' => Type::nonNull(Type::string()),
@@ -69,11 +73,14 @@ class CreatePostMutation extends Mutation
     public function resolve($root, $args): Post
     {
         $user = User::find($args['user_id']);
-        if (!$user) throw new Error('[!] A User ID is required.');
+        $category = Category::find($args['category_id']);
+        if (!$user) throw new Error('A User ID is required.');
+        if (!$category) throw new Error('A Category ID is required.');
         $post = new Post();
         $post->id = uniqid("", true);
         $post->fill($args);
         $post->user_id = $args['user_id'];
+        $post->category_id = $args['category_id'];
         $post->slug = Str::slug($args['title'], '-');
         $post->save();
         return $post;
