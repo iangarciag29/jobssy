@@ -33,9 +33,9 @@ class PostsQuery extends Query
     public function resolve($root, $args): \Illuminate\Database\Eloquent\Collection
     {
         if ($args['fetch_invisible']) {
-            return Post::all();
+            return Post::orderBy('created_at', 'desc')->get();
         } else {
-            return Post::where("visible", true)->get();
+            return Post::orderBy('created_at', 'desc')->where("visible", true)->get();
         }
     }
 
