@@ -85,7 +85,7 @@ const Profile = ({ auth }: any): JSX.Element => {
     >
       <div className="mb-10 flex flex-col space-y-10">
         <div className="rounded-xl bg-white p-10 shadow">
-          <div className="flex flex-row">
+          <div className="flex flex-col lg:flex-row">
             <div className="relative w-full text-center lg:w-1/4">
               <Avatar
                 img="https://randomuser.me/api/portraits/men/41.jpg"

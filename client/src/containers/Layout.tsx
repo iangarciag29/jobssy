@@ -21,7 +21,7 @@ const Layout = ({ auth }: any): JSX.Element => {
 
   useEffect(() => {
     closeSidebar();
-  }, [closeSidebar, location]);
+  }, [location]);
 
   useEffect(() => {
     if (!auth.isLoggedIn) navigate("/login");
