@@ -3,7 +3,8 @@ import { lazy } from "react";
 
 const Home = lazy(() => import("../pages/Home"));
 const Profile = lazy(() => import("../pages/users/Profile"));
-const Listings = lazy(() => import("../pages/users/Listings"));
+const Listings = lazy(() => import("../pages/Listings/Listings"));
+const Listing = lazy(() => import("../pages/Listings/Listing"));
 const Workers = lazy(() => import("../pages/offerers/OffererList"));
 const Worker = lazy(() => import("../pages/offerers/Worker"));
 const Jobs = lazy(() => import("../pages/jobs/index"));
@@ -25,6 +26,10 @@ const routes: iRoute[] = [
   {
     path: "/listings",
     component: Listings,
+  },
+  {
+    path: "/listings/:id",
+    component: Listing,
   },
   {
     path: "/workers",
