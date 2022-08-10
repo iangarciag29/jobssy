@@ -9,15 +9,21 @@ import AddressPicker from "../Address/AddressPicker";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../utils";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
+import { AlertHandler } from "../../utils/AlertHandler";
+import { SweetAlertResult } from "sweetalert2";
 
 const NewServiceForm = ({
   categories,
   auth,
   offerer,
+  setKey,
+  setIsModalOpen,
 }: {
   categories: any;
   auth?: any;
   offerer: any;
+  setKey: (key: (x: number) => number) => number;
+  setIsModalOpen: (open: boolean) => void;
 }): JSX.Element => {
   const titleId = useId();
   const categoryId = useId();
@@ -108,6 +114,20 @@ const NewServiceForm = ({
           onCompleted: (response, errors) => {
             if (!HandleGraphQLError(errors)) return;
             console.log(response);
+            AlertHandler.fire({
+              icon: "success",
+              title: "Created!",
+              text: "The new service has been posted!",
+              confirmButtonColor: "#384E77",
+            }).then((_: SweetAlertResult) => {
+              setKey((x: number) => x + 1);
+              setIsModalOpen(false);
+              titleRef.current.value = "";
+              categoryRef.current.value = "";
+              descriptionRef.current.value = "";
+              priceRef.current.value = "";
+              currencyRef.current.value = "";
+            });
           },
         });
       },
