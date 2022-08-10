@@ -29,4 +29,8 @@
     @apply text-sm font-semibold uppercase text-jobssy-green;
 }
 
+.jobssy-bubble {
+    @apply rounded-xl shadow bg-white;
+}
+
 @tailwind utilities;
