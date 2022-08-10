@@ -175,6 +175,9 @@ type Mutation {
   """Creates a new service."""
   createService(offerer_id: ID!, address_id: ID!, category_id: ID!, title: String!, description: String!, price: Float!, currency: String): Service
 
+  """Deletes a service."""
+  deleteService(id: ID!): Boolean
+
   """Creates a new job."""
   createJob(user_id: ID!, offerer_id: ID!, address_id: ID!, title: String!, description: String!, price: Float!, currency: String!, started_by_offerer: Boolean!): Job
 

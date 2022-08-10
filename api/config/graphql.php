@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\GraphQL\Mutations\Address\CreateAddressMutation;
 use App\GraphQL\Mutations\Address\DeleteAddressMutation;
-use App\GraphQL\Mutations\User\UpdateAddressMutation;
 use App\GraphQL\Mutations\Bid\CreateBidMutation;
 use App\GraphQL\Mutations\Category\CreateCategoryMutation;
 use App\GraphQL\Mutations\Category\DeleteCategoryMutation;
@@ -16,6 +15,8 @@ use App\GraphQL\Mutations\Offerer\CreateOffererProfileMutation;
 use App\GraphQL\Mutations\Post\CreatePostMutation;
 use App\GraphQL\Mutations\Rate\CreateRateMutation;
 use App\GraphQL\Mutations\Service\CreateServiceMutation;
+use App\GraphQL\Mutations\Service\DeleteServiceMutation;
+use App\GraphQL\Mutations\User\UpdateAddressMutation;
 use App\GraphQL\Queries\Address\AddressesQuery;
 use App\GraphQL\Queries\Address\AddressQuery;
 use App\GraphQL\Queries\Bid\BidQuery;
@@ -180,6 +181,7 @@ return [
                 'createRate' => CreateRateMutation::class,
                 # SERVICE MODEL
                 'createService' => CreateServiceMutation::class,
+                'deleteService' => DeleteServiceMutation::class,
                 # JOB MODEL
                 'createJob' => CreateJobMutation::class,
                 'updateState' => UpdateStateMutation::class,
