@@ -8,7 +8,7 @@ import { graphql } from "babel-plugin-relay/macro";
 import {
   ListingsQuery,
   ListingsQuery$data,
-} from "./__generated__/ListingsQuery.graphql";
+} from "../users/__generated__/ListingsQuery.graphql";
 import PostList from "../../components/Generics/Lists/PostList";
 import { PlusIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
