@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { GoogleMap, MarkerClusterer, MarkerF } from "@react-google-maps/api";
 import HouseMapIcon from "../../assets/img/HomeMapIcon.png";
 
@@ -12,6 +12,7 @@ const WorkersMap = ({
   mapRef,
   bounds,
   setBounds,
+  zoom,
 }: {
   addresses: any;
   selectOfferer: any;
@@ -19,6 +20,7 @@ const WorkersMap = ({
   mapRef: any;
   bounds: any;
   setBounds: any;
+  zoom: number;
 }): JSX.Element => {
   const onLoad = useCallback((map: any) => {
     mapRef.current = map;
@@ -37,6 +39,12 @@ const WorkersMap = ({
   );
 
   const center = useMemo<LatLngLiteral>(() => currentLocation, []);
+
+  useEffect(() => {
+    if (mapRef.current !== null) {
+      mapRef.current.setZoom(zoom);
+    }
+  }, [zoom]);
 
   return (
     <GoogleMap

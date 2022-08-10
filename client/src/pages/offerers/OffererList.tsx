@@ -53,6 +53,7 @@ const OffererList = (): JSX.Element => {
             }
           }
           services {
+            id
             category {
               id
               name
@@ -67,6 +68,7 @@ const OffererList = (): JSX.Element => {
     {},
   );
 
+  const [zoom, setZoom] = useState<number>(13);
   const [latitude, setLatitude] = useState<any>(null);
   const [longitude, setLongitude] = useState<any>(null);
 
@@ -114,6 +116,8 @@ const OffererList = (): JSX.Element => {
           <div className="absolute top-0 right-0 left-0 z-10 grid min-h-[5vh] items-center bg-gray-50">
             <Filters
               mapRef={mapRef}
+              zoom={zoom}
+              setZoom={setZoom}
               currentLocation={{ lat: latitude, lng: longitude }}
             />
           </div>
@@ -125,6 +129,7 @@ const OffererList = (): JSX.Element => {
             bounds={bounds}
             setBounds={setBounds}
             mapRef={mapRef}
+            zoom={zoom}
             selectOfferer={selectOfferer}
             currentLocation={{ lat: latitude, lng: longitude }}
           />
