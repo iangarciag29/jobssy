@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay";
 // @ts-ignore
 import { graphql } from "babel-plugin-relay/macro";
+import PostList from "../../components/Generics/Lists/PostList";
+import { PlusIcon } from "@heroicons/react/outline";
+import { useState } from "react";
+import PostListingModal from "../../components/Modals/PostListingModal";
 import {
   ListingsQuery,
   ListingsQuery$data,
-} from "../users/__generated__/ListingsQuery.graphql";
-import PostList from "../../components/Generics/Lists/PostList";
-import { PlusIcon } from "@heroicons/react/outline";
-import { useEffect, useState } from "react";
-import PostListingModal from "../../components/Modals/PostListingModal";
+} from "./__generated__/ListingsQuery.graphql";
 
 const Listings = ({ auth }: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
