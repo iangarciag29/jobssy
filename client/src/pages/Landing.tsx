@@ -46,13 +46,14 @@ const Landing = (): JSX.Element => {
         });
       }
       return;
+    } else {
+      setIsOpen(true);
     }
-    setIsOpen(true);
   };
 
   return (
     <section
-      className="relative h-screen w-full bg-cover bg-center"
+      className="relative h-full min-h-screen w-full bg-cover bg-center"
       style={{
         background: `url(${BackgroundImage}) center center no-repeat`,
         backgroundSize: "cover",

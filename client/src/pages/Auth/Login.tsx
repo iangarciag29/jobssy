@@ -15,7 +15,7 @@ const Login = ({ auth }: any): JSX.Element => {
 
   return (
     <div className="flex h-screen w-full flex-col md:flex-row">
-      <div className="flex w-full flex-col justify-around text-center md:w-1/2">
+      <div className="mt-20 flex w-full flex-col justify-around text-center md:w-1/2 lg:mt-0">
         <div>
           <h1 className="text-3xl font-black text-primary">
             <Link to="/">Jobssy</Link> | Login

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AlertHandler } from "../../utils/AlertHandler";
 
 const AUTH_ACTION_TYPE = {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
@@ -35,6 +36,12 @@ const LoginAuthAction = (
         })
         .catch((error) => {
           console.error(error);
+          AlertHandler.fire({
+            icon: "error",
+            title: "Error",
+            text: error.response.data.message,
+            confirmButtonColor: "#384E77",
+          });
           if (error.response.data.error) {
             dispatch({
               type: AUTH_ACTION_TYPE.LOGIN_FAIL,
