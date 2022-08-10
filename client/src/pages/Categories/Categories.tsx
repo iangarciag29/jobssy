@@ -32,7 +32,7 @@ const Categories = (): JSX.Element => {
     { fetchKey: counter, fetchPolicy: "network-only" },
   );
 
-  const [commitMutation, _] = useMutation(graphql`
+  const [commitMutation] = useMutation(graphql`
     mutation CategoriesDeletionMutation($id: ID!) {
       deleteCategory(id: $id)
     }

@@ -84,9 +84,17 @@ const PostListingModal = ({
         price: parseFloat(priceRef.current.value),
         currency: currencyRef.current.value,
       },
-      onCompleted: (response, errors) => {
+      onCompleted: (response: any, errors) => {
         if (!HandleGraphQLError(errors)) return;
-        console.log(response);
+        const { createPost } = response;
+        AlertHandler.fire({
+          icon: "success",
+          title: "Created!",
+          text: "Your post have been created.",
+          confirmButtonColor: "#384E77",
+        }).then((_) => {
+          navigate(`/app/listings/${createPost.id}`);
+        });
       },
     });
   };
