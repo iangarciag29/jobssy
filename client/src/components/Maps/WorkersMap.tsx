@@ -22,6 +22,20 @@ const WorkersMap = ({
   setBounds: any;
   zoom: number;
 }): JSX.Element => {
+  const onBoundsChange = useCallback(() => {
+    if (mapRef.current === null) return;
+    setBounds({
+      ne: {
+        lat: mapRef.current.getBounds().getNorthEast().lat(),
+        lng: mapRef.current.getBounds().getNorthEast().lng(),
+      },
+      sw: {
+        lat: mapRef.current.getBounds().getSouthWest().lat(),
+        lng: mapRef.current.getBounds().getSouthWest().lng(),
+      },
+    });
+  }, [setBounds]);
+
   const onLoad = useCallback((map: any) => {
     mapRef.current = map;
   }, []);
@@ -53,18 +67,8 @@ const WorkersMap = ({
       mapContainerStyle={{ width: "100%", height: "100%" }}
       onLoad={onLoad}
       options={options}
-      onBoundsChanged={() =>
-        setBounds({
-          ne: {
-            lat: mapRef.current.getBounds().getNorthEast().lat(),
-            lng: mapRef.current.getBounds().getNorthEast().lng(),
-          },
-          sw: {
-            lat: mapRef.current.getBounds().getSouthWest().lat(),
-            lng: mapRef.current.getBounds().getSouthWest().lng(),
-          },
-        })
-      }
+      onDragEnd={onBoundsChange}
+      onZoomChanged={onBoundsChange}
     >
       <MarkerF
         position={currentLocation}
