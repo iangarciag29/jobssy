@@ -17,6 +17,7 @@ import { SweetAlertResult } from "sweetalert2";
 
 const Categories = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [counter, setCounter] = useState(0);
 
   const data: CategoriesQuery$data = useLazyLoadQuery<CategoriesQuery>(
     graphql`
@@ -28,6 +29,7 @@ const Categories = (): JSX.Element => {
       }
     `,
     {},
+    { fetchKey: counter, fetchPolicy: "network-only" },
   );
 
   const [commitMutation, _] = useMutation(graphql`
@@ -49,7 +51,7 @@ const Categories = (): JSX.Element => {
           text: "The category was deleted!",
           confirmButtonColor: "#384E77",
         }).then((_: SweetAlertResult) => {
-          categories?.filter((category: any) => category.id !== id);
+          setCounter((x) => x + 1);
         });
       },
     });
@@ -114,6 +116,7 @@ const Categories = (): JSX.Element => {
       <CreateCategoryModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
+        setCounter={setCounter}
       />
     </Page>
   );

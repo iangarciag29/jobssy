@@ -7,7 +7,7 @@ import { graphql } from "babel-plugin-relay/macro";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
 import { Spinner } from "flowbite-react";
 
-const NewCategoryForm = (): JSX.Element => {
+const NewCategoryForm = ({ setCounter, setIsModalOpen }: any): JSX.Element => {
   const nameId = useId();
   const nameRef = useRef<HTMLInputElement | null>(null);
 
@@ -30,6 +30,8 @@ const NewCategoryForm = (): JSX.Element => {
       onCompleted: (response, errors) => {
         if (!HandleGraphQLError(errors)) return;
         console.log(response);
+        setCounter((x: number) => x + 1);
+        setIsModalOpen(false);
       },
       onError: (error: Error) => {
         console.error(error);
