@@ -1,4 +1,4 @@
-import { useLazyLoadQuery } from "react-relay";
+import { useLazyLoadQuery, useMutation } from "react-relay";
 // @ts-ignore
 import { graphql } from "babel-plugin-relay/macro";
 import {
@@ -7,11 +7,13 @@ import {
 } from "./__generated__/OffererInfoQuery.graphql";
 import Button from "../../components/Generics/Button";
 import { BTN_SIZE } from "../../types";
-import { PlusIcon } from "@heroicons/react/outline";
+import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/outline";
 import CreateNewServiceModal from "../../components/Modals/CreateNewServiceModal";
 import { useState } from "react";
 import { Badge } from "flowbite-react";
-import RequestJobModal from "../../components/Modals/RequestJobModal";
+import { HandleGraphQLError } from "../../utils/ErrorHandler";
+import { AlertHandler } from "../../utils/AlertHandler";
+import { SweetAlertResult } from "sweetalert2";
 
 const OffererInfo = ({ user }: any) => {
   const { id } = user;
@@ -64,14 +66,40 @@ const OffererInfo = ({ user }: any) => {
     { id },
   );
 
-  const offerer = data.offererByUser;
+  const [commitServiceDeletionMutation] = useMutation(graphql`
+    mutation OffererInfoDeleteServiceMutation($id: ID!) {
+      deleteService(id: $id)
+    }
+  `);
 
-  if (!offerer)
+  const deleteService = (id: string): void => {
+    commitServiceDeletionMutation({
+      variables: {
+        id,
+      },
+      onCompleted: (response: any, errors) => {
+        if (!HandleGraphQLError(errors)) return;
+        const { deleteService } = response;
+        if (deleteService) {
+          AlertHandler.fire({
+            icon: "success",
+            title: "Deleted",
+            text: "The service has been deleted successfully",
+            confirmButtonColor: "#384E77",
+          });
+        }
+      },
+    });
+  };
+
+  const offerer = data.offererByUser;
+  if (!offerer) {
     return (
       <div>
         <p>Couldn't find worker profile details.</p>
       </div>
     );
+  }
 
   return (
     <div className="w-full pt-10 pb-5">
@@ -86,9 +114,11 @@ const OffererInfo = ({ user }: any) => {
           <span className="jobssy-span">Services</span>
           {offerer.services &&
             offerer.services.length > 0 &&
-            offerer.services.map((service: any) => (
+            offerer.services.map((service: any, index: number) => (
               <div
-                className="flex flex-row justify-between space-x-5 text-sm"
+                className={`flex flex-row justify-between space-x-5 p-5 text-sm ${
+                  index % 2 === 0 ? "bg-gray-100" : ""
+                }`}
                 key={service.id}
               >
                 <div className="mr-10 space-y-5">
@@ -105,6 +135,19 @@ const OffererInfo = ({ user }: any) => {
                     <span className="text-xl font-black">${service.price}</span>{" "}
                     <span className="font-semibold">{service.currency}</span>
                   </div>
+                </div>
+                <div className="grid grid-cols-1 items-center gap-y-2">
+                  <Button
+                    text={<PencilIcon className="h-5 w-5" />}
+                    className="bg-yellow-400 text-yellow-50"
+                    size={BTN_SIZE.SMALL}
+                  />
+                  <Button
+                    text={<TrashIcon className="h-5 w-5" />}
+                    className="bg-red-700 text-red-50"
+                    size={BTN_SIZE.SMALL}
+                    onClick={() => deleteService(service.id)}
+                  />
                 </div>
               </div>
             ))}
