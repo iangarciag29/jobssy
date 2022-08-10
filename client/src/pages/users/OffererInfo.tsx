@@ -20,6 +20,8 @@ const OffererInfo = ({ user }: any) => {
   const [newServiceModalOpen, setNewServiceModalOpen] =
     useState<boolean>(false);
 
+  const [key, setKey] = useState<number>(0);
+
   const data: OffererInfoQuery$data = useLazyLoadQuery<OffererInfoQuery>(
     graphql`
       query OffererInfoQuery($id: ID!) {
@@ -64,6 +66,7 @@ const OffererInfo = ({ user }: any) => {
       }
     `,
     { id },
+    { fetchKey: key, fetchPolicy: "network-only" },
   );
 
   const [commitServiceDeletionMutation] = useMutation(graphql`
@@ -86,6 +89,8 @@ const OffererInfo = ({ user }: any) => {
             title: "Deleted",
             text: "The service has been deleted successfully",
             confirmButtonColor: "#384E77",
+          }).then((_: SweetAlertResult) => {
+            setKey((x: number) => x + 1);
           });
         }
       },
@@ -168,6 +173,7 @@ const OffererInfo = ({ user }: any) => {
           offerer={offerer}
           isModalOpen={newServiceModalOpen}
           setIsModalOpen={setNewServiceModalOpen}
+          setKey={setKey}
         />
       </div>
       <div></div>
