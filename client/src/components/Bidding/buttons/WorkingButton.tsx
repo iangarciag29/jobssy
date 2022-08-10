@@ -24,6 +24,13 @@ const WorkingButton = ({
     ) {
       updateState(id: $id, new_state: $new_state, author_id: $author_id) {
         id
+        state
+        logs {
+          id
+          state_from
+          state_to
+          created_at
+        }
       }
     }
   `);

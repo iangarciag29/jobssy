@@ -18,6 +18,13 @@ const DenyOfferBtn = ({ job, auth }: { job: any; auth?: any }): JSX.Element => {
     ) {
       updateState(id: $id, new_state: $new_state, author_id: $author_id) {
         id
+        state
+        logs {
+          id
+          state_from
+          state_to
+          created_at
+        }
       }
     }
   `);
