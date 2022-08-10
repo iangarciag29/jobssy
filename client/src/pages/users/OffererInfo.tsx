@@ -135,11 +135,9 @@ const OffererInfo = ({ user }: any) => {
                   </div>
                   <p className="text-justify">{service.description}</p>
                 </div>
-                <div className="grid flex-1 flex-col items-center">
-                  <div className="flex flex-col text-center text-jobssy-blue">
-                    <span className="text-xl font-black">${service.price}</span>{" "}
-                    <span className="font-semibold">{service.currency}</span>
-                  </div>
+                <div className="flex flex-col text-center text-jobssy-blue">
+                  <span className="text-xl font-black">${service.price}</span>{" "}
+                  <span className="font-semibold">{service.currency}</span>
                 </div>
                 <div className="grid grid-cols-1 items-center gap-y-2">
                   <Button

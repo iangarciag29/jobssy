@@ -33,7 +33,7 @@ const OffererPreviewModal = ({
           <Button
             text="View more"
             size={BTN_SIZE.SMALL}
-            onClick={() => navigate(`/app/workers/${offerer.id}}`)}
+            onClick={() => navigate(`/app/workers/${offerer.id}`)}
           />
         </div>
       </Modal.Footer>

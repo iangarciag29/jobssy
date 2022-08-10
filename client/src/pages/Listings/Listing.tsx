@@ -117,7 +117,7 @@ const Listing = ({ auth }: { auth?: any }): JSX.Element => {
             <h4 className="text-center text-xl font-semibold">
               Bids for this job
             </h4>
-            {auth.user.id === post.user?.id && (
+            {auth.user.id !== post.user?.id && (
               <div className="mt-5 w-full text-center">
                 <Button
                   text={
