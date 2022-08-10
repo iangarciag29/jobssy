@@ -2,7 +2,7 @@ import { Avatar, Tooltip } from "flowbite-react";
 import * as timeago from "timeago.js";
 import { AtSymbolIcon, ClockIcon, PhoneIcon } from "@heroicons/react/outline";
 
-const BasicProfile = ({ profile }: any): JSX.Element => {
+const BasicProfile = ({ profile }: { profile: any }): JSX.Element => {
   return (
     <div className="relative flex flex-col justify-start space-x-0 space-y-10 space-y-0 lg:flex-row lg:space-x-10">
       <div className="">
