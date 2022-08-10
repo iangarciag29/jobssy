@@ -54,7 +54,7 @@ const FinishJobButton = ({
 
   if (!state) return <></>;
 
-  if (auth.user.id !== job.offerer.user.id) return <>ø</>;
+  if (auth.user.id !== job.offerer.user.id) return <></>;
 
   switch (state) {
     case JOB_STATE.WORKING:

@@ -101,7 +101,7 @@ const ApproveButton = ({
           }
           size={BTN_SIZE.SMALL}
           onClick={handleSubmit}
-          className="mb-5 bg-green-600 text-green-50 text-jobssy-blue shadow-none hover:underline"
+          className="mb-5 bg-green-600 text-green-50 shadow-none hover:underline"
         />
       );
     default:

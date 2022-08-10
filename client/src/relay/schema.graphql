@@ -160,7 +160,7 @@ type Mutation {
   """Creates a new category."""
   createCategory(name: String!): Category
 
-  """Deletes a categoryø."""
+  """Deletes a category."""
   deleteCategory(id: ID!): Boolean
 
   """Creates a new post."""
