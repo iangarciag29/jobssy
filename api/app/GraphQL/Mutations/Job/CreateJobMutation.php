@@ -81,19 +81,27 @@ class CreateJobMutation extends Mutation
      */
     public function resolve($root, $args): Job
     {
-        $user = User::findOrFail($args['user_id']);
-        $offerer = Offerer::findOrFail($args['offerer_id']);
-        $address = Address::findOrFail($args['address_id']);
-        if (!$user) throw new Error('[!] A User ID is needed.');
-        if (!$offerer) throw new Error('[!] An Offerer ID is needed.');
-        if (!$address) throw new Error('[!] An Address ID is needed.');
+        $offerer_id = "";
+        $user = User::find($args['user_id']);
+        $offerer = Offerer::find($args['offerer_id']);
+        $address = Address::find($args['address_id']);
+        if (!$user) throw new Error('A User is needed.');
+        if (!$offerer) {
+            $possible_offerer = User::find($args['offerer_id']);
+            if ($possible_offerer && $possible_offerer->is_offerer) {
+                $offerer_id = $possible_offerer->offerer->id;
+            } else {
+                throw new Error('An Offerer is needed.');
+            }
+        };
+        if (!$address) throw new Error('An Address is needed.');
         //if ($user->id == $offerer->user->id) throw new Error('You cannot request your own services.');
         $job = new Job();
         $job->id = uniqid("", true);
         $job->fill($args);
         $job->rate_id = null;
-        $job->user_id = $args['user_id'];
-        $job->offerer_id = $args['offerer_id'];
+        $job->user_id = $user->id;
+        $job->offerer_id = ($offerer_id == "" ? $offerer->id : $offerer_id);
         if ($args['started_by_offerer']) {
             $job->state = JobState::OFFERER_CREATED;
         } else {
