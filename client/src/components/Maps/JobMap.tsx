@@ -1,5 +1,6 @@
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef } from "react";
+import ToolsIcon from "../../assets/img/ToolsIcon.png";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -12,6 +13,7 @@ const JobMap = ({ address }: any): JSX.Element => {
       mapId: "ad6644a2d5ec6ecb",
       disableDefaultUI: true,
       clickableIcons: false,
+      draggable: false,
     }),
     [],
   );
@@ -35,7 +37,15 @@ const JobMap = ({ address }: any): JSX.Element => {
         options={options}
         onLoad={onLoad}
       >
-        <MarkerF position={center} />
+        <MarkerF
+          position={center}
+          icon={{
+            url: ToolsIcon,
+            scaledSize: new window.google.maps.Size(30, 30),
+            origin: new window.google.maps.Point(0, 0),
+            anchor: new window.google.maps.Point(15, 15),
+          }}
+        />
       </GoogleMap>
     </div>
   );
