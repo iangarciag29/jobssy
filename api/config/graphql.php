@@ -13,6 +13,7 @@ use App\GraphQL\Mutations\Job\UpdateStateMutation;
 use App\GraphQL\Mutations\Log\CreateLogMutation;
 use App\GraphQL\Mutations\Offerer\CreateOffererProfileMutation;
 use App\GraphQL\Mutations\Post\CreatePostMutation;
+use App\GraphQL\Mutations\Post\TogglePostVisibilityMutation;
 use App\GraphQL\Mutations\Rate\CreateRateMutation;
 use App\GraphQL\Mutations\Service\CreateServiceMutation;
 use App\GraphQL\Mutations\Service\DeleteServiceMutation;
@@ -27,6 +28,7 @@ use App\GraphQL\Queries\Job\JobQuery;
 use App\GraphQL\Queries\Job\JobsByEntityQuery;
 use App\GraphQL\Queries\Job\JobsQuery;
 use App\GraphQL\Queries\Log\LogsQuery;
+use App\GraphQL\Queries\Offerer\FilteredOfferersQuery;
 use App\GraphQL\Queries\Offerer\OffererByUserQuery;
 use App\GraphQL\Queries\Offerer\OffererQuery;
 use App\GraphQL\Queries\Offerer\OfferersQuery;
@@ -142,6 +144,7 @@ return [
                 'offerer' => OffererQuery::class,
                 'offererByUser' => OffererByUserQuery::class,
                 'offerers' => OfferersQuery::class,
+                'filteredOfferers' => FilteredOfferersQuery::class,
                 # BID MODEL
                 'bid' => BidQuery::class,
                 'bids' => BidsQuery::class,
@@ -178,6 +181,7 @@ return [
                 'deleteCategory' => DeleteCategoryMutation::class,
                 # POST MODEL
                 'createPost' => CreatePostMutation::class,
+                'togglePostVisibility' => TogglePostVisibilityMutation::class,
                 # OFFERER MODEL
                 'createOffererProfile' => CreateOffererProfileMutation::class,
                 # RATE MODEL
