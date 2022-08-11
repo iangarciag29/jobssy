@@ -1,5 +1,4 @@
-import SearchIcon from "@heroicons/react/outline/SearchIcon";
-import { Avatar, Dropdown, TextInput } from "flowbite-react";
+import { Avatar, Dropdown } from "flowbite-react";
 import { MenuIcon } from "@heroicons/react/outline";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -22,14 +21,7 @@ const TopBar = ({ auth, logout }: any) => {
         >
           <MenuIcon className="h-6 w-6" aria-hidden="true" />
         </button>
-        <div className="flex flex-1 justify-center lg:mr-32">
-          <div className="relative mr-6 w-full max-w-xl focus-within:text-jobssy-blue">
-            <div className="absolute inset-y-0 flex items-center pl-2">
-              <SearchIcon className="h-4 w-4" aria-hidden="true" />
-            </div>
-            <TextInput placeholder="Search for jobs" aria-label="Search" />
-          </div>
-        </div>
+        <div className="flex flex-1 justify-center lg:mr-32"></div>
         <ul className="flex flex-shrink-0 items-center space-x-6">
           <li className="relative">
             <Dropdown
@@ -49,9 +41,15 @@ const TopBar = ({ auth, logout }: any) => {
               arrowIcon={false}
               inline={true}
             >
-              <Dropdown.Item>Profile</Dropdown.Item>
-              <Dropdown.Item>Blog Posts</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate("/app/profile")}>
+                Profile
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate("/app/listings")}>
+                Listings
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate("/app/jobs")}>
+                My jobs
+              </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={() => logout(navigate)}>
                 Sign out
