@@ -44,7 +44,6 @@ const FinishJobButton = ({
       },
       onCompleted: (response, errors) => {
         if (!HandleGraphQLError(errors)) return;
-        console.log(response);
       },
       onError: (error: Error) => {
         console.error(error);

@@ -52,6 +52,9 @@ const Job = ({ auth }: any): JSX.Element => {
           id
           title
           description
+          rate {
+            id
+          }
           offerer {
             id
             user {
@@ -161,7 +164,6 @@ const Job = ({ auth }: any): JSX.Element => {
           },
           onCompleted: (response, errors) => {
             if (!HandleGraphQLError(errors)) return;
-            console.log(response);
           },
           onError: (error: Error) => {
             console.error(error);

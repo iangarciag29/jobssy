@@ -29,6 +29,7 @@ const SidebarRoutes: iSidebarRoute[] = [
     display: "Workers",
     enabled: true,
     icon: UserGroupIcon,
+    className: "hidden lg:block",
   },
   {
     path: "/app/profile",
