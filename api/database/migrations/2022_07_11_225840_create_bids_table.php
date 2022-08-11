@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
             $table->foreign('offerer_id')->references('id')->on('offerers')->cascadeOnDelete();
             $table->float('amount');
-            $table->string('currency');
+            $table->string('currency')->default("USD");
             $table->timestamps();
         });
     }
