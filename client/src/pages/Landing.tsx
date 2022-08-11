@@ -16,6 +16,7 @@ const Landing = (): JSX.Element => {
   const passwordConfirmationRef = useRef<any>();
 
   const registerUser = (): void => {
+    let errors = false;
     setData({
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
@@ -30,25 +31,33 @@ const Landing = (): JSX.Element => {
       data.password === "" ||
       data.password_confirmation === ""
     ) {
-      if (data.password !== data.password_confirmation) {
-        AlertHandler.fire({
-          icon: "error",
-          title: "Oh!",
-          text: "The passwords does not match.",
-          confirmButtonColor: "#384E77",
-        });
-      } else {
-        AlertHandler.fire({
-          icon: "error",
-          title: "Oh!",
-          text: "Please fill out all the required fields.",
-          confirmButtonColor: "#384E77",
-        });
-      }
-      return;
-    } else {
-      setIsOpen(true);
+      AlertHandler.fire({
+        icon: "error",
+        title: "Oh!",
+        text: "Please fill out all the required fields.",
+        confirmButtonColor: "#384E77",
+      });
+      errors = true;
     }
+    if (data.password !== data.password_confirmation) {
+      AlertHandler.fire({
+        icon: "error",
+        title: "Oh!",
+        text: "The passwords does not match.",
+        confirmButtonColor: "#384E77",
+      });
+      errors = true;
+    }
+    if (data.password.length < 8) {
+      AlertHandler.fire({
+        icon: "error",
+        title: "Oh!",
+        text: "The passwords must be greater than 8 characters.",
+        confirmButtonColor: "#384E77",
+      });
+      errors = true;
+    }
+    setIsOpen(!errors);
   };
 
   return (
