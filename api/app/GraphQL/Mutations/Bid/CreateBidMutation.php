@@ -2,12 +2,11 @@
 
 namespace App\GraphQL\Mutations\Bid;
 
-use App\Models\Address;
 use App\Models\Bid;
-use App\Models\Offerer;
 use App\Models\Post;
 use App\Models\User;
 use Exception;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -40,11 +39,11 @@ class CreateBidMutation extends Mutation
         return [
             'offerer_id' => [
                 'name' => 'offerer_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'post_id' => [
                 'name' => 'post_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'amount' => [
                 'name' => 'amount',
@@ -65,13 +64,14 @@ class CreateBidMutation extends Mutation
      */
     public function resolve($root, $args): Bid
     {
-        $offerer = Offerer::find($args['offerer_id']);
+        $user = User::find($args['offerer_id']);
         $post = Post::find($args['post_id']);
-        if (!$offerer) throw new Exception("[!] An Offerer ID is required.");
-        if (!$post) throw new Exception("[!] A Post ID is required.");
+        if (!$user || !$user->is_offerer) throw new Error("An Offerer is required.");
+        if (!$post) throw new Error("A Post ID required.");
         $bid = new Bid();
+        $bid->id = uniqid("", true);
         $bid->fill($args);
-        $bid->offerer_id = $args['offerer_id'];
+        $bid->offerer_id = $user->offerer->id;
         $bid->post_id = $args['post_id'];
         $bid->save();
         return $bid;
