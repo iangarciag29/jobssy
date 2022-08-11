@@ -6,6 +6,7 @@ use App\Models\Job;
 use App\Models\Offerer;
 use App\Models\Rate;
 use Exception;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -38,11 +39,11 @@ class CreateRateMutation extends Mutation
         return [
             'offerer_id' => [
                 'name' => 'offerer_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'job_id' => [
                 'name' => 'job_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::id()),
             ],
             'value' => [
                 'name' => 'value',
@@ -51,6 +52,10 @@ class CreateRateMutation extends Mutation
             'comment' => [
                 'name' => 'comment',
                 'type' => Type::nonNull(Type::string()),
+            ],
+            'anonymous' => [
+                'name' => 'anonymous',
+                'type' => Type::nonNull(Type::boolean()),
             ]
         ];
     }
@@ -63,14 +68,22 @@ class CreateRateMutation extends Mutation
      */
     public function resolve($root, array $args): Rate
     {
-        if (!$this->validateValue($args['value'])) throw new Exception('[!] The rate value must be between 1-5.');
+        if (!$this->validateValue($args['value'])) throw new Error('The rate value must be between 1-5.');
         $offerer = Offerer::find($args['offerer_id']);
-        if (!$offerer) throw new Exception('[!] An Offerer ID is required.');
+        if (!$offerer) throw new Error('An Offerer ID is required.');
         $job = Job::find($args['job_id']);
-        if (!$job) throw new Exception('[!] A Job ID is required.');
+        if (!$job) throw new Error('A Job ID is required.');
         $rate = new Rate();
-        $rate->fill($args);
+        $rate->id = uniqid("", true);
+        $rate->offerer_id = $offerer->id;
+        $rate->value = $args['value'];
+        $rate->comment = $args['comment'];
+        $rate->anonymous = $args['anonymous'];
         $rate->save();
+        $job->rate_id = $rate->id;
+        $job->save();
+        $offerer->rating = Rate::where("offerer_id", $args['id'])->avg('value');
+        $offerer->save();
         return $rate;
     }
 
