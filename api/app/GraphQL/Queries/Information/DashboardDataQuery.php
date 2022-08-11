@@ -53,12 +53,16 @@ class DashboardDataQuery extends Query
         }
         $job_count = Job::where('user_id', $args['id'])->count();
         $active_jobs_count = Job::where($active_conditions)->count();
+        $active_jobs = Job::where($active_conditions)->get();
         $listings_count = Post::where('user_id', $args['id'])->count();
+        $listings = Post::where('user_id', $args['id'])->get();
         return ['total_jobs' => $job_count,
             'total_bids' => $bid_count,
             'total_rates' => $rate_count,
             'total_active_jobs' => $active_jobs_count,
-            'total_listings' => $listings_count
+            'total_listings' => $listings_count,
+            'active_jobs' => $active_jobs,
+            'listings' => $listings,
         ];
     }
 }
