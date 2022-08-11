@@ -55,6 +55,26 @@ const CompleteProfileModal = ({
       });
       return;
     }
+    if (cellphoneRef.current.value === "") {
+      AlertHandler.fire({
+        icon: "warning",
+        title: "Warning",
+        text: "You must enter a cellphone number.",
+        confirmButtonColor: "#384E77",
+      });
+      cellphoneRef.current.focus();
+      return;
+    }
+    if (birthdateRef.current.value === "") {
+      AlertHandler.fire({
+        icon: "warning",
+        title: "Warning",
+        text: "You must enter a birthdate.",
+        confirmButtonColor: "#384E77",
+      });
+      birthdateRef.current.focus();
+      return;
+    }
 
     const userData = {
       ...data,
