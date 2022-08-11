@@ -36,6 +36,14 @@ class DashboardDataType extends GraphQLType
             'total_listings' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Total listings the user has posted.'
+            ],
+            'active_jobs' => [
+                'type' => Type::listOf(GraphQL::type('Job')),
+                'description' => 'Active jobs by the user.'
+            ],
+            'listings' => [
+                'type' => Type::listOf(GraphQL::type('Post')),
+                'description' => 'Listings posted by the user.'
             ]
         ];
     }
