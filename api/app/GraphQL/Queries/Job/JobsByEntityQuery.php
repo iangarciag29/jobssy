@@ -39,7 +39,7 @@ class JobsByEntityQuery extends Query
     public function resolve($root, $args)
     {
         if ($args['offerer']) {
-            return Job::where('offerer_id', $args['id'])->get();
+            return Job::where('offerer_id', $args['id'])->orWhere('user_id', $args['id'])->get();
         } else {
             return Job::where('user_id', $args['id'])->get();
         }
