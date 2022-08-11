@@ -25,7 +25,7 @@ class OffererType extends GraphQLType
                 'description' => 'ID of the offerer profile.'
             ],
             'rating' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::float()),
                 'description' => 'Offerer\'s rating.'
             ],
             'user' => [
