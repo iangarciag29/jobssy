@@ -21,11 +21,6 @@ class OfferersQuery extends Query
 
     public function resolve($root, $args)
     {
-        // FILTER
-        // Price range (min/max)
-        // Rating value+ (4+)
-
-
         return Offerer::all();
     }
 

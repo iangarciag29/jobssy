@@ -3,6 +3,8 @@
 namespace App\GraphQL\Queries\Offerer;
 
 use App\Models\Offerer;
+use App\Models\Rate;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
