@@ -6,30 +6,36 @@ import { useEffect, useState } from "react";
 import { isWithinBounds } from "../../../utils/MathUtils";
 import RatingBadge from "../../Generics/RatingBadge";
 
-const Sidebar = ({ offerers, bounds }: any): JSX.Element => {
+const Sidebar = ({ offerers, bounds, selectedCategory }: any): JSX.Element => {
   const navigate = useNavigate();
 
   const [internalFilter, setInternalFilter] = useState(offerers);
 
   useEffect(() => {
     setInternalFilter(
-      offerers.filter((offerer: any) =>
-        isWithinBounds(
-          {
-            lat: offerer.user.address.latitude,
-            lng: offerer.user.address.longitude,
-          },
-          bounds,
-        ),
+      offerers.filter(
+        (offerer: any) =>
+          isWithinBounds(
+            {
+              lat: offerer.user.address.latitude,
+              lng: offerer.user.address.longitude,
+            },
+            bounds,
+          ) &&
+          (selectedCategory === {}
+            ? true
+            : new Set(
+                offerer.services.map((service: any) => service.category.name),
+              ).has(selectedCategory.name)),
       ),
     );
-  }, [bounds, offerers]);
+  }, [bounds, offerers, selectedCategory]);
 
   return (
     <>
       <h4 className="text-center text-xl font-semibold">Workers available</h4>
       <hr className="mx-10 mt-10" />
-      <div className="mt-5 flex max-h-full flex-col justify-start overflow-y-scroll">
+      <div className="mt-5 flex max-h-screen flex-col justify-start overflow-y-scroll">
         {internalFilter.length > 0 &&
           internalFilter.map((offerer: any, idx: number) => (
             <div
@@ -50,24 +56,22 @@ const Sidebar = ({ offerers, bounds }: any): JSX.Element => {
               <p className="text-sm text-gray-600">
                 ({offerer.services.length}) service(s) listed.
               </p>
-              <Tooltip content="Categories">
-                <div className="flex flex-row space-x-2 overflow-x-scroll py-2">
-                  {[
-                    ...new Set(
-                      offerer.services.map(
-                        (service: any) => service.category.name,
-                      ),
+              <div className="flex flex-row space-x-2 overflow-x-scroll py-2">
+                {[
+                  ...new Set(
+                    offerer.services.map(
+                      (service: any) => service.category.name,
                     ),
-                  ].map((name: any) => (
-                    <span
-                      className="mr-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800"
-                      key={name}
-                    >
-                      {name}
-                    </span>
-                  ))}
-                </div>
-              </Tooltip>
+                  ),
+                ].map((name: any) => (
+                  <span
+                    className="rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800"
+                    key={name}
+                  >
+                    {name}
+                  </span>
+                ))}
+              </div>
               <p className="truncate text-sm">{offerer.description}</p>
               <span className="jobssy-span text-jobssy-blue">
                 Joined {timeago.format(offerer.start_time)}
