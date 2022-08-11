@@ -6,6 +6,8 @@ import { useMutation } from "react-relay";
 import { graphql } from "babel-plugin-relay/macro";
 import { HandleGraphQLError } from "../../utils/ErrorHandler";
 import { Spinner } from "flowbite-react";
+import { AlertHandler } from "../../utils/AlertHandler";
+import { SweetAlertResult } from "sweetalert2";
 
 const NewCategoryForm = ({ setCounter, setIsModalOpen }: any): JSX.Element => {
   const nameId = useId();
@@ -29,9 +31,15 @@ const NewCategoryForm = ({ setCounter, setIsModalOpen }: any): JSX.Element => {
       },
       onCompleted: (response, errors) => {
         if (!HandleGraphQLError(errors)) return;
-        console.log(response);
-        setCounter((x: number) => x + 1);
-        setIsModalOpen(false);
+        AlertHandler.fire({
+          icon: "success",
+          title: "Created!",
+          text: "The category has been created.",
+          confirmButtonColor: "#384E77",
+        }).then((_: SweetAlertResult) => {
+          setCounter((x: number) => x + 1);
+          setIsModalOpen(false);
+        });
       },
       onError: (error: Error) => {
         console.error(error);
