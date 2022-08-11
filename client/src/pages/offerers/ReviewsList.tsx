@@ -8,27 +8,29 @@ const ReviewsList = ({ offerer, user }: { offerer: any; user: any }) => {
   const data = useFragment(
     graphql`
       fragment ReviewsList_rates on Offerer {
-        rates {
-          id
-          comment
-          anonymous
-          job {
-            user {
-              first_name
-              last_name
+        jobs {
+          rate {
+            id
+            comment
+            anonymous
+            job {
+              user {
+                first_name
+                last_name
+              }
             }
+            value
+            created_at
           }
-          value
-          created_at
         }
       }
     `,
     offerer,
   );
 
-  const { rates } = data;
+  const { jobs } = data;
 
-  if (!rates || rates.length <= 0)
+  if (!jobs || jobs.length <= 0)
     return (
       <div className="py-5 text-center">
         <p className="text-gray-500">
@@ -40,32 +42,37 @@ const ReviewsList = ({ offerer, user }: { offerer: any; user: any }) => {
   return (
     <div className="flex flex-col space-y-5">
       <hr className="mt-5" />
-      {rates.map((rate: any) => (
-        <div className="flex flex-row space-x-8" key={rate.id}>
-          <div className="flex flex-col space-y-2">
-            <div className="flex flex-row justify-between">
-              <div>
-                {rate.anonymous ? (
-                  <h4 className="font-semibold">Anonymous</h4>
-                ) : (
-                  <h4 className="font-semibold">{rate.job?.user.first_name}</h4>
-                )}
-                <span className="inline-flex text-sm font-light text-gray-900">
-                  <ClockIcon className="mt-1 mr-1 h-3 w-3" />
-                  {rate.created_at}
-                </span>
-              </div>
-              <div className="grid items-center">
-                <div className="flex flex-row space-x-1 text-yellow-400">
-                  <p className="text-2xl font-bold">{rate.value}</p>
-                  <StarIcon className="mt-1 h-6 w-6" />
+      {jobs.map(
+        (job: any) =>
+          job.rate && (
+            <div className="relative flex flex-row space-x-8" key={job.rate.id}>
+              <div className="flex flex-col space-y-2">
+                <div className="flex flex-row justify-between">
+                  <div>
+                    {job.rate.anonymous ? (
+                      <h4 className="font-semibold">Anonymous</h4>
+                    ) : (
+                      <h4 className="font-semibold">
+                        {job.rate.job?.user.first_name}
+                      </h4>
+                    )}
+                    <span className="inline-flex text-sm font-light text-gray-900">
+                      <ClockIcon className="mt-1 mr-1 h-3 w-3" />
+                      {job.rate.created_at}
+                    </span>
+                    <p className="mt-5 text-justify">{job.rate.comment}</p>
+                  </div>
+                  <div className="absolute top-0 right-0 grid items-center">
+                    <div className="flex flex-row space-x-1 text-yellow-400">
+                      <p className="text-2xl font-bold">{job.rate.value}</p>
+                      <StarIcon className="mt-1 h-6 w-6" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <p className="text-justify">{rate.comment}</p>
-          </div>
-        </div>
-      ))}
+          ),
+      )}
     </div>
   );
 };
