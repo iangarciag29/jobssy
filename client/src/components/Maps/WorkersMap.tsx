@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { GoogleMap, MarkerClusterer, MarkerF } from "@react-google-maps/api";
-import HouseMapIcon from "../../assets/img/HomeMapIcon.png";
+import CurrentLocationIcon from "../../assets/img/CurrentLocationIcon.png";
+import ToolsIcon from "../../assets/img/ToolsIcon.png";
 
 type MapOptions = google.maps.MapOptions;
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -73,7 +74,7 @@ const WorkersMap = ({
       <MarkerF
         position={currentLocation}
         icon={{
-          url: HouseMapIcon,
+          url: CurrentLocationIcon,
           scaledSize: new window.google.maps.Size(30, 30),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(15, 15),
@@ -90,6 +91,12 @@ const WorkersMap = ({
                 lng: parseFloat(item.address.longitude),
               }}
               clusterer={cluster}
+              icon={{
+                url: ToolsIcon,
+                scaledSize: new window.google.maps.Size(30, 30),
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+              }}
             />
           ))
         }
