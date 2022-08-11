@@ -26,10 +26,10 @@ const Sidebar = ({ offerers, bounds }: any): JSX.Element => {
   }, [bounds, offerers]);
 
   return (
-    <div>
+    <>
       <h4 className="text-center text-xl font-semibold">Workers available</h4>
       <hr className="mx-10 mt-10" />
-      <div className="mt-5 flex max-h-full flex-col justify-start overflow-auto">
+      <div className="mt-5 flex max-h-full flex-col justify-start overflow-y-scroll">
         {internalFilter.length > 0 &&
           internalFilter.map((offerer: any, idx: number) => (
             <div
@@ -83,7 +83,7 @@ const Sidebar = ({ offerers, bounds }: any): JSX.Element => {
           </p>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

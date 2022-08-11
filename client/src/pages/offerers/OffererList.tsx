@@ -112,7 +112,7 @@ const OffererList = (): JSX.Element => {
   return (
     <div className="flex min-h-[90vh] flex-col lg:flex-row">
       {isLoaded && latitude && longitude ? (
-        <div className="fixed relative w-full bg-cyan-400 lg:w-3/4">
+        <div className="fixed relative w-full lg:w-3/4">
           <div className="absolute top-0 right-0 left-0 z-10 grid min-h-[5vh] items-center bg-gray-50">
             <Filters
               mapRef={mapRef}
@@ -139,7 +139,7 @@ const OffererList = (): JSX.Element => {
           <Spinner size="xl" />
         </div>
       )}
-      <div className="w-full overflow-auto bg-gray-50 py-10 lg:w-1/4">
+      <div className="w-full overflow-y-scroll bg-gray-50 py-10 lg:w-1/4">
         <Sidebar offerers={offerers} bounds={bounds} />
       </div>
       <OffererPreviewModal
