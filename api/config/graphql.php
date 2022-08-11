@@ -41,6 +41,7 @@ use App\GraphQL\Queries\User\UsersQuery;
 use App\GraphQL\Types\AddressType;
 use App\GraphQL\Types\BidType;
 use App\GraphQL\Types\CategoryType;
+use App\GraphQL\Types\DashboardDataType;
 use App\GraphQL\Types\enums\JobStateType;
 use App\GraphQL\Types\JobType;
 use App\GraphQL\Types\LogType;
@@ -162,6 +163,8 @@ return [
                 'services' => ServicesQuery::class,
                 # LOG MODEL
                 'logs' => LogsQuery::class,
+                # INFORMATION
+                'dashboardData' => \App\GraphQL\Queries\Information\DashboardDataQuery::class
             ],
             'mutation' => [
                 # ADDRESS MODEL
@@ -202,6 +205,7 @@ return [
                 'Category' => CategoryType::class,
                 'Log' => LogType::class,
                 'Service' => ServiceType::class,
+                'DashboardData' => DashboardDataType::class,
                 # ENUM
                 JobStateType::class
             ],

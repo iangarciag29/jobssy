@@ -64,6 +64,24 @@ type Category {
   updated_at: String!
 }
 
+"""Data needed for Jobssy's dashboard"""
+type DashboardData {
+  """Total jobs the user is related to."""
+  total_jobs: Int!
+
+  """Total bid the worker has offered."""
+  total_bids: Int!
+
+  """Total rates the user has given."""
+  total_rates: Int!
+
+  """Total active jobs the user has."""
+  total_active_jobs: Int!
+
+  """Total listings the user has posted."""
+  total_listings: Int!
+}
+
 """Job between a user and an offerer."""
 type Job {
   """ID of the job."""
@@ -160,7 +178,7 @@ type Mutation {
   """Creates a new category."""
   createCategory(name: String!): Category
 
-  """Deletes a category."""
+  """Deletes a categoryø."""
   deleteCategory(id: ID!): Boolean
 
   """Creates a new post."""
@@ -291,6 +309,7 @@ type Query {
   service(id: ID!): Service
   services: [Service]
   logs: [Log]
+  dashboardData(id: ID!): DashboardData
 }
 
 """Rate given by the user to an specific job."""

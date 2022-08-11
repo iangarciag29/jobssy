@@ -53,6 +53,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function offerer() {
+        return $this->hasOne(Offerer::class, 'user_id', 'id');
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
@@ -61,11 +65,6 @@ class User extends Authenticatable
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
-    }
-
-    public function offerer(): HasOne
-    {
-        return $this->hasOne(Offerer::class);
     }
 
     public function jobs(): HasMany
