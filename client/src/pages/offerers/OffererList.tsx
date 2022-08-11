@@ -20,6 +20,14 @@ const OffererList = (): JSX.Element => {
     useState<boolean>(false);
   const [selectedOfferer, setSelectedOfferer] = useState<any>({});
   const [bounds, setBounds] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState<any>({
+    id: 1,
+    name: "Category",
+  });
+  const [queryArgs, setQueryArgs] = useState({
+    options: { fetchKey: 0 },
+    variables: { max_rate: 5, min_rate: 0, jobs_done: false },
+  });
 
   const mapRef = useRef<GoogleMap>(null);
 
@@ -35,8 +43,16 @@ const OffererList = (): JSX.Element => {
 
   const data: OffererListQuery$data = useLazyLoadQuery<OffererListQuery>(
     graphql`
-      query OffererListQuery {
-        offerers {
+      query OffererListQuery(
+        $min_rate: Int
+        $max_rate: Int
+        $jobs_done: Boolean
+      ) {
+        filteredOfferers(
+          min_rate: $min_rate
+          max_rate: $max_rate
+          jobs_done: $jobs_done
+        ) {
           id
           description
           user {
@@ -63,9 +79,14 @@ const OffererList = (): JSX.Element => {
           jobs_completed
           start_time
         }
+        categories {
+          id
+          name
+        }
       }
     `,
-    {},
+    queryArgs.variables,
+    queryArgs.options,
   );
 
   const [zoom, setZoom] = useState<number>(13);
@@ -105,9 +126,9 @@ const OffererList = (): JSX.Element => {
     }
   }, []);
 
-  const { offerers } = data;
+  const { filteredOfferers, categories } = data;
 
-  if (!offerers) return <></>;
+  if (!filteredOfferers || !categories) return <></>;
 
   return (
     <div className="flex min-h-[90vh] flex-col lg:flex-row">
@@ -119,10 +140,14 @@ const OffererList = (): JSX.Element => {
               zoom={zoom}
               setZoom={setZoom}
               currentLocation={{ lat: latitude, lng: longitude }}
+              categories={categories}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              setQueryArgs={setQueryArgs}
             />
           </div>
           <WorkersMap
-            addresses={offerers.map((offerer: any) => ({
+            addresses={filteredOfferers.map((offerer: any) => ({
               address: offerer.user.address,
               offerer,
             }))}
@@ -140,7 +165,11 @@ const OffererList = (): JSX.Element => {
         </div>
       )}
       <div className="w-full overflow-y-scroll bg-gray-50 py-10 lg:w-1/4">
-        <Sidebar offerers={offerers} bounds={bounds} />
+        <Sidebar
+          offerers={filteredOfferers}
+          bounds={bounds}
+          selectedCategory={selectedCategory}
+        />
       </div>
       <OffererPreviewModal
         offerer={selectedOfferer}
