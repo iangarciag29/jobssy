@@ -44,7 +44,6 @@ const WorkingButton = ({
       },
       onCompleted: (response, errors) => {
         if (!HandleGraphQLError(errors)) return;
-        console.log(response);
       },
       onError: (error: Error) => {
         console.error(error);
@@ -63,7 +62,7 @@ const WorkingButton = ({
           text="Start working"
           size={BTN_SIZE.SMALL}
           onClick={() => handleClick()}
-          className="mx-auto mb-5 bg-sky-700 text-sky-50 text-jobssy-blue shadow-none hover:underline "
+          className="mx-auto mb-5 bg-sky-700 text-sky-50 shadow-none hover:underline "
         />
       );
     default:

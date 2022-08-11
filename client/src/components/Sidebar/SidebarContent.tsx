@@ -25,7 +25,7 @@ const SidebarContent = ({ auth }: any): JSX.Element => {
         {SidebarRoutes.map(
           (route: iSidebarRoute, idx: number) =>
             route.enabled && (
-              <li className="relative px-6 py-3" key={idx}>
+              <li className={`relative px-6 py-3 ${route.className}`} key={idx}>
                 <NavLink
                   to={route.path}
                   className="inline-flex w-full items-center text-sm font-semibold text-gray-400 transition-colors duration-150 hover:text-gray-900 lg:hover:text-gray-300"
@@ -38,12 +38,14 @@ const SidebarContent = ({ auth }: any): JSX.Element => {
         )}
       </ul>
       <div className="my-6 text-center">
-        {auth.user.is_offerer && (
+        {auth.user.is_offerer ? (
           <Button
             size={BTN_SIZE.MEDIUM}
             text="+ Request a job"
             onClick={() => setIsModalOpen(true)}
           />
+        ) : (
+          <></>
         )}
       </div>
       <PostListingModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />

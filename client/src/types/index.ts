@@ -12,6 +12,7 @@ export type iSidebarRoute = {
   display: string;
   enabled: boolean;
   icon: any;
+  className?: string;
 };
 
 export type ChildrenElement = {

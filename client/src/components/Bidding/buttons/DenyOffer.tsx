@@ -41,7 +41,6 @@ const DenyOfferBtn = ({ job, auth }: { job: any; auth?: any }): JSX.Element => {
       },
       onCompleted: (response, errors) => {
         if (!HandleGraphQLError(errors)) return;
-        console.log(response);
       },
       onError: (error: Error) => {
         console.error(error);

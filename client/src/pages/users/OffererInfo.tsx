@@ -121,7 +121,7 @@ const OffererInfo = ({ user }: any) => {
             offerer.services.length > 0 &&
             offerer.services.map((service: any, index: number) => (
               <div
-                className={`flex flex-row justify-between space-x-5 p-5 text-sm ${
+                className={`flex flex-row justify-around space-x-5 p-5 text-sm ${
                   index % 2 === 0 ? "bg-gray-100" : ""
                 }`}
                 key={service.id}
@@ -133,11 +133,15 @@ const OffererInfo = ({ user }: any) => {
                   <div className="inline-flex">
                     <Badge color="indigo">{service.category.name}</Badge>
                   </div>
-                  <p className="text-justify">{service.description}</p>
+                  <div className="max-w-md">
+                    <p className="text-justify">{service.description}</p>
+                  </div>
                 </div>
-                <div className="flex flex-col text-center text-jobssy-blue">
-                  <span className="text-xl font-black">${service.price}</span>{" "}
-                  <span className="font-semibold">{service.currency}</span>
+                <div className="grid items-center">
+                  <div className="flex flex-col text-center text-jobssy-blue">
+                    <span className="text-xl font-black">${service.price}</span>{" "}
+                    <span className="font-semibold">{service.currency}</span>
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 items-center gap-y-2">
                   <Button

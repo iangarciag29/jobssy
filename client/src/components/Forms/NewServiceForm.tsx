@@ -113,7 +113,6 @@ const NewServiceForm = ({
           variables: data,
           onCompleted: (response, errors) => {
             if (!HandleGraphQLError(errors)) return;
-            console.log(response);
             AlertHandler.fire({
               icon: "success",
               title: "Created!",

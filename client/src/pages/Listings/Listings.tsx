@@ -29,9 +29,16 @@ const Listings = ({ auth }: any): JSX.Element => {
           price
           currency
           user {
+            id
             first_name
             last_name
             picture
+          }
+          category {
+            name
+          }
+          bids {
+            id
           }
           created_at
         }

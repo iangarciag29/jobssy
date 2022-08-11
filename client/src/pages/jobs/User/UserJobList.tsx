@@ -47,9 +47,9 @@ const UserJobList = ({ auth }: any): JSX.Element => {
   }
 
   return (
-    <div>
+    <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full table-fixed text-left text-sm text-gray-500 dark:text-gray-400">
+        <table className="w-full table-auto text-left text-sm text-gray-500 dark:text-gray-400 lg:table-fixed">
           <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="py-3 px-6">
@@ -102,7 +102,7 @@ const UserJobList = ({ auth }: any): JSX.Element => {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 };
 
