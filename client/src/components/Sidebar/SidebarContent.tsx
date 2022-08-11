@@ -4,10 +4,15 @@ import { Link, NavLink } from "react-router-dom";
 import Button from "../Generics/Button";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../utils";
+import RequestJobModal from "../Modals/RequestJobModal";
+import { useState } from "react";
+import PostListingModal from "../Modals/PostListingModal";
 
 //text-gray-800 dark:text-gray-100
 
 const SidebarContent = ({ auth }: any): JSX.Element => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   return (
     <div className="py-4 text-gray-500">
       <div className="my-10 hidden text-center lg:block">
@@ -33,10 +38,15 @@ const SidebarContent = ({ auth }: any): JSX.Element => {
         )}
       </ul>
       <div className="my-6 text-center">
-        {!auth.user.is_offerer && (
-          <Button size={BTN_SIZE.MEDIUM} text="+ Request a job" />
+        {auth.user.is_offerer && (
+          <Button
+            size={BTN_SIZE.MEDIUM}
+            text="+ Request a job"
+            onClick={() => setIsModalOpen(true)}
+          />
         )}
       </div>
+      <PostListingModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </div>
   );
 };

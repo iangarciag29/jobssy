@@ -93,6 +93,12 @@ const PostListingModal = ({
           text: "Your post have been created.",
           confirmButtonColor: "#384E77",
         }).then((_) => {
+          setIsOpen(false);
+          titleRef.current.value = "";
+          descriptionRef.current.value = "";
+          categoryRef.current.value = "";
+          priceRef.current.value = "";
+          currencyRef.current.value = "";
           navigate(`/app/listings/${createPost.id}`);
         });
       },
