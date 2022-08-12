@@ -38,11 +38,17 @@ class DashboardDataQuery extends Query
 
     public function resolve($root, $args)
     {
-        $active_conditions = [
+        $active_conditions_customer = [
             ['state', '!=', JobState::FINISHED],
             ['state', '!=', JobState::DENIED_BY_USER],
             ['state', '!=', JobState::DENIED_BY_OFFERER],
             ['user_id', $args['id']]
+        ];
+        $active_conditions_worker = [
+            ['state', '!=', JobState::FINISHED],
+            ['state', '!=', JobState::DENIED_BY_USER],
+            ['state', '!=', JobState::DENIED_BY_OFFERER],
+            ['offerer_id', $args['id']]
         ];
         $bid_count = 0;
         $rate_count = 0;
@@ -53,8 +59,8 @@ class DashboardDataQuery extends Query
             $rate_count = $rate_count + Rate::where('offerer_id', $user->offerer->id)->count();
         }
         $job_count = Job::where('user_id', $args['id'])->count();
-        $active_jobs_count = Job::where($active_conditions)->count();
-        $active_jobs = Job::where($active_conditions)->get();
+        $active_jobs_count = Job::where($active_conditions_customer)->orWhere($active_conditions_worker)->count();
+        $active_jobs = Job::where($active_conditions_customer)->orWhere($active_conditions_worker)->get();
         $listings_count = Post::where('user_id', $args['id'])->count();
         $listings = Post::where('user_id', $args['id'])->get();
         return ['total_jobs' => $job_count,
