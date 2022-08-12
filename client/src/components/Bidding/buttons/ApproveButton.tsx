@@ -81,9 +81,11 @@ const ApproveButton = ({
     case JOB_STATE.USER_CHANGES:
     case JOB_STATE.OFFERER_CHANGES:
       if (
-        job.state === JOB_STATE.USER_APPROVED ||
-        job.state === JOB_STATE.USER_CREATED ||
-        (job.state === JOB_STATE.USER_CHANGES && job.user.id === auth.user.id)
+        auth.user.id !== job.offerer.user.id &&
+        auth.user.id === job.user.id &&
+        (job.state === JOB_STATE.USER_APPROVED ||
+          job.state === JOB_STATE.USER_CREATED ||
+          job.state === JOB_STATE.USER_CHANGES)
       )
         return <p>You are the customer and already approved this job.</p>;
       return (
