@@ -19,6 +19,7 @@ const EditButton = ({
     case JOB_STATE.DENIED_BY_USER:
     case JOB_STATE.PENDING_START:
     case JOB_STATE.WORKING:
+    case JOB_STATE.STARTED:
       return <></>;
     default:
       return (

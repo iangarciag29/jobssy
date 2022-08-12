@@ -44,7 +44,7 @@ const ApproveButton = ({
     if (
       (!is_offerer && current_state === JOB_STATE.OFFERER_APPROVED) ||
       current_state === JOB_STATE.OFFERER_CHANGES ||
-      JOB_STATE.OFFERER_CREATED
+      current_state === JOB_STATE.OFFERER_CREATED
     )
       return JOB_STATE.STARTED;
     if (
