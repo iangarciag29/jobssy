@@ -42,6 +42,7 @@ class DashboardDataQuery extends Query
             ['state', '!=', JobState::FINISHED],
             ['state', '!=', JobState::DENIED_BY_USER],
             ['state', '!=', JobState::DENIED_BY_OFFERER],
+            ['user_id', $args['id']]
         ];
         $bid_count = 0;
         $rate_count = 0;
