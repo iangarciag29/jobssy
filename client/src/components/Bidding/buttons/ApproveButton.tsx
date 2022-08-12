@@ -40,7 +40,6 @@ const ApproveButton = ({
     current_state: JOB_STATE,
     is_offerer: boolean,
   ): JOB_STATE => {
-    // TODO: Validate previous state and to state in order to see if both user and worker had approved the job.
     if (
       (!is_offerer && current_state === JOB_STATE.OFFERER_APPROVED) ||
       current_state === JOB_STATE.OFFERER_CHANGES ||
@@ -83,6 +82,7 @@ const ApproveButton = ({
     case JOB_STATE.OFFERER_CHANGES:
       if (
         job.state === JOB_STATE.USER_APPROVED ||
+        job.state === JOB_STATE.USER_CREATED ||
         (job.state === JOB_STATE.USER_CHANGES && job.user.id === auth.user.id)
       )
         return <p>You are the customer and already approved this job.</p>;
@@ -90,7 +90,7 @@ const ApproveButton = ({
         <Button
           text={
             <Tooltip
-              content={`[DEBUG] ${handlePreviousNextJobState(
+              content={`[DEBUG] [NEXT] ${handlePreviousNextJobState(
                 job.state,
                 auth.user.id === job.offerer.user.id,
               )}`}
