@@ -15,7 +15,7 @@ interface PagePropType extends ChildrenElement {
  */
 const Page = ({ children, title, actionBtn }: PagePropType): JSX.Element => {
   return (
-    <div className="p-10">
+    <div className="py-10 px-5 lg:px-10">
       <div className="mb-10 flex flex-row justify-between">
         <h2 className="text-xl font-semibold">{title}</h2>
         {actionBtn}
