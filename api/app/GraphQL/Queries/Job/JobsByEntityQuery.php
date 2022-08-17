@@ -3,6 +3,8 @@
 namespace App\GraphQL\Queries\Job;
 
 use App\Models\Job;
+use App\Models\Offerer;
+use App\Models\User;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -38,8 +40,12 @@ class JobsByEntityQuery extends Query
 
     public function resolve($root, $args)
     {
+        $user = User::find($args['id']);
         if ($args['offerer']) {
-            return Job::where('offerer_id', $args['id'])->orWhere('user_id', $args['id'])->get();
+            if (!$user || ($user && !$user->is_offerer)) return Job::where('user_id', $args['id'])->get();
+            $offerer = Offerer::where('user_id', $user->id)->get()[0];
+            if (!$offerer) return Job::where('user_id', $args['id'])->get();
+            return Job::where('offerer_id', $offerer->id)->orWhere('user_id', $args['id'])->get();
         } else {
             return Job::where('user_id', $args['id'])->get();
         }
