@@ -25,9 +25,9 @@ class UpdateStateMutation extends Mutation
         "DENIED_BY_OFFERER" => [],
         "OFFERER_APPROVED" => [JobState::STARTED, JobState::USER_APPROVED, JobState::USER_CHANGES, JobState::DENIED_BY_USER, JobState::CANCELLED],
         "USER_APPROVED" => [JobState::PENDING_START, JobState::OFFERER_APPROVED, JobState::OFFERER_CHANGES, JobState::DENIED_BY_OFFERER, JobState::CANCELLED],
-        "PENDING_START" => [JobState::STARTED, JobState::CANCELLED],
+        "PENDING_START" => [JobState::STARTED, JobState::CANCELLED, JobState::WORKING],
         "USER_CHANGES" => [JobState::OFFERER_APPROVED, JobState::OFFERER_CHANGES, JobState::DENIED_BY_OFFERER, JobState::CANCELLED],
-        "OFFERER_CHANGES" => [JobState::USER_APPROVED, JobState::USER_CHANGES, JobState::DENIED_BY_USER, JobState::CANCELLED],
+        "OFFERER_CHANGES" => [JobState::USER_APPROVED, JobState::USER_CHANGES, JobState::DENIED_BY_USER, JobState::CANCELLED, JobState::PENDING_START],
         "WORKING" => [JobState::FINISHED, JobState::CANCELLED],
         "FINISHED" => [],
         "CANCELLED" => []
