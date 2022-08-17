@@ -82,7 +82,7 @@ class CreateRateMutation extends Mutation
         $rate->save();
         $job->rate_id = $rate->id;
         $job->save();
-        $offerer->rating = Rate::where("offerer_id", $args['id'])->avg('value');
+        $offerer->rating = Rate::where("offerer_id", $args['offerer_id'])->avg('value');
         $offerer->save();
         return $rate;
     }
