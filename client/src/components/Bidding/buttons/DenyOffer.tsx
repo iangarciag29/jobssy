@@ -63,6 +63,11 @@ const DenyOfferBtn = ({ job, auth }: { job: any; auth?: any }): JSX.Element => {
     default:
       if (job.state === JOB_STATE.USER_CREATED && auth.user.id === job.user.id)
         return <></>;
+      if (
+        job.state === JOB_STATE.OFFERER_CHANGES &&
+        auth.user.id === job.offerer.user.id
+      )
+        return <></>;
       return (
         <Button
           text="Deny job"
