@@ -18,7 +18,7 @@ const ControBar = ({ job }: any): JSX.Element => {
       return (
         <div className="relative">
           <hr className="mt-10" />
-          <div className="flex flex-row justify-around pt-5">
+          <div className="flex flex-row justify-around pt-12">
             <ApproveButton job={job} />
             <WorkingButton job={job} />
             <FinishJobButton job={job} />
