@@ -64,6 +64,7 @@ const Profile = ({ auth }: any): JSX.Element => {
       }
     `,
     { id },
+    { fetchPolicy: "network-only" },
   );
 
   const { user } = data;

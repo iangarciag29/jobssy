@@ -49,6 +49,7 @@ const Home = ({ auth }: any): JSX.Element => {
       }
     `,
     { id: auth.user.id },
+    { fetchPolicy: "network-only" },
   );
 
   const { dashboardData } = data;

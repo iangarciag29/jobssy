@@ -45,6 +45,7 @@ const Listings = ({ auth }: any): JSX.Element => {
       }
     `,
     {},
+    { fetchPolicy: "network-only" },
   );
 
   const { posts } = data;

@@ -43,6 +43,7 @@ const Worker = (): JSX.Element => {
       }
     `,
     { id },
+    { fetchPolicy: "network-only" },
   );
 
   if (!data.offerer) {

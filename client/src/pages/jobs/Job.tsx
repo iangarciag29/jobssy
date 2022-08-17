@@ -90,6 +90,7 @@ const Job = ({ auth }: any): JSX.Element => {
       }
     `,
     { id },
+    { fetchPolicy: "network-only" },
   );
 
   const { job } = data;
