@@ -1,7 +1,7 @@
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { Spinner } from "flowbite-react";
 import WorkersMap from "../../components/Maps/WorkersMap";
-import { useLazyLoadQuery } from "react-relay";
+import { FetchPolicy, useLazyLoadQuery } from "react-relay";
 // @ts-ignore
 import { graphql } from "babel-plugin-relay/macro";
 import {
@@ -25,7 +25,7 @@ const OffererList = (): JSX.Element => {
     name: "Category",
   });
   const [queryArgs, setQueryArgs] = useState({
-    options: { fetchKey: 0 },
+    options: { fetchKey: 0, fetchPolicy: "network-only" as FetchPolicy },
     variables: { max_rate: 5, min_rate: 0, jobs_done: false },
   });
 
