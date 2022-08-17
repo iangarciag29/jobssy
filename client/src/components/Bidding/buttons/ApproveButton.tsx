@@ -41,17 +41,19 @@ const ApproveButton = ({
     is_offerer: boolean,
   ): JOB_STATE => {
     if (
-      (!is_offerer && current_state === JOB_STATE.OFFERER_APPROVED) ||
-      current_state === JOB_STATE.OFFERER_CHANGES ||
-      current_state === JOB_STATE.OFFERER_CREATED
-    )
-      return JOB_STATE.STARTED;
-    if (
-      (is_offerer && current_state === JOB_STATE.USER_CHANGES) ||
-      current_state === JOB_STATE.USER_APPROVED ||
-      current_state === JOB_STATE.USER_CREATED
+      !is_offerer &&
+      (current_state === JOB_STATE.OFFERER_APPROVED ||
+        current_state === JOB_STATE.OFFERER_CHANGES ||
+        current_state === JOB_STATE.OFFERER_CREATED)
     )
       return JOB_STATE.PENDING_START;
+    if (
+      is_offerer &&
+      (current_state === JOB_STATE.USER_CHANGES ||
+        current_state === JOB_STATE.USER_APPROVED ||
+        current_state === JOB_STATE.USER_CREATED)
+    )
+      return JOB_STATE.STARTED;
     return JOB_STATE.CANCELLED;
   };
 
@@ -88,6 +90,8 @@ const ApproveButton = ({
           job.state === JOB_STATE.USER_CHANGES)
       )
         return <p>You are the customer and already approved this job.</p>;
+      if (auth.user.id === job.offerer.user.id && JOB_STATE.OFFERER_CHANGES)
+        return <></>;
       return (
         <Button
           text={
