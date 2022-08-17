@@ -57,6 +57,7 @@ const WorkingButton = ({
 
   switch (state) {
     case JOB_STATE.STARTED:
+    case JOB_STATE.PENDING_START:
       return (
         <Button
           text="Start working"
